@@ -1,0 +1,6 @@
+lib/secret.nix filter=git-crypt diff=git-crypt
+lib/private.nix filter=git-crypt diff=git-crypt
+*.secret.nix filter=git-crypt diff=git-crypt
+*.private.nix filter=git-crypt diff=git-crypt
+keys.yml filter=git-crypt diff=git-crypt
+keys.sh filter=git-crypt diff=git-crypt

@@ -1,0 +1,3 @@
+{ config, ... }: {
+  environment.noXlibs = true;
+}
