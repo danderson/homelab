@@ -61,3 +61,4 @@ EOF
         exit 1
         ;;
 esac
+redo-always $1
