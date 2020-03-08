@@ -21,7 +21,7 @@ case $1 in
         # Create /etc/nixos and set its permissions ahead of rsync, so
         # that files are never exposed with surprising permissions.
         ssh root@$dir "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
-        rsync -rL --exclude=keys.yml --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $dir/ root@${dir}:/etc/nixos >&2
+        rsync -rL --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $dir/ root@${dir}:/etc/nixos >&2
         ;;
 
     */keys)
