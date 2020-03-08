@@ -16,7 +16,6 @@ rebuild() {
     ssh root@$host nixos-rebuild $cmd --no-build-nix $@ >&2
 }
 
-redo-always $1
 case $1 in
     */push)
         # Create /etc/nixos and set its permissions ahead of rsync, so
