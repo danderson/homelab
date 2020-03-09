@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 let
   keys = [
     "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBE46isgoTwjR6iYkfU3v7PWBmnOtNgNZaha8qMYCNOhU4j3sFLoTuXnkpURFGiEv+0b8d9s2C/RjoHPqnyaZOFo= dave@vega"
@@ -15,7 +16,7 @@ in
         isNormalUser = true;
         uid = 1000;
         extraGroups = ["wheel"];
-        useDefaultShell = true;
+        shell = pkgs.zsh;
         openssh.authorizedKeys.keys = keys;
         hashedPassword = private.dave_password;
       };
