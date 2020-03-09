@@ -55,15 +55,6 @@ in
 
   # power.ups.enable = true
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    packageOverrides = pkgs: {
-      unstable = import <nixos-unstable> {
-        config = config.nixpkgs.config;
-      };
-    };
-  };
-
   networking.firewall.allowedTCPPorts = [3000];
   containers = {
     monitoring = {
