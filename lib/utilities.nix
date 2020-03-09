@@ -9,6 +9,7 @@
     lm_sensors
     lsof
     pciutils
+    psmisc
     rename
     screen
     smartmontools
