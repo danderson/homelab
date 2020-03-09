@@ -12,6 +12,7 @@
 
       ./firewall.nix
       ./hardware-configuration.nix
+      ./irc.nix
       ./networking.nix
     ];
 
