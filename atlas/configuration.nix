@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{
   imports =
     [
       ./lib/basics.nix

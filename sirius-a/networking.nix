@@ -1,4 +1,3 @@
-{ config, ... }:
 let
   hashes = import /etc/keys.nix;
 in
