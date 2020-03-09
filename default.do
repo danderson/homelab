@@ -16,6 +16,57 @@ rebuild() {
     ssh root@$host nixos-rebuild $cmd --no-build-nix $@ >&2
 }
 
+build_do() {
+    if [ ! -f $dir/region -o ! -f $dir/size ]; then
+        echo "missing $dir/region or $dir/size files."
+        exit 1
+    fi
+
+    vm=$dir
+    region=$(cat $dir/region)
+    size=$(cat $dir/size)
+
+    # Grab all SSH keys in the DigitalOcean account.
+    sshkeys=$(doctl compute ssh-key list --no-header --format=ID | tr '\n' ',')
+
+    echo "Creating droplet"
+    doctl compute droplet create $vm --enable-ipv6 --size $size --image debian-10-x64 --region $region --ssh-keys $sshkeys --wait
+    id=$(doctl compute droplet list $vm --no-header --format=ID)
+    ip=$(doctl compute droplet list $vm --no-header --format=PublicIPv4)
+
+    echo "Infecting droplet"
+    # Ugh, wait for droplet to come up.
+    sleep 30
+    ssh -o StrictHostKeyChecking=accept-new root@$ip bash <<EOF
+set -euo pipefail
+apt update
+apt install xz-utils
+wget https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect
+NO_REBOOT=true PROVIDER=digitalocean NIX_CHANNEL=nixos-19.09 bash nixos-infect
+EOF
+
+    echo "Rebooting droplet"
+    # Reboot will sever the ssh connection and make it exit uncleanly.
+    ssh root@$ip reboot || true
+    ssh-keygen -R $ip
+
+    # A way to - hopefully - wait until the machine's rebooted.
+    sleep 30
+    ssh -o StrictHostKeyChecking=accept-new root@$ip bash <<EOF
+set -euo pipefail
+rm -rf /old-root
+EOF
+
+    echo "creating config"
+    mkdir $dir
+    echo "$ip" >$dir/host
+    rsync -r root@$ip:/etc/nixos/ $dir
+    rm -f $dir/region $dir/size
+}
+
+exec 1>&2
+redo-always $1
+
 case $1 in
     */push)
         # Create /etc/nixos and set its permissions ahead of rsync, so
@@ -47,6 +98,10 @@ case $1 in
         rebuild $dir switch --rollback
         ;;
 
+    */create)
+        build_do
+        ;;
+
     push|keys|dry|update|deploy|rollback)
         redo_subdirs $1
         ;;
@@ -61,4 +116,3 @@ EOF
         exit 1
         ;;
 esac
-redo-always $1
