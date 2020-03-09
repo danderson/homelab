@@ -10,10 +10,8 @@
       ./lib/users.nix
       ./lib/utilities.nix
 
-      ./boot.nix
       ./firewall.nix
       ./hardware-configuration.nix
-      ./natprobe.nix
       ./networking.nix
     ];
 

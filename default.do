@@ -58,7 +58,6 @@ rm -rf /old-root
 EOF
 
     echo "creating config"
-    mkdir $dir
     echo "$ip" >$dir/host
     rsync -r root@$ip:/etc/nixos/ $dir
     rm -f $dir/region $dir/size
