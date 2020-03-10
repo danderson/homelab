@@ -1,6 +1,10 @@
 # -*- mode: shell-script -*-
 
 dir=${1%/*}
+host=$dir
+if [[ -f $dir/host ]]; then
+    host=$(cat $dir/host)
+fi
 
 redo_subdirs() {
     cmd=$1
@@ -22,7 +26,6 @@ build_do() {
         exit 1
     fi
 
-    vm=$dir
     region=$(cat $dir/region)
     size=$(cat $dir/size)
 
@@ -30,9 +33,9 @@ build_do() {
     sshkeys=$(doctl compute ssh-key list --no-header --format=ID | tr '\n' ',')
 
     echo "Creating droplet"
-    doctl compute droplet create $vm --enable-ipv6 --size $size --image debian-10-x64 --region $region --ssh-keys $sshkeys --wait
-    id=$(doctl compute droplet list $vm --no-header --format=ID)
-    ip=$(doctl compute droplet list $vm --no-header --format=PublicIPv4)
+    doctl compute droplet create $host --enable-ipv6 --size $size --image debian-10-x64 --region $region --ssh-keys $sshkeys --wait
+    id=$(doctl compute droplet list $host --no-header --format=ID)
+    ip=$(doctl compute droplet list $host --no-header --format=PublicIPv4)
 
     echo "Infecting droplet"
     # Ugh, wait for droplet to come up.
@@ -70,31 +73,31 @@ case $1 in
     */push)
         # Create /etc/nixos and set its permissions ahead of rsync, so
         # that files are never exposed with surprising permissions.
-        ssh root@$dir "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
-        rsync -rL --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $dir/ root@${dir}:/etc/nixos >&2
+        ssh root@$host "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
+        rsync -rL --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $dir/ root@${host}:/etc/nixos >&2
         ;;
 
     */keys)
         redo-ifchange $dir/push
-        ssh root@$dir "sh /etc/nixos/keys.sh /etc/keys" >&2
+        ssh root@$host "sh /etc/nixos/keys.sh /etc/keys" >&2
         ;;
 
     */dry)
         redo-ifchange $dir/push $dir/keys
-        rebuild $dir dry-activate
+        rebuild $host dry-activate
         ;;
 
     */update)
-        ssh root@$dir nix-channel --update >&2
+        ssh root@$host nix-channel --update >&2
         ;;
 
     */deploy)
         redo-ifchange $dir/push $dir/keys
-        rebuild $dir switch
+        rebuild $host switch
         ;;
 
     */rollback)
-        rebuild $dir switch --rollback
+        rebuild $host switch --rollback
         ;;
 
     */create)

@@ -1,4 +1,4 @@
-{ config, ... }: {  
+{ config, lib, ... }: {
   nix = {
     useSandbox = true;
     gc = {
@@ -17,5 +17,5 @@
     };
   };
   
-  system.autoUpgrade.enable = true;
+  system.autoUpgrade.enable = lib.mkDefault true;
 }

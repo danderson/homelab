@@ -2,6 +2,7 @@
   imports =
     [
       ./lib/basics.nix
+      ./lib/intel.nix
       ./lib/networking.nix
       ./lib/nixConfig.nix
       ./lib/noXlibs.nix
