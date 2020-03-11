@@ -36,6 +36,10 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  users.users.dave.extraGroups = ["audio"];
+  nixpkgs.config.pulseaudio = true;
+  environment.systemPackages = with pkgs; [ pavucontrol ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
