@@ -2,6 +2,8 @@
 {
   imports =
     [
+      <nixos-hardware/lenovo/thinkpad/e495>
+
       ./lib/basics.nix
       ./lib/networking.nix
       ./lib/nixConfig.nix
@@ -15,15 +17,37 @@
       ./networking.nix
     ];
 
-  system.autoUpgrade.enable = false;
-  security.sudo.enable = true;
-  powerManagement.cpuFreqGovernor = "powersave";
+  hardware.enableRedistributableFirmware = true;
+  # Graphics
+  fonts = {
+    enableDefaultFonts = true;
+    fontconfig.penultimate.enable = true;
+    fonts = with pkgs; [
+        google-fonts liberation_ttf opensans-ttf roboto roboto-mono
+    ];
+  };
   services.xserver = {
     enable = true;
     libinput.enable = true;
     displayManager.lightdm.enable = true;
     desktopManager.mate.enable = true;
   };
+  hardware.opengl = {
+    enable = true;
+    # TODO: figure out VDPAU support.
+    #extraPackages = with pkgs; [ vdpauinfo libvdpau-va-gl ];
+  };
+
+  # Audio
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
+  users.users.dave.extraGroups = ["audio"];
+  nixpkgs.config.pulseaudio = true;
+  environment.systemPackages = with pkgs; [ pavucontrol ];
+
+  system.autoUpgrade.enable = false;
+  security.sudo.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -34,12 +58,6 @@
   services.openssh.enable = true;
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  users.users.dave.extraGroups = ["audio"];
-  nixpkgs.config.pulseaudio = true;
-  environment.systemPackages = with pkgs; [ pavucontrol ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
