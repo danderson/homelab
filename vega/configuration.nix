@@ -37,6 +37,13 @@
     # TODO: figure out VDPAU support.
     #extraPackages = with pkgs; [ vdpauinfo libvdpau-va-gl ];
   };
+  environment.systemPackages = with pkgs; [
+    # graphics
+    alacritty
+    # audio
+    pavucontrol
+  ];
+  environment.sessionVariables.TERMINAL = "alacritty";
 
   # Audio
   sound.enable = true;
@@ -44,7 +51,6 @@
   hardware.pulseaudio.support32Bit = true;
   users.users.dave.extraGroups = ["audio"];
   nixpkgs.config.pulseaudio = true;
-  environment.systemPackages = with pkgs; [ pavucontrol ];
 
   system.autoUpgrade.enable = false;
   security.sudo.enable = true;
