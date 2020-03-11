@@ -42,6 +42,8 @@
     alacritty
     # audio
     pavucontrol
+    # hardware
+    brightnessctl
   ];
   environment.sessionVariables.TERMINAL = "alacritty";
 
@@ -49,7 +51,7 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
-  users.users.dave.extraGroups = ["audio"];
+  users.users.dave.extraGroups = ["audio" "video"];
   nixpkgs.config.pulseaudio = true;
 
   system.autoUpgrade.enable = false;
@@ -63,8 +65,10 @@
 
   services.openssh.enable = true;
 
-  # Enable sound.
-
+  hardware.bluetooth.enable = true;
+  services.upower.enable = true;
+  programs.mosh.enable = true;
+  
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
