@@ -17,7 +17,14 @@
       ./networking.nix
     ];
 
+  boot = {
+    kernelModules = [ "acpi_call" ];
+    extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  };
   boot.kernelParams = [ "acpi_backlight=native" ];
+
+  nix.allowedUsers = [ "@wheel" ];
+
   hardware.enableRedistributableFirmware = true;
   documentation.dev.enable = true;
   # Graphics

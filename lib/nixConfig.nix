@@ -1,5 +1,6 @@
 { config, lib, ... }: {
   nix = {
+    autoOptimiseStore = true;
     useSandbox = true;
     gc = {
       automatic = true;
