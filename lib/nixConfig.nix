@@ -8,6 +8,10 @@
       dates = "03:15";
       options = "--delete-older-than 30d";
     };
+    optimise = {
+      automatic = true;
+      dates = [ "03:45" ];
+    };
   };
 
   nixpkgs.config = {
