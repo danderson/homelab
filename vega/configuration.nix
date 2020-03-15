@@ -17,6 +17,7 @@
       ./networking.nix
     ];
 
+  boot.kernelParams = [ "acpi_backlight=native" ];
   hardware.enableRedistributableFirmware = true;
   documentation.dev.enable = true;
   # Graphics
