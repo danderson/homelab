@@ -34,10 +34,7 @@
         }
 
         log
-        forward . tls://1.1.1.1 tls://1.0.0.1 {
-          tls_servername cloudflare-dns.com
-          health_check 5s
-        }
+        forward . 8.8.8.8 8.8.4.4
       }
     '';
   };
