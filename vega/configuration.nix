@@ -23,6 +23,8 @@
   fonts = {
     enableDefaultFonts = true;
     fontconfig.penultimate.enable = true;
+    # Give fonts to 32-bit binaries too (e.g. steam).
+    fontconfig.cache32Bit = true;
     fonts = with pkgs; [
         google-fonts liberation_ttf opensans-ttf roboto roboto-mono
     ];
