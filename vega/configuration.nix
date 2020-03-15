@@ -18,6 +18,7 @@
     ];
 
   hardware.enableRedistributableFirmware = true;
+  documentation.dev.enable = true;
   # Graphics
   fonts = {
     enableDefaultFonts = true;
