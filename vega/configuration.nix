@@ -91,7 +91,13 @@
 
   hardware.bluetooth.enable = true;
   services.upower.enable = true;
-  programs.mosh.enable = true;
+  programs = {
+    iftop.enable = true;
+    iotop.enable = true;
+    less.enable = true;
+    light.enable = true;
+    mosh.enable = true;
+  };
   
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
