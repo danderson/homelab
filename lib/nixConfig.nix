@@ -2,6 +2,7 @@
   nix = {
     autoOptimiseStore = true;
     useSandbox = true;
+    maxJobs = "auto";
     gc = {
       automatic = true;
       dates = "03:15";
