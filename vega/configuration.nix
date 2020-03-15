@@ -45,6 +45,7 @@
   };
   hardware.cpu.amd.updateMicrocode = true;
   hardware.mcelog.enable = true;
+  powerManagement.powertop.enable = true;
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true; # Maybe for steam?
