@@ -35,18 +35,21 @@
     displayManager.lightdm.enable = true;
     desktopManager.mate.enable = true;
   };
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.mcelog.enable = true;
   hardware.opengl = {
     enable = true;
+    driSupport32Bit = true; # Maybe for steam?
+    s3tcSupport = true;
     # TODO: figure out VDPAU support.
     #extraPackages = with pkgs; [ vdpauinfo libvdpau-va-gl ];
   };
   environment.systemPackages = with pkgs; [
     # graphics
     alacritty
+    brightnessctl
     # audio
     pavucontrol
-    # hardware
-    brightnessctl
   ];
   environment.sessionVariables.TERMINAL = "alacritty";
 
@@ -56,6 +59,12 @@
   hardware.pulseaudio.support32Bit = true;
   users.users.dave.extraGroups = ["audio" "video"];
   nixpkgs.config.pulseaudio = true;
+
+  hardware.trackpoint = {
+    enable = true;
+  };
+  hardware.u2f.enable = true;
+  location.provider = "geoclue2";
 
   system.autoUpgrade.enable = false;
   security.sudo.enable = true;
