@@ -34,7 +34,10 @@
         }
 
         log
-        forward . 8.8.8.8 8.8.4.4
+        forward . tls://8.8.8.8 tls://8.8.4.4 {
+          tls_servername dns.google
+          health_check 5s
+        }
       }
     '';
   };
