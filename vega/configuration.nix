@@ -42,6 +42,7 @@
     libinput.enable = true;
     displayManager.lightdm.enable = true;
     desktopManager.mate.enable = true;
+    enableCtrlAltBackspace = true;
   };
   hardware.cpu.amd.updateMicrocode = true;
   hardware.mcelog.enable = true;
@@ -106,6 +107,9 @@
   services.colord.enable = true;
   services.emacs.enable = true;
   services.fprintd.enable = true;
+  services.fwupd.enable = true;
+  services.geoip-updater.enable = true;
+  services.redshift.enable = true;
   
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
