@@ -101,6 +101,11 @@
     usbtop.enable = true;
     xss-lock.enable = true;
   };
+
+  services.acpid.enable = true;
+  services.colord.enable = true;
+  services.emacs.enable = true;
+  services.fprintd.enable = true;
   
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
