@@ -53,6 +53,9 @@
   ];
   environment.sessionVariables.TERMINAL = "alacritty";
 
+  networking.hostName = "vega";
+  networking.iproute2.enable = true;
+
   # Audio
   sound.enable = true;
   hardware.pulseaudio.enable = true;
