@@ -43,6 +43,7 @@
     displayManager.lightdm.enable = true;
     desktopManager.mate.enable = true;
     enableCtrlAltBackspace = true;
+    videoDrivers = [ "amdgpu" ];
   };
   hardware.cpu.amd.updateMicrocode = true;
   hardware.mcelog.enable = true;
@@ -60,6 +61,9 @@
     brightnessctl
     # audio
     pavucontrol
+
+    google-chrome
+    emacs
   ];
   environment.sessionVariables.TERMINAL = "alacritty";
 
@@ -103,13 +107,15 @@
     xss-lock.enable = true;
   };
 
-  services.acpid.enable = true;
-  services.colord.enable = true;
-  services.emacs.enable = true;
-  services.fprintd.enable = true;
-  services.fwupd.enable = true;
-  services.geoip-updater.enable = true;
-  services.redshift.enable = true;
+  services = {
+    acpid.enable = true;
+    colord.enable = true;
+    emacs.enable = true;
+    fprintd.enable = true;
+    fwupd.enable = true;
+    geoip-updater.enable = true;
+    redshift.enable = true;
+  };
   
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
