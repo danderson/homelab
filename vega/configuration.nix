@@ -96,6 +96,10 @@
     iotop.enable = true;
     less.enable = true;
     mosh.enable = true;
+    mtr.enable = true;
+    ssh.startAgent = true;
+    usbtop.enable = true;
+    xss-lock.enable = true;
   };
   
   # This value determines the NixOS release with which your system is to be
