@@ -86,10 +86,7 @@
   #   wget vim
   # ];
 
-  services.openssh.enable = true;
-
   hardware.bluetooth.enable = true;
-  services.upower.enable = true;
   programs = {
     iftop.enable = true;
     iotop.enable = true;
@@ -102,6 +99,8 @@
   };
 
   services = {
+    upower.enable = true;
+    openssh.enable = true;
     xserver = {
       enable = true;
       libinput.enable = true;
