@@ -37,14 +37,6 @@
         google-fonts liberation_ttf opensans-ttf roboto roboto-mono
     ];
   };
-  services.xserver = {
-    enable = true;
-    libinput.enable = true;
-    displayManager.lightdm.enable = true;
-    desktopManager.mate.enable = true;
-    enableCtrlAltBackspace = true;
-    videoDrivers = [ "amdgpu" ];
-  };
   hardware.cpu.amd.updateMicrocode = true;
   hardware.mcelog.enable = true;
   powerManagement.powertop.enable = true;
@@ -64,6 +56,8 @@
 
     google-chrome
     emacs
+
+    home-manager
   ];
   environment.sessionVariables.TERMINAL = "alacritty";
 
@@ -108,6 +102,14 @@
   };
 
   services = {
+    xserver = {
+      enable = true;
+      libinput.enable = true;
+      displayManager.lightdm.enable = true;
+      desktopManager.mate.enable = true;
+      enableCtrlAltBackspace = true;
+      videoDrivers = [ "amdgpu" ];
+    };
     acpid.enable = true;
     colord.enable = true;
     emacs.enable = true;
