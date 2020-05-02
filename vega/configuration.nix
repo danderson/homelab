@@ -2,7 +2,7 @@
 {
   imports =
     [
-      <nixos-hardware/lenovo/thinkpad/e495>
+      <nixos-hardware/lenovo/thinkpad/t495>
 
       ./lib/basics.nix
       ./lib/networking.nix
@@ -39,7 +39,6 @@
   };
   hardware.cpu.amd.updateMicrocode = true;
   hardware.mcelog.enable = true;
-  powerManagement.powertop.enable = true;
   hardware.opengl = {
     enable = true;
     driSupport32Bit = true; # Maybe for steam?
@@ -49,17 +48,16 @@
   };
   environment.systemPackages = with pkgs; [
     # graphics
-    alacritty
+    # TODO: alacritty
     brightnessctl
     # audio
     pavucontrol
 
-    google-chrome
-    emacs
+    google-chrome # TODO: move into home-manager
 
     home-manager
   ];
-  environment.sessionVariables.TERMINAL = "alacritty";
+  #environment.sessionVariables.TERMINAL = "alacritty";
 
   networking.hostName = "vega";
   networking.iproute2.enable = true;
@@ -80,12 +78,6 @@
   system.autoUpgrade.enable = false;
   security.sudo.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  # environment.systemPackages = with pkgs; [
-  #   wget vim
-  # ];
-
   hardware.bluetooth.enable = true;
   programs = {
     iftop.enable = true;
@@ -95,20 +87,21 @@
     mtr.enable = true;
     ssh.startAgent = true;
     usbtop.enable = true;
-    xss-lock.enable = true;
   };
 
   services = {
-    upower.enable = true;
+    upower.enable = true; # also enabled by gnome, but y'know
     openssh.enable = true;
     xserver = {
       enable = true;
       libinput.enable = true;
-      displayManager.lightdm.enable = true;
-      desktopManager.mate.enable = true;
+
+      desktopManager.gnome3.enable = true;
+      displayManager.gdm.enable = true;
       enableCtrlAltBackspace = true;
       videoDrivers = [ "amdgpu" ];
     };
+    tlp.enable = true;
     acpid.enable = true;
     colord.enable = true;
     emacs.enable = true;
@@ -122,6 +115,5 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "19.09"; # Did you read the comment?
+  system.stateVersion = "20.03"; # Did you read the comment?
 }
-
