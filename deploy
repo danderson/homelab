@@ -11,25 +11,33 @@ fi
 HOST=$1
 shift
 
+LOCALHOST="$(hostname)"
+
 # Upload a copy of the machine's configs to the remote host. This is
 # only for safekeeping, the actual deploy is done from the source
 # machine.
 #
 # One exception is key management, if any. Those scripts get copied
 # over during this push, and executed later.
-echo "Pushing configs to $HOST..."
-ssh root@$HOST "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
-rsync -r --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $HOST lib flake.nix flake.lock root@${HOST}:/etc/nixos/
+if [ "$LOCALHOST" != "$HOST" ]; then
+    echo "Pushing configs to $HOST..."
+    ssh root@$HOST "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
+    rsync -r --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $HOST lib flake.nix flake.lock root@${HOST}:/etc/nixos/
 
-if [ -f ${HOST}/keys.sh ]; then
-    echo "Updating secrets..."
-    ssh root@$HOST "cd /etc/nixos/$HOST && sh keys.sh"
-fi
+    if [ -f ${HOST}/keys.sh ]; then
+        echo "Updating secrets..."
+        ssh root@$HOST "cd /etc/nixos/$HOST && sh keys.sh"
+    fi
 
-LOCALHOST="$(hostname)"
-
-if [ "$LOCALHOST" = "$HOST" ]; then
-    sudo nixos-rebuild --flake ".#$HOST" "$@"
-else
     nixos-rebuild --flake ".#$HOST" --target-host "root@$HOST" --build-host localhost "$@"
+else
+    sudo mkdir -p /etc/nixos && sudo chown root:root /etc/nixos && sudo chmod 700 /etc/nixos
+    sudo rsync -r --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $HOST lib flake.nix flake.lock /etc/nixos/
+
+    if [ -f ${HOST}/keys.sh ]; then
+        echo "Updating secrets..."
+        sudo sh -c "cd /etc/nixos/$HOST && sh keys.sh"
+    fi
+
+    sudo nixos-rebuild --flake ".#$HOST" "$@"    
 fi
