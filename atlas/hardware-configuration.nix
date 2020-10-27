@@ -1,3 +1,4 @@
+
 {
   imports = [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix> ];
   boot.loader.grub.device = "/dev/vda";

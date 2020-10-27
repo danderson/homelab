@@ -2,6 +2,6 @@
   networking = {
     useDHCP = false;
     domain = "universe.tf";
-    timeServers = [ "time.google.com" ];
+    timeServers = ["time.google.com"];
   };
 }

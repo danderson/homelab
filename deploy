@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+# -*- mode: shell-script -*-
+
+set -euo pipefail
+
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 host nixos-rebuild-args..."
+    exit 1
+fi
+
+HOST=$1
+shift
+
+# Upload a copy of the machine's configs to the remote host. This is
+# only for safekeeping, the actual deploy is done from the source
+# machine.
+#
+# One exception is key management, if any. Those scripts get copied
+# over during this push, and executed later.
+echo "Pushing configs to $HOST..."
+ssh root@$HOST "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
+rsync -r --perms --chmod=Fu=rw,Du=rwx,go-rwx --delete --delete-during --delete-excluded $HOST lib flake.nix flake.lock root@${HOST}:/etc/nixos/
+
+if [ -f ${HOST}/keys.sh ]; then
+    echo "Updating secrets..."
+    ssh root@$HOST "cd /etc/nixos/$HOST && sh keys.sh"
+fi
+
+LOCALHOST="$(hostname)"
+
+if [ "$LOCALHOST" = "$HOST" ]; then
+    sudo nixos-rebuild --flake ".#$HOST" "$@"
+else
+    nixos-rebuild --flake ".#$HOST" --target-host "root@$HOST" --build-host localhost "$@"
+fi

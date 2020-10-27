@@ -1,10 +1,12 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     conntrack-tools
     dmidecode
     dstat
     efibootmgr
     efivar
+    file
     ipmitool
     lm_sensors
     lsof
@@ -18,4 +20,10 @@
     tcpdump
     wget
   ];
+
+  programs = {
+    iotop.enable = true;
+    iftop.enable = true;
+    mtr.enable = true;
+  };
 }

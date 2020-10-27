@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
-  environment.shells = [ pkgs.bashInteractive pkgs.zsh ];
+{ pkgs, ... }:
+{
   programs.zsh.enable = true;
 }
