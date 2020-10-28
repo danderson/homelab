@@ -54,7 +54,6 @@
 
   fonts = {
     enableDefaultFonts = true;
-    fontconfig.penultimate.enable = true;
     # Give fonts to 32-bit binaries too (e.g. steam).
     fontconfig.cache32Bit = true;
     fonts = with pkgs; [
@@ -66,10 +65,10 @@
     opengl = {
       enable = true;
       driSupport32Bit = true; # Maybe for steam?
+      extraPackages = [ pkgs.amdvlk ];
       # TODO: figure out VAAPI support
     };
     trackpoint.enable = true;
-    u2f.enable = true;
     bluetooth.enable = true;
   };
   environment.systemPackages = with pkgs; [

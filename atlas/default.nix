@@ -5,6 +5,7 @@
   ];
 
   my.cpu-vendor = "intel";
+  my.harden = true;
   
   # hardware-configuration, but it's a little unusual because of the
   # VM setting. So it's not in its own file.
@@ -20,6 +21,7 @@
       hwclock -s
     '';
   };
+  security.allowUserNamespaces = true;
   security.rngd.enable = lib.mkDefault false;
 
   environment.systemPackages = [pkgs.irssi];

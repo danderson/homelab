@@ -1,14 +1,15 @@
 { lib, ... }:
 {
   require = [
+    ./hardened.nix
+    ./lldp.nix
     ./microcode.nix
     ./networking.nix
-    ./tmp.nix
-    ./timezone.nix
     ./nix.nix
-    ./ssh.nix
-    ./lldp.nix
     ./shell.nix
+    ./ssh.nix
+    ./timezone.nix
+    ./tmp.nix
     ./users.nix
     ./utilities.nix
   ];

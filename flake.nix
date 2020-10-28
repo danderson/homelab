@@ -2,8 +2,8 @@
   description = "Personal NixOS configs";
 
   inputs = {
-    nixos.url = github:NixOS/nixpkgs/nixos-20.03;
-    nixos-small.url = github:NixOS/nixpkgs/nixos-20.03-small;
+    nixos.url = github:NixOS/nixpkgs/nixos-20.09;
+    nixos-small.url = github:NixOS/nixpkgs/nixos-20.09-small;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
     nixos-hardware.url = github:NixOS/nixos-hardware;
   };
