@@ -13,7 +13,19 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "acrux"; # Define your hostname.
-  networking.interfaces.eno1.useDHCP = true;
+  networking.defaultGateway = "192.168.1.254";
+  networking.nameservers = ["192.168.1.254"];
+  networking.interfaces.eno1 = {
+    useDHCP = false;
+    ipv4 = {
+      addresses = [
+        {
+          address = "192.168.1.2";
+          prefixLength = 24;
+        }
+      ];
+    };
+  };
   networking.interfaces.eno2.useDHCP = false;
   networking.interfaces.eno3.useDHCP = false;
   networking.interfaces.eno4.useDHCP = false;
