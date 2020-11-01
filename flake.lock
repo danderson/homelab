@@ -2,11 +2,11 @@
   "nodes": {
     "nixos": {
       "locked": {
-        "lastModified": 1603785508,
-        "narHash": "sha256-aVhMd31J32DWdjGsSNOglG45dxf+D26EU21BXoov90c=",
+        "lastModified": 1603918233,
+        "narHash": "sha256-kc3v+TMNjJRiV9/HinAx7qsWI2wGPHToGnCeOYmahLI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "13d0c311e3ae923a00f734b43fd1d35b47d8943a",
+        "rev": "edb26126d98bc696f4f3e206583faa65d3d6e818",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1603657112,
-        "narHash": "sha256-goCXyUj+mylidJW3tuUj5Vm03WaJTuNG13fg/V4C8y0=",
+        "lastModified": 1603995690,
+        "narHash": "sha256-aqDvu6Im9uglnKboMKYwH8D8h1dLwlSOaEDqPxEfKf4=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "3cffbd596197a99d10d8113860c9ddf5566c2ef3",
+        "rev": "46a68df837414dcdfb1c240c88d5fff1b6ef805c",
         "type": "github"
       },
       "original": {
@@ -33,11 +33,11 @@
     },
     "nixos-small": {
       "locked": {
-        "lastModified": 1603837164,
-        "narHash": "sha256-aaJ2XMDOZed33ztwPVH+lyDxzYSm9RSO1EsYD/U7N0M=",
+        "lastModified": 1604167242,
+        "narHash": "sha256-5eG8wBnF3a/XqRVegbIxcjNUuglGjVQ/KaCWLCYBRFs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b6eefa48d8e10491e43c0c6155ac12b463f6fed3",
+        "rev": "9bf04bc90bf634c1f20ce453b53cf68963e02fa1",
         "type": "github"
       },
       "original": {
@@ -49,11 +49,11 @@
     },
     "nixos-unstable": {
       "locked": {
-        "lastModified": 1603271222,
-        "narHash": "sha256-S3nMa1xN/ADk2DEaZnR5Ev1HJJHYbYODXC+liuMG7No=",
+        "lastModified": 1603758576,
+        "narHash": "sha256-xKFmWVx+rFInBao3gtmvXcd0LjHD1+0c1Ef5PJDrbuM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5d0e2dedd5594cdf3ebbda8bc61310e227235a9c",
+        "rev": "1dc37370c489b610f8b91d7fdd40633163ffbafd",
         "type": "github"
       },
       "original": {
