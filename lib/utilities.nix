@@ -8,6 +8,7 @@
     efivar
     file
     ipmitool
+    jq
     lm_sensors
     lsof
     mosh
