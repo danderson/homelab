@@ -20,8 +20,9 @@
               then self.rev
               else "DIRTY";
           })
-          (./. + "/${name}")
           home-manager.nixosModules.home-manager
+          ./lib/home.nix
+          (./. + "/${name}")
         ];
         specialArgs = { inherit flakes; };
       };

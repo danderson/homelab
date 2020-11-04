@@ -1,8 +1,7 @@
-{ lib, ... }:
+{ lib, flakes, ... }:
 {
   require = [
     ./hardened.nix
-    ./home.nix
     ./lldp.nix
     ./microcode.nix
     ./networking.nix
