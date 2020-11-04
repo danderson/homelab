@@ -11,7 +11,6 @@
     jq
     lm_sensors
     lsof
-    mosh
     pciutils
     psmisc
     rename

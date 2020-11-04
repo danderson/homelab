@@ -1,5 +1,24 @@
 {
   "nodes": {
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1604441492,
+        "narHash": "sha256-Wo7WqdwNQnWHmhyZuhVLrAEpCuZl88cA9ttxkiCTekY=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "63f299b3347aea183fc5088e4d6c4a193b334a41",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "release-20.09",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "nixos": {
       "locked": {
         "lastModified": 1603918233,
@@ -63,8 +82,23 @@
         "type": "github"
       }
     },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1604474383,
+        "narHash": "sha256-6d/DRg4YwUs2qiZ2e5g8J2sbnlCIpY9rRz6sW6Pq5N8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1bf0327ef6d7e0959f3250758b4d33b4066a732b",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "root": {
       "inputs": {
+        "home-manager": "home-manager",
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
         "nixos-small": "nixos-small",
