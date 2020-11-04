@@ -71,13 +71,6 @@
     trackpoint.enable = true;
     bluetooth.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    pavucontrol
-    google-chrome
-    emacs
-    direnv
-    steam
-  ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
