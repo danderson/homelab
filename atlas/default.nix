@@ -5,7 +5,7 @@
   ];
 
   my.cpu-vendor = "intel";
-  my.harden = true;
+  my.harden = false; # Hardened config seems broken right now.
   
   # hardware-configuration, but it's a little unusual because of the
   # VM setting. So it's not in its own file.
