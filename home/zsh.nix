@@ -43,6 +43,7 @@
          echo "''${time} ''${user}''${at}''${host} ''${dir} » "
       }
       PROMPT="$(make_prompt)"
+      RPROMPT=""
     '';
   };
 }

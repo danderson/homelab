@@ -3,9 +3,14 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.dave = {
-      imports = [ ../home ];
-      my.gui-programs = config.services.xserver.enable;
+    users = {
+      dave = {
+        imports = [ ../home ];
+        my.gui-programs = config.services.xserver.enable;
+      };
+      root = {
+        imports = [ ../home ];
+      };
     };
   };
 }
