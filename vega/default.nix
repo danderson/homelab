@@ -96,7 +96,6 @@
     tlp.enable = true;
     acpid.enable = true;
     colord.enable = true;
-    emacs.enable = true;
     fprintd.enable = true;
     fwupd.enable = true;
     geoip-updater.enable = true;

@@ -2,6 +2,7 @@
   imports = [
     ./bash.nix
     ./direnv.nix
+    ./emacs.nix
     ./git.nix
     ./go.nix
     ./programs.nix
