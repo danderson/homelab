@@ -19,10 +19,11 @@ LOCALHOST="$(hostname)"
 #
 # One exception is key management, if any. Those scripts get copied
 # over during this push, and executed later.
+
 echo "Building configs to register as GC root..."
 nix --experimental-features 'nix-command flakes' build ".#nixosConfigurations.${HOST}.config.system.build.toplevel" --out-link "/nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-$(date -u +%Y%m%d%H%M%S)"
 echo "Cleaning old roots for host..."
-ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | head --lines="-10" | xargs -r -n1 rm
+ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | head --lines="-10" | xargs -t -r -n1 rm
 
 if [ "$LOCALHOST" != "$HOST" ]; then
     echo "Pushing configs to $HOST..."
