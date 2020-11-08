@@ -40,39 +40,38 @@
 
         (add-to-list 'auto-mode-alist '("\\.do$" . shell-script-mode))
         (add-to-list 'auto-mode-alist '("\\.od$" . shell-script-mode))
-
-        (add-hook 'before-save-hook 'gofmt-before-save)
       '';
       usePackage = {
+        ansi-color = {
+          enable = true;
+          command = [ "ansi-color-apply-on-region" ];
+        };
+        autorevert = {
+          enable = true;
+          diminish = [ "auto-revert-mode" ];
+          command = [ "auto-revert-mode" ];
+        };
         base16-theme = {
           enable = true;
-          #config = "(load-theme 'base16-tomorrow-night t)";
           config = "(load-theme 'base16-solarized-dark t)";
         };
-        systemd = {
+        beacon = {
           enable = true;
-          defer = true;
+          command = [ "beacon-mode" ];
+          diminish = [ "beacon-mode" ];
+          defer = 1;
+          config = "(beacon-mode 1)";
         };
-        python = {
+        direnv = {
           enable = true;
-          mode = [ ''("\\.py\\'" . python-mode)'' ];
+          command = [ "direnv-mode" "direnv-update-environment" ];
         };
-        js = {
+        dockerfile-mode = {
           enable = true;
-          mode = [
-            ''("\\.js\\'" . js-mode)''
-            ''("\\.json\\'" . js-mode)''
-          ];
-          config = ''
-            (setq js-indent-level 2)
-          '';
+          mode = [ ''"Dockerfile\\'"'' ];
         };
-        uniquify = {
+        exec-path-from-shell = {
           enable = true;
-        };
-        markdown-mode = {
-          enable = true;
-          mode = [''"\\.md\\'"''];
         };
         flycheck = {
           enable = true;
@@ -86,25 +85,19 @@
             (global-flycheck-mode)
           '';
         };
-        ansi-color = {
+        go-mode = {
+	        enable = true;
+	        mode = [''"\\.go\\'"''];
+          config = ''
+            (add-hook 'before-save-hook 'gofmt-before-save)
+          '';
+	      };
+        graphviz-dot-mode = {
           enable = true;
-          command = [ "ansi-color-apply-on-region" ];
-        };
-        autorevert = {
-          enable = true;
-          diminish = [ "auto-revert-mode" ];
-          command = [ "auto-revert-mode" ];
-        };
-        beacon = {
-          enable = true;
-          command = [ "beacon-mode" ];
-          diminish = [ "beacon-mode" ];
-          defer = 1;
-          config = "(beacon-mode 1)";
-        };
-        dockerfile-mode = {
-          enable = true;
-          mode = [ ''"Dockerfile\\'"'' ];
+          mode = [''"\\.dot\\'"''];
+          config = ''
+            (setq gofmt-command "goimports")
+          '';
         };
         ivy = {
           enable = true;
@@ -120,32 +113,28 @@
             (ivy-mode 1)
           '';
         };
-        exec-path-from-shell = {
+        js = {
           enable = true;
+          mode = [
+            ''("\\.js\\'" . js-mode)''
+            ''("\\.json\\'" . js-mode)''
+          ];
+          config = ''
+            (setq js-indent-level 2)
+          '';
         };
-        go-mode = {
-	        enable = true;
-	        mode = [''"\\.go\\'"''];
-	      };
-	      nix-mode = {
-	        enable = true;
-	        mode = [''"\\.nix\\'"''];
-	      };
         json-mode = {
           enable = true;
           mode = [''"\\.json\\'"''];
         };
-        rust-mode = {
+        markdown-mode = {
           enable = true;
-          mode = [''"\\.rs\\'"''];
+          mode = [''"\\.md\\'"''];
         };
-        graphviz-dot-mode = {
-          enable = true;
-          mode = [''"\\.dot\\'"''];
-          config = ''
-            (setq gofmt-command "goimports")
-          '';
-        };
+	      nix-mode = {
+	        enable = true;
+	        mode = [''"\\.nix\\'"''];
+	      };
         protobuf-mode = {
           enable = true;
           mode = [
@@ -153,9 +142,20 @@
             ''"\\.pb\\'"''
           ];
         };
-        direnv = {
+        python = {
           enable = true;
-          command = [ "direnv-mode" "direnv-update-environment" ];
+          mode = [ ''("\\.py\\'" . python-mode)'' ];
+        };
+        rust-mode = {
+          enable = true;
+          mode = [''"\\.rs\\'"''];
+        };
+        systemd = {
+          enable = true;
+          defer = true;
+        };
+        uniquify = {
+          enable = true;
         };
         web-mode = {
           enable = true;
