@@ -19,6 +19,11 @@ LOCALHOST="$(hostname)"
 #
 # One exception is key management, if any. Those scripts get copied
 # over during this push, and executed later.
+echo "Building configs to register as GC root..."
+nix --experimental-features 'nix-command flakes' build ".#nixosConfigurations.${HOST}.config.system.build.toplevel" --out-link "/nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-$(date -u +%Y%m%d%H%M%S)"
+echo "Cleaning old roots for host..."
+ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | head --lines="-10" | xargs -n1 echo rm
+
 if [ "$LOCALHOST" != "$HOST" ]; then
     echo "Pushing configs to $HOST..."
     ssh root@$HOST "mkdir -p /etc/nixos && chown root:root /etc/nixos && chmod 700 /etc/nixos"
@@ -39,5 +44,5 @@ else
         sudo sh -c "cd /etc/nixos/$HOST && sh keys.sh"
     fi
 
-    sudo nixos-rebuild --flake ".#$HOST" "$@"    
+    sudo nixos-rebuild --flake ".#$HOST" "$@"
 fi
