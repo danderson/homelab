@@ -48,4 +48,4 @@ else
     sudo nixos-rebuild --flake ".#$HOST" "$@"
 fi
 
-rm result
+rm -f result
