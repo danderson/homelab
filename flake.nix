@@ -7,9 +7,10 @@
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
     nixos-hardware.url = github:NixOS/nixos-hardware;
     home-manager.url = github:nix-community/home-manager/release-20.09;
+    nur.url = github:nix-community/NUR;
   };
 
-  outputs = { self, nixos, nixos-small, home-manager, ... } @ flakes:
+  outputs = { self, nixos, nixos-small, home-manager, nur, ... } @ flakes:
     let
       box = base: name: base.lib.nixosSystem {
         system = "x86_64-linux";
@@ -21,6 +22,7 @@
               else "DIRTY";
           })
           home-manager.nixosModules.home-manager
+          ({ nixpkgs.overlays = [ nur.overlay ]; })
           ./lib/home.nix
           (./. + "/${name}")
         ];
