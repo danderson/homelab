@@ -22,7 +22,7 @@ LOCALHOST="$(hostname)"
 echo "Building configs to register as GC root..."
 nix --experimental-features 'nix-command flakes' build ".#nixosConfigurations.${HOST}.config.system.build.toplevel" --out-link "/nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-$(date -u +%Y%m%d%H%M%S)"
 echo "Cleaning old roots for host..."
-ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | head --lines="-10" | xargs -n1 echo rm
+ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | head --lines="-10" | xargs -r -n1 rm
 
 if [ "$LOCALHOST" != "$HOST" ]; then
     echo "Pushing configs to $HOST..."
