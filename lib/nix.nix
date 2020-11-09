@@ -5,6 +5,7 @@
     extraOptions = "experimental-features = nix-command flakes";
     autoOptimiseStore = true;
     useSandbox = true;
+    trustedUsers = ["dave"];
     gc = {
       automatic = true;
       dates = "03:15";
