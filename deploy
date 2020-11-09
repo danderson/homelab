@@ -35,7 +35,7 @@ push_build() {
     # Get the top-level system store path, and see if it already
     # exists on the remote. If it does, we can skip a whole bunch of
     # work.
-    echo ":::::: eval ${tgt}" >&2
+    echo ":::::: eval $host" >&2
     out=$(nix "${nixargs[@]}" eval --raw "$tgt")
     echo ":::::: checking if already built on $host" >&2
     if ssh_nix_unstable "$host" test -d "$out"; then
@@ -46,7 +46,7 @@ push_build() {
 
     # Miss, need to instantiate derivations locally, copy them, and
     # realize them on the remote host.
-    echo ":::::: instantiate $tgt" >&2
+    echo ":::::: instantiate $host" >&2
     drv=$(nix "${nixargs[@]}" eval --raw "${tgt}.drvPath")
     tmp="/tmp/tmpnixpath"
     echo ":::::: rsync $drv to $host" >&2
