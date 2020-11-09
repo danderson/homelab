@@ -4,11 +4,13 @@
 set -euo pipefail
 
 if [ $# -lt 2 ]; then
-    echo "Usage: $0 host nixos-rebuild-args..."
+    echo "Usage: $0 host nixos-cmd nixos-args..."
     exit 1
 fi
 
 HOST=$1
+shift
+NIXOS_CMD=$1
 shift
 
 LOCALHOST="$(hostname)"
@@ -75,5 +77,20 @@ activate() {
     ssh_nix_unstable "$host" nix "${nixargs[@]}" shell -vv "$storePath" -c switch-to-configuration "$cmd"
 }
 
+diff() {
+    host=$1
+    storePath=$2
+
+    drvs=$(ssh_nix_unstable "$host" nix-store -qd /run/current-system "$storePath")
+
+    echo ":::::: diff $host"
+    set -x
+    ssh_nix_unstable "$host" nix-diff --color=always $drvs | less -F
+}
+
 storePath=$(push_build "$HOST")
-activate "$HOST" "$storePath" "$@"
+if [ "$NIXOS_CMD" = "diff" ]; then
+    diff "$HOST" "$storePath"
+else
+    activate "$HOST" "$storePath" "$NIXOS_CMD"
+fi
