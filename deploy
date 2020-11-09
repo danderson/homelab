@@ -25,8 +25,12 @@ buildargs=(
 #  --option 'trusted-public-keys' 'cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY='
 
 function ssh_nix_unstable() {
-  local r="${1}"; shift;
-  ssh "root@${r}" -- "nix-shell -I nixpkgs=${unstablepkgs} -p nixUnstable --run '$(printf '\"%s\" ' "${@}")'"
+    local r="${1}"; shift;
+    if [ "$r" != "$LOCALHOST" ]; then
+	ssh "root@${r}" -- "nix-shell -I nixpkgs=${unstablepkgs} -p nixUnstable --run '$(printf '\"%s\" ' "${@}")'"
+    else
+	sudo "$@"
+    fi
 }
 
 push_build() {
@@ -49,10 +53,14 @@ push_build() {
     echo ":::::: instantiate $host" >&2
     drv=$(nix "${nixargs[@]}" eval --raw "${tgt}.drvPath")
     tmp="/tmp/tmpnixpath"
-    echo ":::::: rsync $drv to $host" >&2
-    nix "${nixargs[@]}" copy --to "file://${tmp}" --derivation "${drv}"
-    rsync -ah "${tmp}/" "${host}:${tmp}"
-    ssh_nix_unstable "$host" nix "${nixargs[@]}" copy --from file://"${tmp}" --derivation "${drv}"
+
+    if [ "$host" != "$LOCALHOST" ]; then
+	echo ":::::: rsync $drv to $host" >&2
+	nix "${nixargs[@]}" copy --to "file://${tmp}" --derivation "${drv}"
+	rsync -ah "${tmp}/" "${host}:${tmp}"
+	ssh_nix_unstable "$host" nix "${nixargs[@]}" copy --from file://"${tmp}" --derivation "${drv}"
+    fi
+
     echo ":::::: build $drv on $host" >&2
     ssh_nix_unstable "$host" nix "${nixargs[@]}" build "${buildargs[@]}" "${drv}"
     echo "$out"
