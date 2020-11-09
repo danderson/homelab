@@ -84,7 +84,6 @@ diff() {
     drvs=$(ssh_nix_unstable "$host" nix-store -qd /run/current-system "$storePath")
 
     echo ":::::: diff $host"
-    set -x
     ssh_nix_unstable "$host" nix-diff --color=always $drvs | less -F
 }
 
