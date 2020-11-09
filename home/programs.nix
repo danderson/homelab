@@ -26,6 +26,7 @@
       ipcalc
       lftp
       mosh
+      nix-diff
       nmap
       pwgen
     ] ++ gui;
