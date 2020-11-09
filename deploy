@@ -24,6 +24,7 @@ echo "Building configs to register as GC root..."
 nix --experimental-features 'nix-command flakes' build ".#nixosConfigurations.${HOST}.config.system.build.toplevel" --out-link "/nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-$(date -u +%Y%m%d%H%M%S)"
 echo "Cleaning old roots for host..."
 ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | head --lines="-10" | xargs -t -r -n1 rm
+latest=$(ls -d -1 /nix/var/nix/gcroots/per-user/dave/deploy-${HOST}-* | sort -n | tail -1)
 
 if [ "$LOCALHOST" != "$HOST" ]; then
     echo "Pushing configs to $HOST..."
@@ -35,6 +36,8 @@ if [ "$LOCALHOST" != "$HOST" ]; then
         ssh root@$HOST "cd /etc/nixos/$HOST && sh keys.sh"
     fi
 
+    # Copy the derivations over, so nixos-diff works locally.
+    nix-copy-closure --to -s root@${HOST} $(nix-store -qd $latest)
     nixos-rebuild --flake ".#$HOST" --target-host "root@$HOST" --build-host localhost "$@"
 else
     sudo mkdir -p /etc/nixos && sudo chown root:root /etc/nixos && sudo chmod 700 /etc/nixos
