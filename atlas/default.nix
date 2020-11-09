@@ -5,8 +5,8 @@
   ];
 
   my.cpu-vendor = "intel";
-  my.harden = false; # Hardened config seems broken right now.
-  
+  my.harden = true; # Hardened config seems broken right now.
+
   # hardware-configuration, but it's a little unusual because of the
   # VM setting. So it's not in its own file.
   fileSystems."/" = { device = "/dev/vda1"; fsType = "ext4"; };
@@ -57,7 +57,7 @@
   services.udev.extraRules = ''
     ATTR{address}=="a6:c0:27:d3:ea:17", NAME="eth0"
   '';
-  
+
   networking.firewall = {
     enable = true;
     allowPing = true;
@@ -65,7 +65,7 @@
     allowedTCPPorts = [ 80 443 ];
     allowedUDPPortRanges = [ { from = 60000; to = 61000; } ];
   };
-  
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
