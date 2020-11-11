@@ -13,7 +13,7 @@ in
       dave = {
         isNormalUser = true;
         uid = 1000;
-        extraGroups = ["wheel"];
+        extraGroups = ["wheel" "wireshark"];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = keys;
       };

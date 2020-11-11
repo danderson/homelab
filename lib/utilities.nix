@@ -1,29 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
-    conntrack-tools
-    dmidecode
-    dstat
-    efibootmgr
-    efivar
-    file
-    ipmitool
-    jq
-    lm_sensors
-    lsof
-    pciutils
-    psmisc
-    rename
-    screen
-    smartmontools
-    sysstat
-    tcpdump
-    wget
-  ];
-
+  # Things that require setcap wrappers. Everything else is in ../home
   programs = {
     iotop.enable = true;
     iftop.enable = true;
     mtr.enable = true;
+    wireshark.enable = config.services.xserver.enable;
   };
 }

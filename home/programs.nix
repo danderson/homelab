@@ -19,16 +19,34 @@
           else [];
   in {
     home.packages = with pkgs; [
+      bc
+      conntrack-tools
+      dmidecode
+      dstat
+      efibootmgr
+      efivar
       file
       fping
       git-crypt
       go
       ipcalc
+      ipmitool
+      jq
       lftp
+      lm_sensors
+      lsof
       mosh
       nix-diff
       nmap
+      pciutils
+      psmisc
       pwgen
+      rename
+      screen
+      smartmontools
+      sysstat
+      tcpdump
+      wget
     ] ++ gui;
     programs.lesspipe.enable = true;
     programs.dircolors.enable = true;
