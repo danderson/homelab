@@ -5,6 +5,9 @@
     iotop.enable = true;
     iftop.enable = true;
     mtr.enable = true;
-    wireshark.enable = config.services.xserver.enable;
+    wireshark = {
+      enable = config.services.xserver.enable;
+      package = pkgs.wireshark-qt;
+    };
   };
 }
