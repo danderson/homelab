@@ -31,6 +31,7 @@
 
         (setq kill-whole-line t)
         (setq indent-tabs-mode nil)
+        (setq tab-width 4)
         (setq tramp-default-method "sshx")
         (setq show-paren-mode t)
         (setq show-paren-delay 0)
@@ -50,6 +51,7 @@
           enable = true;
           diminish = [ "auto-revert-mode" ];
           command = [ "auto-revert-mode" ];
+          config = "(global-auto-revert-mode)";
         };
         base16-theme = {
           enable = true;
@@ -89,6 +91,7 @@
 	        enable = true;
 	        mode = [''"\\.go\\'"''];
           config = ''
+            (setq gofmt-command "goimports")
             (add-hook 'before-save-hook 'gofmt-before-save)
           '';
 	      };
