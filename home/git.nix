@@ -18,6 +18,6 @@
     };
     userName = "David Anderson";
     userEmail = "dave@natulte.net";
-    ignores = [ "*.o" "*.pyc" "*.pyo" "*.elc" "*~" ];
+    ignores = [ "*.o" "*.pyc" "*.pyo" "*.elc" "*~" ".direnv/*" ];
   };
 }
