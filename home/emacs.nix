@@ -29,7 +29,7 @@
 
         (setq-default show-trailing-whitespace t)
 
-        (set make-backup-files nil)
+        (setq make-backup-files nil)
 
         (setq kill-whole-line t)
         (setq indent-tabs-mode nil)
