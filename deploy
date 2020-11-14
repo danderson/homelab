@@ -29,7 +29,7 @@ buildargs=(
 function ssh_nix_unstable() {
     local r="${1}"; shift;
     if [ "$r" != "$LOCALHOST" ]; then
-	ssh "root@${r}" -- "nix-shell -I nixpkgs=${unstablepkgs} -p nixUnstable --run '$(printf '\"%s\" ' "${@}")'"
+	ssh "root@${r}" -- "$(printf '\"%s\" ' "${@}")"
     else
 	sudo "$@"
     fi
