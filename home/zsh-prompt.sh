@@ -1,23 +1,4 @@
-function _da_nix_shell() {
-    if [[ "$SHLVL" == 1 ]]; then
-	return
-    fi
-    pkgs="$(echo "$PATH" | tr ':' '\n' | grep /nix/store | sed 's#^/nix/store/[a-z0-9]\+-##' | sed 's#-[0-9.]\+.*$##')"
-    ls="$(echo -n $pkgs | wc -w)"
-    case $ls in
-	0)
-	    echo -n " %B%F{yellow}subshell%f%b"
-	;;
-	1)
-	    echo -n " %B%F{yellow}$pkgs%f%b"
-	    ;;
-	*)
-	    echo -n " %B%F{yellow}nix-shell%f%b"
-	    ;;
-    esac
-}
-
-function _da_git_prompt() {
+function _da_dynamic_prompt() {
     local branch
     branch="$(git_current_branch)"
     if [[ -n "$branch" ]]; then
@@ -29,7 +10,23 @@ function _da_git_prompt() {
 	if [[ -n "$summary" ]]; then
 	    summary="[$summary]"
 	fi
-	echo " %F{green}${branch}${summary}%f"
+	echo -n " %F{green}${branch}${summary}%f"
+    fi
+
+    if [[ "$SHLVL" > 1 ]]; then
+	pkgs="$(echo "$PATH" | tr ':' '\n' | grep /nix/store | sed 's#^/nix/store/[a-z0-9]\+-##' | sed 's#-[0-9.]\+.*$##')"
+	ls="$(echo -n $pkgs | wc -w)"
+	case $ls in
+	    0)
+		echo -n " %B%F{yellow}subshell%f%b"
+		;;
+	    1)
+		echo -n " %B%F{yellow}$pkgs%f%b"
+		;;
+	    *)
+		echo -n " %B%F{yellow}nix-shell%f%b"
+		;;
+	esac
     fi
 }
 
@@ -51,7 +48,7 @@ function make_prompt() {
     fi
     local host="$host_color%m%f"
     local dir='%B%F{blue}%3~%f%b'
-    echo "${user}${host} ${dir}\$(_da_git_prompt)\$(_da_nix_shell)> "
+    echo "${user}${host} ${dir}\$(_da_dynamic_prompt)> "
 }
 PROMPT="$(make_prompt)"
 RPROMPT=""
