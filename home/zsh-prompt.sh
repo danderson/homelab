@@ -18,13 +18,18 @@ function _da_nix_shell() {
 }
 
 function _da_git_prompt() {
-    local br di ah be
-    br="$(git_current_branch)"
-    [ -z "$(git status --porcelain | tail -1)" ] || di='!'
-    ah="$(ZSH_THEME_GIT_PROMPT_AHEAD=a git_prompt_ahead)"
-    be="$(ZSH_THEME_GIT_PROMPT_AHEAD=b git_prompt_behind)"
-    if [[ -n "$br" ]]; then
-	echo " %F{green}${br}[$ah$be$di]%f"
+    local branch
+    branch="$(git_current_branch)"
+    if [[ -n "$branch" ]]; then
+	local dirty ahead behind summary
+	[ -z "$(git status --porcelain | tail -1)" ] || dirty='!'
+	ahead="$(ZSH_THEME_GIT_PROMPT_AHEAD=a git_prompt_ahead)"
+	behind="$(ZSH_THEME_GIT_PROMPT_AHEAD=b git_prompt_behind)"
+	summary="$ahead$behind$dirty"
+	if [[ -n "$summary" ]]; then
+	    summary="[$summary]"
+	fi
+	echo " %F{green}${branch}${summary}%f"
     fi
 }
 
