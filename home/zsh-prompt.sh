@@ -34,9 +34,9 @@ function make_prompt() {
     # Root is red, remote !root is amber, local !root is green.
     local host_color
     if [[ "$USER" == "root" ]]; then
-        host_color='%F{red}'
+        host_color='%B%F{red}'
     elif [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
-        host_color='%F{yellow}'
+        host_color='%B%F{yellow}'
     else
         host_color='%F{green}'
     fi
@@ -44,9 +44,9 @@ function make_prompt() {
     # Show local user if not dave or root
     local user
     if [[ "$USER" != "dave" && "$USER" != "root" ]]; then
-        user='$host_color%n%f%F{cyan}@%f'
+        user='$host_color%n%f%b%F{cyan}@%f'
     fi
-    local host="$host_color%m%f"
+    local host="$host_color%m%f%b"
     local dir='%B%F{blue}%3~%f%b'
     echo "${user}${host} ${dir}\$(_da_dynamic_prompt)> "
 }
