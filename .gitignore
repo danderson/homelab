@@ -1,3 +1,4 @@
 .envrc
 ansible/.vault-key
 .redo
+result
