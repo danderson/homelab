@@ -2,6 +2,7 @@
   require = [
     ../lib
     ./hardware-configuration.nix
+    ./tailscale.nix
     flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
   ];
 
@@ -116,38 +117,6 @@
   virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
-  };
-  
-  systemd.services.tailscaled = {
-    after = [ "network-pre.target" ];
-    wants = [ "network-pre.target" ];
-    wantedBy = [ "multi-user.target" ];
-
-    unitConfig = {
-      StartLimitIntervalSec = 0;
-      StartLimitBurst = 0;
-    };
-
-    path = [ pkgs.openresolv pkgs.iptables pkgs.iproute ];
-
-    environment = {
-      #TS_DEBUG_CONTROL_FLAGS = "v6-overlay";
-    };
-    serviceConfig = {
-      ExecStart =
-        "/home/dave/tail/corp/out/native/oss/cmd/tailscaled/tailscaled --port 41641";
-
-      RuntimeDirectory = "tailscale";
-      RuntimeDirectoryMode = 755;
-
-      StateDirectory = "tailscale";
-      StateDirectoryMode = 750;
-
-      CacheDirectory = "tailscale";
-      CacheDirectoryMode = 750;
-
-      Restart = "on-failure";
-    };
   };
 
   # This value determines the NixOS release with which your system is to be
