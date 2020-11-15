@@ -28,11 +28,7 @@ buildargs=(
 
 function ssh_nix_unstable() {
     local r="${1}"; shift;
-    if [ "$r" != "$LOCALHOST" ]; then
 	ssh "root@${r}" -- "$(printf '\"%s\" ' "${@}")"
-    else
-	sudo "$@"
-    fi
 }
 
 push_build() {
