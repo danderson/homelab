@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let repo = "/home/dave/tail/corp/out/native/oss/cmd"; in
 {
+  my.disable-system-tailscale = true;
   systemd.services.tailscaled = {
     after = [ "network-pre.target" ];
     wants = [ "network-pre.target" ];
