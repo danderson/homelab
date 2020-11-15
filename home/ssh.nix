@@ -8,7 +8,7 @@
     matchBlocks = {
       acrux = {
         host = "acrux acrux.universe.tf";
-        hostname = "acrux.universe.tf";
+        hostname = "192.168.1.2";
         port = 42222;
       };
 
