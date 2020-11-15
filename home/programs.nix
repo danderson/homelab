@@ -48,7 +48,7 @@ in
   };
 
   config = {
-    home.packages = cli-programs ++ (if config.options.my.gui-programs then gui-programs else []);
+    home.packages = cli-programs ++ (if config.my.gui-programs then gui-programs else []);
     programs.lesspipe.enable = true;
     programs.dircolors.enable = true;
   };
