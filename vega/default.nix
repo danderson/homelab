@@ -37,6 +37,13 @@
     };
   };
 
+  home-manager.users.dave.home.file = {
+    "bin/tss" = {
+      executable = true;
+      text = builtins.readFile ./tailscale-switch-profile.sh;
+    };
+  };
+
   nix = {
     buildMachines = [{
       hostName = "acrux";
