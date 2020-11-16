@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 {
+  environment.homeBinInPath = true;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
