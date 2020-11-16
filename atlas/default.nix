@@ -2,6 +2,7 @@
 {
   imports = [
     ../lib
+    ./private.nix
   ];
 
   my.cpu-vendor = "intel";
