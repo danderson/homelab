@@ -42,6 +42,10 @@
       executable = true;
       text = builtins.readFile ./tailscale-switch-profile.sh;
     };
+    "bin/delbr" = {
+      executable = true;
+      text = builtins.readFile ./delete-my-old-branches.sh;
+    };
   };
 
   nix = {
