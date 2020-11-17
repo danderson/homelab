@@ -59,7 +59,6 @@ in
         monthly = 12;
       };
     };
-    openssh.ports = [22];
   };
 
   # This value determines the NixOS release with which your system is to be
