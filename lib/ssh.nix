@@ -3,7 +3,7 @@
   config = lib.mkIf (!config.boot.isContainer) {
     services.openssh = {
       enable = true;
-      ports = lib.mkDefault [42222];
+      ports = lib.mkDefault [22 42222];
     };
   };
 }
