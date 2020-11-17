@@ -63,7 +63,6 @@
     enable = true;
     allowPing = true;
     checkReversePath = "strict";
-    allowedTCPPorts = [ 80 443 ];
     allowedUDPPortRanges = [ { from = 60000; to = 61000; } ];
   };
 
