@@ -92,7 +92,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 8686 ];
+      allowedTCPPorts = [ 8086 ];
     };
   };
 }
