@@ -9,6 +9,7 @@
     ./shell.nix
     ./ssh.nix
     ./tailscale.nix
+    ./telegraf.nix
     ./timezone.nix
     ./tmp.nix
     ./users.nix

@@ -4,6 +4,7 @@
     ../lib
     ./hardware-configuration.nix
     ./private.nix
+    ./influxdb2.nix
   ];
 
   my.cpu-vendor = "intel";
@@ -44,6 +45,13 @@
         hourly = 2;
         daily = 7;
         monthly = 12;
+      };
+    };
+    influxdb2 = {
+      enable = true;
+      config = {
+        bolt-path = "/data/monitoring/influxdb2/influxd.bolt";
+        engine-path = "/data/monitoring/influxdb2/engine";
       };
     };
     #fwupd.enable = false; # Mass rebuild?

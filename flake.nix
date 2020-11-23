@@ -8,6 +8,7 @@
     nixos-hardware.url = github:NixOS/nixos-hardware;
     home-manager.url = github:nix-community/home-manager/release-20.09;
     nur.url = github:nix-community/NUR;
+    my-fork.url = github:danderson/nixpkgs/influxdb2-svc;
   };
 
   outputs = { self, nixos, nixos-small, home-manager, nur, ... } @ flakes:
