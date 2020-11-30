@@ -1,5 +1,8 @@
 { pkgs, ... }:
-let repo = "/home/dave/tail/corp/out/native/oss/cmd"; in
+let
+  repo = "/home/dave/tail/corp";
+  build = "${repo}/out/native/oss/cmd";
+in
 {
   my.disable-system-tailscale = true;
   systemd.services.tailscaled = {
@@ -14,11 +17,9 @@ let repo = "/home/dave/tail/corp/out/native/oss/cmd"; in
 
     path = [ pkgs.openresolv pkgs.iptables pkgs.iproute ];
 
-    environment = {
-      #TS_DEBUG_CONTROL_FLAGS = "v6-overlay";
-    };
     serviceConfig = {
-      ExecStart = "${repo}/tailscaled/tailscaled --port 41641";
+      ExecStart = "${build}/tailscaled/tailscaled --port 41641";
+      EnvironmentFile = "-${repo}/env";
 
       RuntimeDirectory = "tailscale";
       RuntimeDirectoryMode = 755;
@@ -32,5 +33,5 @@ let repo = "/home/dave/tail/corp/out/native/oss/cmd"; in
       Restart = "on-failure";
     };
   };
-  home-manager.users.dave.home.sessionPath = ["${repo}/tailscale"];
+  home-manager.users.dave.home.sessionPath = ["${build}/tailscale"];
 }
