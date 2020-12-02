@@ -19,7 +19,7 @@ in
 
     serviceConfig = {
       ExecStart = "${build}/tailscaled/tailscaled --port 41641";
-      EnvironmentFile = "-${repo}/env";
+      EnvironmentFile = "-${repo}/../env";
 
       RuntimeDirectory = "tailscale";
       RuntimeDirectoryMode = 755;
