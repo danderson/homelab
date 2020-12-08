@@ -18,8 +18,10 @@ in
     path = [ pkgs.openresolv pkgs.iptables pkgs.iproute ];
 
     serviceConfig = {
+      ExecStartPre = "${build}/tailscaled/tailscaled --cleanup";
       ExecStart = "${build}/tailscaled/tailscaled --port 41641";
-      EnvironmentFile = "-${repo}/../env";
+      ExecStopPost = "${build}/tailscaled/tailscaled --cleanup";
+      EnvironmentFile = "-/home/dave/tail/env";
 
       RuntimeDirectory = "tailscale";
       RuntimeDirectoryMode = 755;
