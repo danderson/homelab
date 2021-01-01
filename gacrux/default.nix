@@ -17,6 +17,7 @@
   environment.systemPackages = [pkgs.irssi];
 
   services = {
+    openssh.openFirewall = false;
     zfs = {
       autoScrub.enable = true;
       autoSnapshot = {
