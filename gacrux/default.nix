@@ -12,9 +12,16 @@
   networking.hostName = "gacrux";
   networking.interfaces.enp1s0.useDHCP = true;
 
-  networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowPing = true;
+    checkReversePath = "strict";
+    trustedInterfaces = ["tailscale0"];
+  };
 
   boot.supportedFilesystems = ["zfs"];
+
+  environment.systemPackages = [pkgs.irssi];
 
   services = {
     zfs = {
