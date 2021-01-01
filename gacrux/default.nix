@@ -12,14 +12,6 @@
   networking.hostName = "gacrux";
   networking.interfaces.enp1s0.useDHCP = true;
 
-  networking.firewall = {
-    enable = true;
-    allowPing = true;
-    checkReversePath = "strict";
-    logRefusedConnections = false; # Too much backscatter noise
-    trustedInterfaces = ["tailscale0"];
-  };
-
   boot.supportedFilesystems = ["zfs"];
 
   environment.systemPackages = [pkgs.irssi];
