@@ -16,6 +16,7 @@
     enable = true;
     allowPing = true;
     checkReversePath = "strict";
+    logRefusedConnections = false; # Too much backscatter noise
     trustedInterfaces = ["tailscale0"];
   };
 
