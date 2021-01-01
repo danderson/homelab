@@ -30,11 +30,7 @@
   networking = {
     hostName = "vega";
     iproute2.enable = true;
-    firewall = {
-      enable = true;
-      allowPing = true;
-      checkReversePath = "loose";
-    };
+    firewall.checkReversePath = "loose"; # TODO: why?
   };
 
   home-manager.users.dave.home.file = {

@@ -59,12 +59,7 @@
     ATTR{address}=="a6:c0:27:d3:ea:17", NAME="eth0"
   '';
 
-  networking.firewall = {
-    enable = true;
-    allowPing = true;
-    checkReversePath = "strict";
-    allowedUDPPortRanges = [ { from = 60000; to = 61000; } ];
-  };
+  networking.firewall.allowedUDPPortRanges = [ { from = 60000; to = 61000; } ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
