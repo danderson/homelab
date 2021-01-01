@@ -2,7 +2,8 @@
 {
   options = {
     my.cpu-vendor = lib.mkOption {
-      type = lib.types.enum ["intel" "amd"];
+      type = lib.types.enum ["none" "intel" "amd"];
+      default = "none";
     };
   };
 

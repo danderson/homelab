@@ -9,7 +9,7 @@
   my.cpu-vendor = "amd";
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_5_8;
     kernelModules = ["acpi_call"];
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = true;
@@ -111,6 +111,7 @@
     fprintd.enable = true;
     fwupd.enable = true;
     geoip-updater.enable = true;
+    pipewire.enable = true;
   };
 
   services.printing = {
@@ -128,6 +129,17 @@
   virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+      gtkUsePortal = true;
+    };
   };
 
   # This value determines the NixOS release with which your system is to be
