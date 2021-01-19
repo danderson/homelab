@@ -3,21 +3,21 @@ let
   unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
   tailscale-bleeding = unstable.buildGoModule rec {
     pname = "tailscale";
-    version = "1.2.10";
-    tagHash = "4b3581abed6c2db79b61eb1b53e29645df12a833"; # from `git rev-parse v1.2.10`
+    version = "1.3.269";
+    tagHash = "303786c5e0cd67e4036ac5c0845c6a09eb72df84";
 
     src = unstable.fetchFromGitHub {
       owner = "tailscale";
       repo = "tailscale";
-      rev = "v${version}";
-      sha256 = "09m4xhnjpnkic9jy5dwnmpl40r92xa8fcx4xhpadv6hjpx9k4xx5";
+      rev = "da4ec54756d1f8970679872d093fe9fc0c2df417";
+      sha256 = "1ih4nififccdgxj42ppj0hdyk2hvbc7iqlbywnmnjsqkbnj2sn3f";
     };
 
     nativeBuildInputs = [ unstable.makeWrapper ];
 
     CGO_ENABLED = 0;
 
-    vendorSha256 = "01g3jkgl3jrygd154gmjm3dq13nkppd993iym7assdz8mr3rq31s";
+    vendorSha256 = "0hg7w86xmplhj2g5mywjcmdkb9z6blz1j97hyi9wksm1s8wv3cpr";
 
     doCheck = false;
 
