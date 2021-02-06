@@ -2,6 +2,7 @@
   require = [
     ../lib
     ./hardware-configuration.nix
+    ./sway.nix
     ./tailscale.nix
     flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
   ];
@@ -72,7 +73,7 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
-  users.users.dave.extraGroups = ["scanner" "lp" "audio" "video"];
+  users.users.dave.extraGroups = ["scanner" "lp" "audio" "video" "dialout"];
   nixpkgs.config.pulseaudio = true;
   location.provider = "geoclue2";
 
@@ -126,6 +127,11 @@
       gtkUsePortal = true;
     };
   };
+
+  services.udev.extraRules = ''
+    SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
+    ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
+  '';
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

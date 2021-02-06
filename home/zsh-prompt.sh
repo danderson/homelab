@@ -13,7 +13,14 @@ function _da_dynamic_prompt() {
 	echo -n " %F{green}${branch}${summary}%f"
     fi
 
-    if [[ "$SHLVL" > 1 ]]; then
+	native_shlvl=1
+	if [[ "$XDG_SESSION_DESKTOP" == "sway" ]]; then
+		# Sway introduces another level of shell nesting that I can't
+		# clear out for some reason. Hack for now.
+		native_shlvl=2
+	fi
+
+    if [[ "$SHLVL" > $native_shlvl ]]; then
 	pkgs="$(echo "$PATH" | tr ':' '\n' | grep /nix/store | sed 's#^/nix/store/[a-z0-9]\+-##' | sed 's#-[0-9.]\+.*$##')"
 	ls="$(echo -n $pkgs | wc -w)"
 	case $ls in

@@ -11,6 +11,8 @@ let
     fping
     git-crypt
     go
+    goimports
+    gopls
     ipcalc
     ipmitool
     jq
