@@ -10,7 +10,7 @@
   my.cpu-vendor = "amd";
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_8;
+    kernelPackages = pkgs.linuxPackages_5_10;
     kernelModules = ["acpi_call"];
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = true;
@@ -109,7 +109,7 @@
     nssmdns = true;
   };
   virtualisation.virtualbox.host = {
-    enable = true;
+    enable = false;
     enableExtensionPack = true;
   };
   virtualisation.docker = {
