@@ -27,10 +27,10 @@ let
     psmisc
     pwgen
     rename
-    screen
     smartmontools
     sysstat
     tcpdump
+    tmux
     wget
   ];
   gui-programs = with pkgs; [
