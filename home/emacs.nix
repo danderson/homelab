@@ -1,9 +1,25 @@
+{ pkgs, ...}:
+let em = pkgs.emacsPackagesFor pkgs.emacs;
+    bsv-mode = em.trivialBuild {
+      pname = "bsv-mode";
+      vwersion = "0.0";
+      src = pkgs.fetchFromGitHub {
+        owner = "danderson";
+        repo = "bsv-mode";
+        rev = "dd526198472c977a2350aefb0594da322b14e5f9";
+        sha256 = "sha256-QcgDivhRKaiWNvSIH/0rKQvxprEN6N+bAxyp9iCcmiM=";
+      };
+    };
+in
 {
   programs.emacs = {
     enable = true;
     init = {
       enable = true;
       recommendedGcSettings = true;
+      prelude = ''
+        (add-to-list 'load-path "${bsv-mode}/share/emacs/site-lisp")
+      '';
       postlude = ''
         (windmove-default-keybindings)
 
@@ -43,6 +59,13 @@
 
         (add-to-list 'auto-mode-alist '("\\.do$" . shell-script-mode))
         (add-to-list 'auto-mode-alist '("\\.od$" . shell-script-mode))
+
+        (autoload 'bsv-mode "bsv-mode" "BSV mode" t )
+        (add-to-list 'auto-mode-alist '("\\.bsv\\'" . bsv-mode))
+
+        (defun turn-off-indent-tabs-mode ()
+          (setq indent-tabs-mode nil))
+        (add-hook 'bsv-mode-hook #'turn-off-indent-tabs-mode)
       '';
       usePackage = {
         ansi-color = {
