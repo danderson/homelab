@@ -3,6 +3,7 @@
     ../lib
     ./hardware-configuration.nix
     ./sway.nix
+    ./i3.nix
     ./tailscale.nix
     flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
   ];
