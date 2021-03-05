@@ -109,7 +109,7 @@
     nssmdns = true;
   };
   virtualisation.virtualbox.host = {
-    enable = false;
+    enable = true;
     enableExtensionPack = true;
   };
   virtualisation.docker = {
