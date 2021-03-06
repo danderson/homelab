@@ -35,7 +35,7 @@
     firewall.checkReversePath = "loose"; # TODO: why?
   };
 
-  environment.systemPackages = [ pkgs.zoom-us ];
+  environment.systemPackages = with pkgs; [ zoom-us ];
 
   home-manager.users.dave.home.file = {
     "bin/tss" = {

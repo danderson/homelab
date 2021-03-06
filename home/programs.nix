@@ -4,6 +4,7 @@ let
     bc
     conntrack-tools
     dmidecode
+    dnsutils
     dstat
     efibootmgr
     efivar
@@ -31,7 +32,9 @@ let
     sysstat
     tcpdump
     tmux
+    v4l-utils
     wget
+    whois
   ];
   gui-programs = with pkgs; [
     feh
@@ -39,6 +42,7 @@ let
     gimp
     google-chrome
     graphviz
+    obs-studio
     pavucontrol
     pdftk
     steam
