@@ -14,10 +14,14 @@ function _da_dynamic_prompt() {
     fi
 
 	case "$XDG_SESSION_DESKTOP" in
-		sway|none+i3)
-			# Sway and i3 introduce another level of shell nesting
-			# that I can't clear out for some reason. Hack for now.
+		sway)
+			# Sway introduces another level of shell nesting that I
+			# can't clear out for some reason. Hack for now.
 			native_shlvl=2
+			;;
+		none+i3)
+			# i3 has one more!
+			native_shlvl=3
 			;;
 		*)
 			# Everything else expects to have 1 level of shell.
