@@ -28,6 +28,7 @@
   networking.networkmanager.wifi.powersave = true;
   networking.networkmanager.wifi.backend = "iwd";
   networking.useDHCP = false;
+  services.resolved.enable = true;
 
   networking = {
     hostName = "vega";
