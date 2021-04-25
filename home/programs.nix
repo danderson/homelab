@@ -38,6 +38,7 @@ let
   ];
   gui-programs = with pkgs; [
     feh
+    firefox
     gnome3.dconf-editor
     gimp
     google-chrome

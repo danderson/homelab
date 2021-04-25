@@ -36,7 +36,8 @@
     firewall.checkReversePath = "loose"; # TODO: why?
   };
 
-  environment.systemPackages = with pkgs; [ zoom-us ];
+  # Broken by https://github.com/NixOS/nixpkgs/issues/120226
+  #environment.systemPackages = with pkgs; [ zoom-us ];
 
   home-manager.users.dave.home.file = {
     "bin/tss" = {
