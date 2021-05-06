@@ -5,6 +5,7 @@
     ./emacs.nix
     ./git.nix
     ./go.nix
+    ./i3.nix
     ./programs.nix
     ./ssh.nix
     ./zsh.nix

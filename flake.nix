@@ -36,6 +36,7 @@
         vega = box nixos "vega";
         iris = box nixos-small "iris";
         atlas = box nixos-small "atlas";
+        nixos = box nixos "nixos";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {

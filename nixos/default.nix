@@ -2,41 +2,53 @@
   require = [
     ../lib
     ./hardware-configuration.nix
-    ./sway.nix
     ./i3.nix
-    ./tailscale.nix
-    flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
+    #./tailscale.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      firmwareLinuxNonfree = flakes.nixos-unstable.legacyPackages.x86_64-linux.firmwareLinuxNonfree;
+    })
+  ];
+
+  # TODO: autorandr?
+
+  # zpool create -O recordsize=128K -O compression=on -O atime=off -O xattr=sa -O encryption=aes-256-gcm -O keyformat=passphrase -o ashift=12 -m none data /dev/disk/by-partuuid/...
+  # zfs create -o mountpoint=none data/local
+  # zfs create -o mountpoint=legacy data/local/root
+  # zfs create -o mountpoint=legacy data/local/nix
+  # zfs create -o mountpoint=legacy data/local/etc.nixos
+  # zfs create -o mountpoint=none data/safe
+  # zfs create -o mountpoint=legacy data/safe/home
+  # zfs create -o mountpoint=legacy data/safe/persist
+
   my.cpu-vendor = "amd";
+  my.mdns = true;
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_10;
-    kernelModules = ["acpi_call"];
+    kernelPackages = pkgs.linuxPackages_5_11;
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = true;
     extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
-    kernelParams = ["acpi_backlight=native"];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
   };
 
-  networking.hostId = "515b13ad";
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.powersave = true;
-  networking.networkmanager.wifi.backend = "iwd";
-  networking.useDHCP = false;
-  services.resolved.enable = true;
-
   networking = {
-    hostName = "vega";
+    hostName = "nixos";
+    hostId = "5c13d618";
+    networkmanager = {
+      enable = true;
+      wifi.powersave = true;
+      wifi.backend = "iwd";
+    };
+    # Install iproute2 configuration files in /etc.
     iproute2.enable = true;
-    firewall.checkReversePath = "loose"; # TODO: why?
+    #firewall.checkReversePath = "loose"; # TODO: why?
   };
-
-  environment.systemPackages = with pkgs; [ zoom-us ffmpeg ];
 
   home-manager.users.dave.home.file = {
     "bin/tss" = {
@@ -68,20 +80,15 @@
       extraPackages = [ pkgs.amdvlk ];
       # TODO: figure out VAAPI support
     };
-    trackpoint.enable = true;
     bluetooth.enable = true;
   };
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.support32Bit = true;
-  users.users.dave.extraGroups = ["scanner" "lp" "audio" "video" "dialout"];
   nixpkgs.config.pulseaudio = true;
-  location.provider = "geoclue2";
 
   services = {
-    upower.enable = true;
-    lorri.enable = true;
     timesyncd = {
       enable = true;
       servers = ["time.google.com"];
@@ -93,25 +100,12 @@
       displayManager.gdm.enable = true;
       videoDrivers = ["amdgpu"];
     };
-    tlp.enable = true;
-    acpid.enable = true;
-    colord.enable = true;
-    fprintd.enable = true;
     fwupd.enable = true;
-    geoip-updater.enable = true;
-    pipewire.enable = true;
+    printing.enable = true;
   };
 
-  services.printing = {
-    enable = true;
-    drivers = [ ];
-  };
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-  };
   virtualisation.virtualbox.host = {
-    enable = true;
+    enable = false; # TODO: enable
     enableExtensionPack = true;
   };
   virtualisation.docker = {
@@ -119,17 +113,8 @@
     autoPrune.enable = true;
   };
 
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-      gtkUsePortal = true;
-    };
-  };
-
+  # udev rule to allow the "dialout" group to speak to my Lattice FPGA
+  # board over its USB-serial chip.
   services.udev.extraRules = ''
     SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
     ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
@@ -139,5 +124,5 @@
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "20.03"; # Did you read the comment?
+  system.stateVersion = "20.09"; # Did you read the comment?
 }

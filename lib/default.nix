@@ -1,6 +1,7 @@
 { lib, flakes, ... }:
 {
   require = [
+    ./dns.nix
     ./firewall.nix
     ./hardened.nix
     ./lldp.nix

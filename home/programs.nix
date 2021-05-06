@@ -8,6 +8,7 @@ let
     dstat
     efibootmgr
     efivar
+    ffmpeg
     file
     fping
     git-crypt
@@ -47,6 +48,7 @@ let
     pavucontrol
     pdftk
     steam
+    zoom-us
   ];
 in
 {
