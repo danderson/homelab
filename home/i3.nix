@@ -91,11 +91,15 @@ lib.mkIf config.my.gui-programs {
   };
   programs.i3status = {
     enable = true;
+    enableDefault = false;
     general = {
       output_format = "i3bar";
       interval = 5;
     };
     modules = {
+      "ipv6" = {
+        position = 1;
+      };
       "wireless wlan0" = {
         position = 1;
         settings = {
@@ -104,7 +108,14 @@ lib.mkIf config.my.gui-programs {
           format_quality = "%2d%s";
         };
       };
-      "ethernet enp3s0f0" = {
+      "ethernet enp5s0" = {
+        position = 2;
+        settings = {
+          format_up = "E: %ip";
+          format_down = "!E";
+        };
+      };
+      "ethernet enp4s0" = {
         position = 2;
         settings = {
           format_up = "E: %ip";
