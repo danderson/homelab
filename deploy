@@ -3,89 +3,24 @@
 
 set -euo pipefail
 
+set -x
+
 if [ $# -lt 2 ]; then
     echo "Usage: $0 host nixos-cmd nixos-args..."
     exit 1
 fi
 
-HOST=$1
-shift
-NIXOS_CMD=$1
+host=$1
 shift
 
-LOCALHOST="$(hostname)"
+out=$(nix build --json .#nixosConfigurations.${host}.config.system.build.toplevel | jq -r '.[0].outputs.out')
 
+nix copy -s --to "ssh://root@$host" "$out"
+nix copy -s --derivation --to "ssh://root@$host" "$out"
 
-unstablepkgs="https://github.com/nixos/nixpkgs/archive/nixos-unstable.tar.gz" # where to find nixUnstable
-
-nixargs=(--experimental-features "nix-command flakes ca-references recursive-nix")
-# TODO: research post-build hooks?
-buildargs=(
-  --option 'narinfo-cache-negative-ttl' '0'
-)
-#  --option 'extra-binary-caches' 'https://cache.nixos.org'
-#  --option 'trusted-public-keys' 'cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY='
-
-function ssh_nix_unstable() {
-    local r="${1}"; shift;
-	ssh "root@${r}" -- "$(printf '\"%s\" ' "${@}")"
-}
-
-push_build() {
-    host=$1
-    tgt=".#nixosConfigurations.${host}.config.system.build.toplevel"
-    # Get the top-level system store path, and see if it already
-    # exists on the remote. If it does, we can skip a whole bunch of
-    # work.
-    echo ":::::: eval $host" >&2
-    out=$(nix "${nixargs[@]}" eval --raw "$tgt")
-    echo ":::::: checking if already built on $host" >&2
-    if ssh_nix_unstable "$host" test -d "$out"; then
-	echo ":::::: cache hit on $host, not rebuilding" >&2
-	echo "$out"
-	return 0
-    fi
-
-    # Miss, need to instantiate derivations locally, copy them, and
-    # realize them on the remote host.
-    echo ":::::: instantiate $host" >&2
-    drv=$(nix "${nixargs[@]}" eval --raw "${tgt}.drvPath")
-    tmp="/tmp/tmpnixpath"
-
-    if [ "$host" != "$LOCALHOST" ]; then
-	echo ":::::: rsync $drv to $host" >&2
-	nix "${nixargs[@]}" copy --to "file://${tmp}" --derivation "${drv}"
-	rsync -ah "${tmp}/" "${host}:${tmp}"
-	ssh_nix_unstable "$host" nix "${nixargs[@]}" copy --from file://"${tmp}" --derivation "${drv}"
-    fi
-
-    echo ":::::: build $drv on $host" >&2
-    ssh_nix_unstable "$host" nix "${nixargs[@]}" build "${buildargs[@]}" "${drv}"
-    echo "$out"
-}
-
-activate() {
-    host=$1
-    storePath=$2
-    cmd=$3
-    echo ":::::: activate $storePath ($cmd) on $host" >&2
-    ssh_nix_unstable "$host" nix "${nixargs[@]}" build --profile /nix/var/nix/profiles/system "$storePath"
-    ssh_nix_unstable "$host" nix "${nixargs[@]}" shell -vv "$storePath" -c switch-to-configuration "$cmd"
-}
-
-diff() {
-    host=$1
-    storePath=$2
-
-    drvs=$(ssh_nix_unstable "$host" nix-store -qd /run/current-system "$storePath")
-
-    echo ":::::: diff $host"
-    ssh_nix_unstable "$host" nix-diff --color=always $drvs | less -F
-}
-
-storePath=$(push_build "$HOST")
-if [ "$NIXOS_CMD" = "diff" ]; then
-    diff "$HOST" "$storePath"
+if [ "$1" = "diff" ]; then
+	ssh "root@$host" "nix-store -qd /run/current-system $out | xargs nix-diff --color=always" | less
 else
-    activate "$HOST" "$storePath" "$NIXOS_CMD"
+	ssh "root@$host" nix build --profile /nix/var/nix/profiles/system "$out"
+	ssh "root@$host" nix shell -vv "$out" -c switch-to-configuration "$@"
 fi

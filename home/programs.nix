@@ -11,6 +11,7 @@ let
     ffmpeg
     file
     fping
+    gcc
     git-crypt
     go
     goimports
@@ -38,13 +39,17 @@ let
     whois
   ];
   gui-programs = with pkgs; [
+    arandr
+    ddcutil
     feh
     firefox
     gnome3.dconf-editor
     gimp
     google-chrome
     graphviz
+    nitrogen
     obs-studio
+    openrgb
     pavucontrol
     pdftk
     steam

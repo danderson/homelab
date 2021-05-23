@@ -1,5 +1,6 @@
 {
   imports = [
+    ./alacritty.nix
     ./bash.nix
     ./direnv.nix
     ./emacs.nix

@@ -3,7 +3,7 @@
     ../lib
     ./hardware-configuration.nix
     ./i3.nix
-    #./tailscale.nix
+    ./tailscale.nix
   ];
 
   nixpkgs.overlays = [
@@ -25,6 +25,7 @@
 
   my.cpu-vendor = "amd";
   my.mdns = true;
+  home-manager.users.dave.my.battlestation = true;
 
   boot = rec {
     kernelPackages = pkgs.linuxPackages_5_11;

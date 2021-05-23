@@ -33,7 +33,7 @@
       nixosConfigurations = {
         acrux = box nixos-small "acrux";
         gacrux = box nixos-small "gacrux";
-        vega = box nixos "vega";
+        vega = box nixos-unstable "vega";
         iris = box nixos-small "iris";
         atlas = box nixos-small "atlas";
         nixos = box nixos-unstable "nixos";

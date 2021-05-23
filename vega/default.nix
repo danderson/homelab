@@ -9,9 +9,10 @@
   ];
 
   my.cpu-vendor = "amd";
+  my.mdns = true;
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_10;
+    kernelPackages = pkgs.linuxPackages_5_11;
     kernelModules = ["acpi_call"];
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = true;
@@ -28,7 +29,6 @@
   networking.networkmanager.wifi.powersave = true;
   networking.networkmanager.wifi.backend = "iwd";
   networking.useDHCP = false;
-  services.resolved.enable = true;
 
   networking = {
     hostName = "vega";
@@ -105,10 +105,6 @@
   services.printing = {
     enable = true;
     drivers = [ ];
-  };
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
   };
   virtualisation.virtualbox.host = {
     enable = true;

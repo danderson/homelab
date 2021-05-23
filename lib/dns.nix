@@ -8,6 +8,7 @@
   };
 
   config = {
+    networking.useHostResolvConf = false;
     services.resolved = {
       enable = true;
       dnssec = "false";

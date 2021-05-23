@@ -35,6 +35,7 @@ in
         (setq initial-scratch-message nil)
 
         (defalias 'yes-or-no-p 'y-or-n-p)
+        (set-face-attribute 'default nil :family "Source Code Pro" :height 130 :weight 'normal :width 'normal)
 
         (tool-bar-mode -1)
         (scroll-bar-mode -1)
