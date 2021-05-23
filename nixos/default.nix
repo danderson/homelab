@@ -25,7 +25,7 @@
 
   my.cpu-vendor = "amd";
   my.mdns = true;
-  home-manager.users.dave.my.battlestation = true;
+  home-manager.users.dave.my.home-desk = true;
 
   boot = rec {
     kernelPackages = pkgs.linuxPackages_5_11;
