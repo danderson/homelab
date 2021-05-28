@@ -12,7 +12,7 @@
   my.mdns = true;
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_11;
+    kernelPackages = pkgs.linuxPackages_5_10;
     kernelModules = ["acpi_call"];
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = true;
@@ -81,7 +81,6 @@
 
   services = {
     upower.enable = true;
-    lorri.enable = true;
     timesyncd = {
       enable = true;
       servers = ["time.google.com"];
@@ -99,37 +98,12 @@
     fprintd.enable = true;
     fwupd.enable = true;
     geoip-updater.enable = true;
-    pipewire.enable = true;
   };
 
   services.printing = {
     enable = true;
     drivers = [ ];
   };
-  virtualisation.virtualbox.host = {
-    enable = true;
-    enableExtensionPack = true;
-  };
-  virtualisation.docker = {
-    enable = true;
-    autoPrune.enable = true;
-  };
-
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-      gtkUsePortal = true;
-    };
-  };
-
-  services.udev.extraRules = ''
-    SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-    ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-  '';
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
