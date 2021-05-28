@@ -65,7 +65,6 @@
 
   hardware.enableRedistributableFirmware = true;
   documentation.dev.enable = true;
-  documentation.info.enable = false;
 
   fonts = {
     enableDefaultFonts = true;
@@ -99,7 +98,7 @@
     xserver = {
       enable = true;
       libinput.enable = true;
-      desktopManager.gnome3.enable = true;
+      desktopManager.gnome.enable = true;
       displayManager.gdm.enable = true;
       videoDrivers = ["amdgpu"];
     };
