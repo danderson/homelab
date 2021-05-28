@@ -35,6 +35,7 @@ let
     tcpdump
     tmux
     v4l-utils
+    weechat
     wget
     whois
   ];
