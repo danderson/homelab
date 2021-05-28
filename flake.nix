@@ -33,10 +33,10 @@
       nixosConfigurations = {
         acrux = box nixos-small "acrux";
         gacrux = box nixos-small "gacrux";
-        vega = box nixos "vega";
+        izar = box nixos "izar";
         iris = box nixos-small "iris";
         atlas = box nixos-small "atlas";
-        nixos = box nixos-unstable "nixos";
+        vega = box nixos-unstable "vega";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {
