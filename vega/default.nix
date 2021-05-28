@@ -6,8 +6,6 @@
     ./tailscale.nix
   ];
 
-  # TODO: autorandr?
-
   # zpool create -O recordsize=128K -O compression=on -O atime=off -O xattr=sa -O encryption=aes-256-gcm -O keyformat=passphrase -o ashift=12 -m none data /dev/disk/by-partuuid/...
   # zfs create -o mountpoint=none data/local
   # zfs create -o mountpoint=legacy data/local/root
@@ -18,32 +16,20 @@
   # zfs create -o mountpoint=legacy data/safe/persist
 
   my.cpu-vendor = "amd";
-  my.mdns = true;
+  my.desktop = true;
   home-manager.users.dave.my.home-desk = true;
 
   boot = rec {
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = ["zfs"];
-    zfs.requestEncryptionCredentials = true;
     kernelModules = ["i2c-dev" "i2c-i801"];
     extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
   };
 
   networking = {
     hostName = "vega";
     hostId = "5c13d618";
-    networkmanager = {
-      enable = true;
-      wifi.powersave = true;
-      wifi.backend = "iwd";
-    };
-    # Install iproute2 configuration files in /etc.
-    iproute2.enable = true;
-    #firewall.checkReversePath = "loose"; # TODO: why?
   };
 
   home-manager.users.dave.home.file = {
@@ -57,48 +43,7 @@
     };
   };
 
-  hardware.enableRedistributableFirmware = true;
-  documentation.dev.enable = true;
-
-  fonts = {
-    enableDefaultFonts = true;
-    # Give fonts to 32-bit binaries too (e.g. steam).
-    fontconfig.cache32Bit = true;
-    fonts = with pkgs; [
-        google-fonts liberation_ttf opensans-ttf roboto roboto-mono
-    ];
-  };
-
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport32Bit = true; # Maybe for steam?
-      extraPackages = [ pkgs.amdvlk ];
-      # TODO: figure out VAAPI support
-    };
-    bluetooth.enable = true;
-  };
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  nixpkgs.config.pulseaudio = true;
-
-  services = {
-    timesyncd = {
-      enable = true;
-      servers = ["time.google.com"];
-    };
-    xserver = {
-      enable = true;
-      libinput.enable = true;
-      desktopManager.gnome.enable = true;
-      displayManager.gdm.enable = true;
-      videoDrivers = ["amdgpu"];
-    };
-    fwupd.enable = true;
-    printing.enable = true;
-  };
+  services.fwupd.enable = true;
 
   virtualisation.virtualbox.host = {
     enable = true;
