@@ -105,6 +105,14 @@
     drivers = [ ];
   };
 
+  services.octoprint = {
+    enable = true;
+    host = "100.107.67.11";
+    port = 5000;
+    group = "dialout";
+  };
+  #systemd.services.octoprint.path = ["${pkgs.python38Packages.pip}/bin"];
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
