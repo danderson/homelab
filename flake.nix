@@ -31,11 +31,11 @@
       };
     in {
       nixosConfigurations = {
-        acrux = box nixos-small "acrux";
-        gacrux = box nixos-small "gacrux";
+        acrux = box nixos "acrux";
+        gacrux = box nixos "gacrux";
         izar = box nixos "izar";
-        iris = box nixos-small "iris";
-        atlas = box nixos-small "atlas";
+        iris = box nixos "iris";
+        atlas = box nixos "atlas";
         vega = box nixos-unstable "vega";
       };
 

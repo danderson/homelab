@@ -20,7 +20,7 @@
   home-manager.users.dave.my.home-desk = true;
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_5_11;
     kernelModules = ["i2c-dev" "i2c-i801"];
     extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
     loader.systemd-boot.enable = true;
