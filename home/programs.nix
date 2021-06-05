@@ -54,6 +54,7 @@ let
     pavucontrol
     pdftk
     steam
+    virt-manager
     zoom-us
   ];
 in

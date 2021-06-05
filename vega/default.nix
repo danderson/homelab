@@ -45,6 +45,10 @@
 
   services.fwupd.enable = true;
 
+  virtualisation.libvirtd = {
+    enable = true;
+    qemuRunAsRoot = false;
+  };
   virtualisation.virtualbox.host = {
     enable = true;
     enableExtensionPack = true;
