@@ -69,6 +69,7 @@ in
         (add-hook 'bsv-mode-hook #'turn-off-indent-tabs-mode)
       '';
       usePackage = {
+        scad-mode.enable = true;
         ansi-color = {
           enable = true;
           command = [ "ansi-color-apply-on-region" ];

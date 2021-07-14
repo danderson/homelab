@@ -56,6 +56,8 @@ let
     steam
     virt-manager
     zoom-us
+    super-slicer
+    prusa-slicer
   ];
 in
 {
