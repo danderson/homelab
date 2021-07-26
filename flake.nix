@@ -38,7 +38,7 @@
         izar = box nixos-prev home-manager-prev "izar";
         iris = box nixos-prev home-manager-prev "iris";
         atlas = box nixos home-manager "atlas";
-        vega = box nixos-unstable home-manager-unstable "vega";
+        vega = box nixos home-manager "vega";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {

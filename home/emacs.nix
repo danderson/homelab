@@ -165,6 +165,7 @@ in
 	        enable = true;
 	        mode = [''"\\.nix\\'"''];
 	      };
+        terraform-mode.enable = true;
         protobuf-mode = {
           enable = true;
           mode = [
