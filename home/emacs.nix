@@ -199,6 +199,7 @@ in
           enable = true;
           mode = [''"\\.yaml\\'"''];
         };
+        lua-mode.enable = true;
       };
     };
   };
