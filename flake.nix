@@ -35,7 +35,7 @@
       nixosConfigurations = {
         acrux = box nixos-prev home-manager-prev "acrux";
         gacrux = box nixos-prev home-manager-prev "gacrux";
-        izar = box nixos-prev home-manager-prev "izar";
+        izar = box nixos home-manager-prev "izar";
         iris = box nixos-prev home-manager-prev "iris";
         atlas = box nixos home-manager "atlas";
         vega = box nixos home-manager "vega";
