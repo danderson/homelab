@@ -31,6 +31,7 @@ let
     pwgen
     rename
     smartmontools
+    sshfs
     sysstat
     tcpdump
     tmux
@@ -58,6 +59,7 @@ let
     zoom-us
     super-slicer
     prusa-slicer
+    xine-ui
   ];
 in
 {

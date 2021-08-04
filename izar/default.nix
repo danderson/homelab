@@ -92,7 +92,6 @@
       displayManager.gdm.enable = true;
       videoDrivers = ["amdgpu"];
     };
-    tlp.enable = true;
     acpid.enable = true;
     colord.enable = true;
     fprintd.enable = true;
