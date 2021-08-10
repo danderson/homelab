@@ -58,5 +58,11 @@
     # configuration, but it's not bad.
     services.printing.enable = true;
     programs.system-config-printer.enable = true;
+
+    # gnome-keyring for the secrets management service. Also adds its
+    # password prompter GUIs to the session bus's service list, so it
+    # can fire interactive prompts for auth.
+    services.gnome.gnome-keyring.enable = true;
+    services.dbus.packages = [ pkgs.gnome.gcr ];
   };
 }
