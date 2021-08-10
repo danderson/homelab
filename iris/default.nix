@@ -50,9 +50,9 @@ in
 
   services = {
     zfs = {
-      autoScrub.enable = true;
+      autoScrub.enable = false;
       autoSnapshot = {
-        enable = true;
+        enable = false;
         frequent = 4;
         hourly = 2;
         daily = 7;
