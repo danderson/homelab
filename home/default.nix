@@ -7,6 +7,7 @@
     ./git.nix
     ./go.nix
     ./i3.nix
+    ./keyring.nix
     ./programs.nix
     ./ssh.nix
     ./zsh.nix
