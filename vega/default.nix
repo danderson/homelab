@@ -42,9 +42,17 @@
       executable = true;
       text = builtins.readFile ./delete-my-old-branches.sh;
     };
+    "bin/layout" = {
+      executable = true;
+      text = builtins.readFile ./layout.sh;
+    };
   };
 
+  environment.systemPackages = [ pkgs.barrier ];
+
   services.fwupd.enable = true;
+  networking.firewall.allowedTCPPorts = [ 24800 ];
+  networking.firewall.allowedUDPPorts = [ 24800 ];
 
   virtualisation.libvirtd = {
     enable = true;
