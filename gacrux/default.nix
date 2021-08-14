@@ -33,13 +33,14 @@
   boot.loader.grub.device = "/dev/vda";
   networking.hostName = "gacrux";
   networking.interfaces.enp1s0.useDHCP = true;
+  networking.nameservers = ["8.8.8.8"];
 
   boot.supportedFilesystems = ["zfs"];
 
   environment.systemPackages = [pkgs.irssi];
 
   services = {
-    openssh.openFirewall = true;
+    openssh.openFirewall = false;
     zfs = {
       autoScrub.enable = true;
       autoSnapshot = {

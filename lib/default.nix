@@ -4,7 +4,6 @@
     ./desktop.nix
     ./dns.nix
     ./firewall.nix
-    ./hardened.nix
     ./lldp.nix
     ./microcode.nix
     ./networking.nix
