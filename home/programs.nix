@@ -49,6 +49,7 @@ let
     gimp
     google-chrome
     graphviz
+    freecad
     nitrogen
     obs-studio
     openrgb
