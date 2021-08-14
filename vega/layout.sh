@@ -32,7 +32,7 @@ set_basic_settings() {
 		ddcutil -n $sn setvcp xDC x07 # Display mode = Professional (all signal processing off)
 		ddcutil -n $sn setvcp x14 x04 # 5000K color temp
 		ddcutil -n $sn setvcp x12 70 # Contrast=70
-		ddcutil -n $sn setvcp x10 35 # Brightness=0
+		ddcutil -n $sn setvcp x10 35 # Brightness=35
 	done
 }
 
