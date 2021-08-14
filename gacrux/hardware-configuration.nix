@@ -12,7 +12,6 @@
       # to the *boot time* of the host).
       hwclock -s
     '';
-  security.rngd.enable = lib.mkDefault false;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/cef90582-98f9-41f7-aaf7-33822ee28bc3";
