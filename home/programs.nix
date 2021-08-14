@@ -24,6 +24,7 @@ let
     lsof
     mosh
     neofetch
+    niv
     nix-diff
     nmap
     pciutils
