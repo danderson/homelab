@@ -33,10 +33,10 @@
       };
     in {
       nixosConfigurations = {
-        acrux = box nixos-prev home-manager-prev "acrux";
+        acrux = box nixos home-manager "acrux";
         gacrux = box nixos home-manager "gacrux";
         izar = box nixos home-manager "izar";
-        iris = box nixos-prev home-manager-prev "iris";
+        iris = box nixos home-manager "iris";
         atlas = box nixos home-manager "atlas";
         vega = box nixos home-manager "vega";
       };

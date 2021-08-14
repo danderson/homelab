@@ -24,17 +24,13 @@ in
   networking = {
     hostName = "iris";
     hostId = "2a939c2d";
-    nameservers = [ "8.8.8.8" ];
+    defaultGateway = "192.168.1.254";
+    nameservers = ["192.168.1.254"];
 
     interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.17.13";
-      prefixLength = 26;
+      address = "192.168.1.3";
+      prefixLength = 24;
     }];
-    interfaces.wlp0s20u3.useDHCP = true;
-
-    wireless = {
-      enable = true;
-    };
   };
 
   powerManagement.cpuFreqGovernor = "performance";
