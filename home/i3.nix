@@ -17,7 +17,10 @@
         }];
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
-        fonts = ["pango:DejaVu Sans Mono 11"];
+        fonts = {
+          names = ["pango:DejaVu Sans Mono"];
+          size = 11.0;
+        };
         modes = {
           resize = {
             "j" = "resize shrink width 10 px or 10 ppt";
