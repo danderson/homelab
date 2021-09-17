@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, flakes, ... }:
 let
   cli-programs = with pkgs; [
     bc
@@ -13,7 +13,6 @@ let
     fping
     gcc
     git-crypt
-    go
     goimports
     gopls
     ipcalc
@@ -40,6 +39,7 @@ let
     weechat
     wget
     whois
+    wireguard
   ];
   gui-programs = with pkgs; [
     arandr

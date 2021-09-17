@@ -15,7 +15,7 @@
 
   networking.hostName = "acrux"; # Define your hostname.
   networking.defaultGateway = "192.168.1.254";
-  networking.nameservers = ["192.168.1.254"];
+  networking.nameservers = ["127.0.0.1:54"];
   networking.interfaces.eno1 = {
     useDHCP = false;
     ipv4 = {

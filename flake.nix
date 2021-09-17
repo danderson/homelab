@@ -11,7 +11,7 @@
     my-fork.url = github:danderson/nixpkgs/influxdb2-svc;
   };
 
-  outputs = { self, nixos-prev, nixos, nixos-unstable, home-manager-prev, home-manager, home-manager-unstable, nur, ... } @ flakes:
+  outputs = { self, nixos, nixos-unstable, home-manager, home-manager-unstable, nur, ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
         system = "x86_64-linux";

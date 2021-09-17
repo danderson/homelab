@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flakes, ... }:
 {
   environment.homeBinInPath = true;
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit flakes; };
     users = {
       dave = {
         imports = [
