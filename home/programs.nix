@@ -1,5 +1,6 @@
 { config, pkgs, lib, flakes, ... }:
 let
+  unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
   cli-programs = with pkgs; [
     bc
     conntrack-tools
@@ -13,8 +14,9 @@ let
     fping
     gcc
     git-crypt
-    goimports
-    gopls
+    unstable.go_1_17
+    unstable.goimports
+    unstable.gopls
     ipcalc
     ipmitool
     jq
@@ -35,6 +37,7 @@ let
     sysstat
     tcpdump
     tmux
+    unzip
     v4l-utils
     weechat
     wget
@@ -43,12 +46,14 @@ let
   ];
   gui-programs = with pkgs; [
     arandr
+    unstable.cura
     ddcutil
     feh
     firefox
     gnome3.dconf-editor
     gimp
     google-chrome
+    gnome.gnome-screenshot
     graphviz
     freecad
     nitrogen
@@ -56,6 +61,7 @@ let
     openrgb
     pavucontrol
     pdftk
+    plater
     steam
     virt-manager
     zoom-us
