@@ -24,11 +24,11 @@ in
   networking = {
     hostName = "iris";
     hostId = "2a939c2d";
-    defaultGateway = "192.168.1.254";
-    nameservers = ["192.168.1.254"];
+    defaultGateway = "192.168.4.1";
+    nameservers = ["192.168.4.2"];
 
     interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.1.3";
+      address = "192.168.4.3";
       prefixLength = 24;
     }];
   };

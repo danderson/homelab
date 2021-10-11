@@ -91,7 +91,7 @@
           "Mod4+6" = "workspace number 6";
           "Mod4+7" = "workspace number 7";
           "Mod4+8" = "workspace number 8";
-          "Mod4+9" = "workspace number 9";
+          "Mod4+9" = "workspace number 9: game";
           "Mod4+0" = "workspace 10: video";
           "Mod4+Shift+1" = "move container to workspace 1: emacs";
           "Mod4+Shift+2" = "move container to workspace 2: browsing";
@@ -101,7 +101,7 @@
           "Mod4+Shift+6" = "move container to workspace number 6";
           "Mod4+Shift+7" = "move container to workspace number 7";
           "Mod4+Shift+8" = "move container to workspace number 8";
-          "Mod4+Shift+9" = "move container to workspace number 9";
+          "Mod4+Shift+9" = "move container to workspace number 9: game";
           "Mod4+Shift+0" = "move container to workspace 10: video";
           "Mod4+Shift+c" = "reload";
           "Mod4+Shift+r" = "restart";
@@ -119,7 +119,6 @@
       extraConfig = ''
         title_align center
         assign [class="emacs"] "1: emacs"
-        assign [class="Firefox" window_type="normal"] "2: browsing"
         assign [class="Alactritty" title="^\[mosh\] "] "3: comms"
         assign [class=".obs-wrapped"] "8: obs"
         assign [class="Steam"] "9: game"

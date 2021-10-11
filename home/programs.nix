@@ -1,6 +1,15 @@
 { config, pkgs, lib, flakes, ... }:
 let
   unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
+  weechat-with-matrix = unstable.weechat.override {
+    configure = { availablePlugins, ... }: {
+      plugins = with availablePlugins; [
+        (python.withPackages (_: [ unstable.weechatScripts.weechat-matrix ]))
+        lua
+      ];
+      scripts = [ unstable.weechatScripts.weechat-matrix ];
+    };
+  };
   cli-programs = with pkgs; [
     bc
     conntrack-tools
@@ -39,7 +48,7 @@ let
     tmux
     unzip
     v4l-utils
-    weechat
+    weechat-with-matrix
     wget
     whois
     wireguard

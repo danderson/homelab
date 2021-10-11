@@ -6,28 +6,6 @@
     ./private.nix
   ];
 
-  nixpkgs.overlays = let
-    u = flakes.nixos-unstable.legacyPackages.x86_64-linux;
-    wm = u.weechatScripts.weechat-matrix.overrideAttrs (oldAttrs: rec {
-      src = u.fetchFromGitHub {
-        owner = "poljar";
-        repo = "weechat-matrix";
-        rev = "04be5a8764df750777fed065e0622298c9d7bc2f";
-        hash = "sha256-V45WGnFIMm24QNMK7GnddHmR/FF0lpDWP6dQdAX3kuk=";
-      };
-    });
-  in [(self: super: {
-    weechat = u.weechat.override {
-      configure = { availablePlugins, ... }: {
-        plugins = with availablePlugins; [
-          (python.withPackages (_: [ wm ]))
-          lua
-        ];
-        scripts = [ wm ];
-      };
-    };
-  })];
-
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/vda";
@@ -36,6 +14,7 @@
   networking.nameservers = ["8.8.8.8"];
 
   boot.supportedFilesystems = ["zfs"];
+  boot.zfs.extraPools = ["data"];
 
   environment.systemPackages = [pkgs.irssi];
 
@@ -43,13 +22,6 @@
     openssh.openFirewall = false;
     zfs = {
       autoScrub.enable = true;
-      autoSnapshot = {
-        enable = true;
-        frequent = 4;
-        hourly = 2;
-        daily = 7;
-        monthly = 12;
-      };
     };
   };
 

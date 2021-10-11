@@ -10,6 +10,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.zfs.extraPools = ["data"];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/2d1cefec-8f2b-48f6-9a84-11713d719f79";
@@ -19,16 +20,6 @@
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/D190-3731";
       fsType = "vfat";
-    };
-
-  fileSystems."/data" =
-    { device = "data";
-      fsType = "zfs";
-    };
-
-  fileSystems."/data/monitoring" =
-    { device = "data/monitoring";
-      fsType = "zfs";
     };
 
   swapDevices = [ ];

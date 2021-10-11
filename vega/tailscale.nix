@@ -2,6 +2,8 @@
 let
   repo = "/home/dave/tail/corp";
   build = "${repo}/out/native/oss/cmd";
+  #tailscale = "${build}/tailscaled/tailscaled"; # redo mode
+  tailscale = "${build}/tailscaled/tailscaled"; # gocross mode
 in
 {
   my.disable-system-tailscale = true;
@@ -18,9 +20,9 @@ in
     path = [ pkgs.openresolv pkgs.iptables pkgs.iproute ];
 
     serviceConfig = {
-      ExecStartPre = "${build}/tailscaled/tailscaled --cleanup";
-      ExecStart = "${build}/tailscaled/tailscaled --port 41641";
-      ExecStopPost = "${build}/tailscaled/tailscaled --cleanup";
+      ExecStartPre = "${tailscale} --cleanup";
+      ExecStart = "${tailscale} --port 41641";
+      ExecStopPost = "${tailscale} --cleanup";
       EnvironmentFile = "-/home/dave/tail/env";
 
       RuntimeDirectory = "tailscale";

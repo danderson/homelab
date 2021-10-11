@@ -2,6 +2,7 @@
 {
   imports = [
     ../lib
+    ./adguard.nix
     ./hardware-configuration.nix
     ./private.nix
     ./influxdb2.nix
@@ -14,14 +15,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "acrux"; # Define your hostname.
-  networking.defaultGateway = "192.168.1.254";
+  networking.defaultGateway = "192.168.4.1";
   networking.nameservers = ["127.0.0.1:54"];
   networking.interfaces.eno1 = {
     useDHCP = false;
     ipv4 = {
       addresses = [
         {
-          address = "192.168.1.2";
+          address = "192.168.4.2";
           prefixLength = 24;
         }
       ];

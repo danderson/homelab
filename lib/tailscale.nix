@@ -47,9 +47,9 @@ in
     };
   };
   config = lib.mkIf (!config.boot.isContainer) {
-    # nixpkgs.overlays = [(final: prev: {
-    #   tailscale = tailscale-bleeding;
-    # })];
+    nixpkgs.overlays = [(final: prev: {
+      tailscale = unstable.tailscale;
+    })];
     services.tailscale.enable = !config.my.disable-system-tailscale;
     # environment.systemPackages = lib.mkIf (!config.my.disable-system-tailscale) [ pkgs.tailscale ];
     systemd.services.tailscaled.path = [ pkgs.openresolv ];
