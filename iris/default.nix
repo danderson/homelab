@@ -18,6 +18,7 @@ in
     };
     kernelPackages = pkgs.linuxPackages_4_19;
     supportedFilesystems = ["zfs"];
+    zfs.requestEncryptionCredentials = false;
     kernelModules = ["sg"];
   };
 
@@ -29,6 +30,10 @@ in
 
     interfaces.eno1.ipv4.addresses = [{
       address = "192.168.4.3";
+      prefixLength = 24;
+    }];
+    interfaces.enp6s0f1.ipv4.addresses = [{
+      address = "192.168.5.3";
       prefixLength = 24;
     }];
   };

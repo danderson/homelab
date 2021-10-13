@@ -15,6 +15,7 @@
 
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.extraPools = ["data"];
+  boot.zfs.requestEncryptionCredentials = false;
 
   environment.systemPackages = [pkgs.irssi];
 

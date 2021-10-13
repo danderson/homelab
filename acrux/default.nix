@@ -28,6 +28,10 @@
       ];
     };
   };
+  networking.interfaces.enp2s0f1.ipv4.addresses = [{
+    address = "192.168.5.2";
+    prefixLength = 24;
+  }];
   networking.interfaces.eno2.useDHCP = false;
   networking.interfaces.eno3.useDHCP = false;
   networking.interfaces.eno4.useDHCP = false;
