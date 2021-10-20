@@ -51,7 +51,7 @@ in
 
   services = {
     zfs = {
-      autoScrub.enable = false;
+      autoScrub.enable = true;
       autoSnapshot = {
         enable = false;
         frequent = 4;
@@ -60,6 +60,32 @@ in
         monthly = 12;
       };
     };
+  };
+  systemd.services.clean-snapshots = let
+    cleaner = pkgs.writeScript "clean-snapshots.rb" ''
+#!${pkgs.ruby}/bin/ruby -I${pkgs.zfstools}/lib
+
+require 'zfstools'
+require 'zfstools/dataset'
+
+interval=ARGV[0]
+keep=ARGV[1].to_i
+pool=nil
+
+datasets = {
+  'included' => Zfs::Dataset.list(nil, []),
+  'excluded' => [],
+}
+
+cleanup_expired_snapshots(pool, datasets, interval, keep, true)
+    '';
+  in {
+    script = ''
+      ${cleaner} frequent 4
+      ${cleaner} hourly 2
+      ${cleaner} daily 7
+      ${cleaner} monthly 12
+    '';
   };
 
   # This value determines the NixOS release with which your system is to be

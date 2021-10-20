@@ -11,7 +11,7 @@
   boot.loader.grub.device = "/dev/vda";
   networking.hostName = "gacrux";
   networking.interfaces.enp1s0.useDHCP = true;
-  networking.nameservers = ["8.8.8.8"];
+  networking.nameservers = ["8.8.8.8" "8.8.4.4"];
 
   boot.supportedFilesystems = ["zfs"];
   boot.zfs.extraPools = ["data"];

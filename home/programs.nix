@@ -16,6 +16,7 @@ let
     dmidecode
     dnsutils
     dstat
+    edac-utils
     efibootmgr
     efivar
     ffmpeg

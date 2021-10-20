@@ -3,6 +3,7 @@
   imports = [
     ../lib
     ./adguard.nix
+    ./backups.private.nix
     ./hardware-configuration.nix
     ./private.nix
     ./influxdb2.nix
