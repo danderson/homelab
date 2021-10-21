@@ -52,7 +52,6 @@
         monthly = 12;
       };
     };
-    #fwupd.enable = false; # Mass rebuild?
   };
 
   # power.ups.enable = true # need to figure out out how
