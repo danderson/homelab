@@ -1,6 +1,7 @@
 { lib, flakes, ... }:
 {
   require = [
+    ./cpufreq.nix
     ./desktop.nix
     ./dns.nix
     ./firewall.nix
