@@ -24,6 +24,7 @@ let
     fping
     gcc
     git-crypt
+    glances
     unstable.go_1_17
     unstable.goimports
     unstable.gopls
