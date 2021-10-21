@@ -23,18 +23,6 @@
         "url": "https://github.com/nix-community/home-manager/archive/72f3bc6fa461a2899a06c87c137c7135e410e387.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "influx-fork": {
-        "branch": "influxdb2-svc",
-        "description": "Nix Packages collection",
-        "homepage": null,
-        "owner": "danderson",
-        "repo": "nixpkgs",
-        "rev": "70297a0e2c9b0f1f7f58dbc93fd0b5d1d4b00e55",
-        "sha256": "0qrk7msdi0qn2f17f25bd408s87dw1690nqi06x1ksifs3gm7xnk",
-        "type": "tarball",
-        "url": "https://github.com/danderson/nixpkgs/archive/70297a0e2c9b0f1f7f58dbc93fd0b5d1d4b00e55.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",

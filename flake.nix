@@ -8,7 +8,6 @@
     home-manager.url = github:nix-community/home-manager/release-21.05;
     home-manager-unstable.url = github:nix-community/home-manager/master;
     nur.url = github:nix-community/NUR;
-    my-fork.url = github:danderson/nixpkgs/influxdb2-svc;
   };
 
   outputs = { self, nixos, nixos-unstable, home-manager, home-manager-unstable, nur, ... } @ flakes:

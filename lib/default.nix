@@ -11,7 +11,6 @@
     ./shell.nix
     ./ssh.nix
     ./tailscale.nix
-    ./telegraf.nix
     ./time.nix
     ./timezone.nix
     ./tmp.nix

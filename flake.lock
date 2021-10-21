@@ -38,22 +38,6 @@
         "type": "github"
       }
     },
-    "my-fork": {
-      "locked": {
-        "lastModified": 1606212316,
-        "narHash": "sha256-0/ZT39Au6hm6ARFbkEzg7SCNAGmrCHeCExaD2HQ9M2M=",
-        "owner": "danderson",
-        "repo": "nixpkgs",
-        "rev": "70297a0e2c9b0f1f7f58dbc93fd0b5d1d4b00e55",
-        "type": "github"
-      },
-      "original": {
-        "owner": "danderson",
-        "ref": "influxdb2-svc",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixos": {
       "locked": {
         "lastModified": 1634661806,
@@ -148,7 +132,6 @@
       "inputs": {
         "home-manager": "home-manager",
         "home-manager-unstable": "home-manager-unstable",
-        "my-fork": "my-fork",
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
         "nixos-unstable": "nixos-unstable",
