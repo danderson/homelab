@@ -81,10 +81,6 @@
 
   services = {
     upower.enable = true;
-    timesyncd = {
-      enable = true;
-      servers = ["time.google.com"];
-    };
     xserver = {
       enable = true;
       libinput.enable = true;
