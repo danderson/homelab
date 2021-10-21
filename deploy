@@ -3,8 +3,6 @@
 
 set -euo pipefail
 
-set -x
-
 if [ $# -lt 2 ]; then
     echo "Usage: $0 host|all nixos-cmd nixos-args..."
     exit 1
@@ -13,6 +11,7 @@ fi
 onehost() {
 	host=$1
 	shift
+	set -x
 	out=$(nix build --json .#nixosConfigurations.${host}.config.system.build.toplevel | jq -r '.[0].outputs.out')
 
 	nix copy -s --to "ssh://root@$host" "$out"
@@ -24,12 +23,17 @@ onehost() {
 		ssh "root@$host" nix build --profile /nix/var/nix/profiles/system "$out"
 		ssh "root@$host" nix shell -vv "$out" -c switch-to-configuration "$@"
 	fi
+	set +x
 }
 
 host=$1
 shift
 if [[ "$host" == "all" ]]; then
 	for host in `grep '= box' flake.nix | awk '{print $1}'`; do
+		echo
+		echo "##################################"
+		echo "# $host"
+		echo "##################################"
 		onehost "$host" "$@"
 	done
 else
