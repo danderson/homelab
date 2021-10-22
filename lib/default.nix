@@ -7,6 +7,7 @@
     ./firewall.nix
     ./lldp.nix
     ./microcode.nix
+    ./monitoring.nix
     ./networking.nix
     ./nix.nix
     ./shell.nix
