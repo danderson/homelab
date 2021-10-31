@@ -24,6 +24,10 @@
     zfs = {
       autoScrub.enable = true;
     };
+    robustirc-bridge = {
+      enable = true;
+      extraFlags = "-socks=localhost:1080";
+    };
   };
 
   # This value determines the NixOS release from which the default
