@@ -49,7 +49,7 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.barrier ];
+  environment.systemPackages = [ pkgs.barrier pkgs.mono pkgs.libgdiplus ];
 
   services.fwupd.enable = true;
   networking.firewall.allowedTCPPorts = [ 24800 ];

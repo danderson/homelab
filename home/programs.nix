@@ -43,6 +43,7 @@ let
     psmisc
     pwgen
     rename
+    ripgrep
     smartmontools
     sshfs
     sysstat

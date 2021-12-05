@@ -26,7 +26,7 @@
     };
     robustirc-bridge = {
       enable = true;
-      extraFlags = "-socks=localhost:1080";
+      extraFlags = ["-socks=localhost:1080"];
     };
   };
 

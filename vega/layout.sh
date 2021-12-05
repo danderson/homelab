@@ -70,6 +70,20 @@ randr_linux_mac() {
 		--output $rightdown --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal
 }
 
+brightness_sun() {
+	for sn in $sn_rightup $sn_rightdown $sn_mid $sn_left; do
+		ddcutil -n $sn setvcp x10 100 # Brightness=90
+		ddcutil -n $sn setvcp x12 100 # Contrast=70
+	done
+}
+
+brightness_dark() {
+	for sn in $sn_rightup $sn_rightdown $sn_mid $sn_left; do
+		ddcutil -n $sn setvcp x10 35 # Brightness=35
+		ddcutil -n $sn setvcp x12 70 # Contrast=70
+	done
+}
+
 set_ws() {
 	output="$1"
 	shift
@@ -137,6 +151,12 @@ case "$1" in
 	reset)
 		set_basic_settings
 		$0 linux
+		;;
+	sun)
+		brightness_sun
+		;;
+	dark)
+		brightness_dark
 		;;
 	_interactive)
 		$0 _list | dmenu | xargs $0
