@@ -89,7 +89,8 @@ set_ws() {
 	shift
 	for ws in "$@"; do
 		i3-msg "focus output $output" >/dev/null
-		i3-msg "[workspace=\"$ws\"] move workspace to output $output" >/dev/null
+		# The || true is a workaround for https://github.com/i3/i3/issues/4691
+		i3-msg "[workspace=\"$ws\"] move workspace to output $output" >/dev/null || true
 	done
 	i3-msg "workspace $1" >/dev/null
 }
