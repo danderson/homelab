@@ -36,7 +36,7 @@
         gacrux = box nixos-old home-manager-old "gacrux";
         mimosa = box nixos-old home-manager-old "mimosa";
         izar = box nixos-old home-manager-old "izar";
-        iris = box nixos-old home-manager-old "iris";
+        iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
       };
 
