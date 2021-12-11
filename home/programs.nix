@@ -72,7 +72,6 @@ let
     obs-studio
     openrgb
     pavucontrol
-    pdftk
     plater
     steam
     virt-manager

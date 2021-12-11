@@ -92,7 +92,6 @@
     colord.enable = true;
     fprintd.enable = true;
     fwupd.enable = true;
-    geoip-updater.enable = true;
   };
 
   services.printing = {
