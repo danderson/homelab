@@ -76,8 +76,8 @@ let
     steam
     virt-manager
     zoom-us
-    super-slicer
-    prusa-slicer
+    unstable.super-slicer
+    unstable.prusa-slicer
     xine-ui
   ];
 in
