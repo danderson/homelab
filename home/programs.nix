@@ -1,13 +1,13 @@
 { config, pkgs, lib, flakes, ... }:
 let
   unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
-  weechat-with-matrix = unstable.weechat.override {
+  weechat-with-matrix = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
       plugins = with availablePlugins; [
-        (python.withPackages (_: [ unstable.weechatScripts.weechat-matrix ]))
+        (python.withPackages (_: [ pkgs.weechatScripts.weechat-matrix ]))
         lua
       ];
-      scripts = [ unstable.weechatScripts.weechat-matrix ];
+      scripts = [ pkgs.weechatScripts.weechat-matrix ];
     };
   };
   cli-programs = with pkgs; [
@@ -88,6 +88,10 @@ in
 
   config = {
     home.packages = cli-programs ++ (if config.my.gui-programs then gui-programs else []);
+    home.file."bin/needs-reboot" = {
+      executable = true;
+      text = builtins.readFile ./needs-reboot.sh;
+    };
     programs.lesspipe.enable = true;
     programs.dircolors.enable = true;
   };
