@@ -2,7 +2,6 @@
 let
   repo = "/home/dave/tail/corp";
   build = "${repo}/out/native/oss/cmd";
-  #tailscale = "${build}/tailscaled/tailscaled"; # redo mode
   tailscale = "${build}/tailscaled/tailscaled"; # gocross mode
 in
 {
