@@ -22,21 +22,6 @@
   networking.hostName = "rigel";
   networking.hostId = "1d358a90";
 
-  home-manager.users.dave.home.file = {
-    "bin/tss" = {
-      executable = true;
-      text = builtins.readFile ./tailscale-switch-profile.sh;
-    };
-    "bin/delbr" = {
-      executable = true;
-      text = builtins.readFile ./delete-my-old-branches.sh;
-    };
-    "bin/layout" = {
-      executable = true;
-      text = builtins.readFile ./layout.sh;
-    };
-  };
-
   environment.systemPackages = [ pkgs.barrier pkgs.mono pkgs.libgdiplus ];
 
   services.fwupd.enable = true;

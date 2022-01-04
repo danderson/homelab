@@ -38,17 +38,6 @@
 
   environment.systemPackages = with pkgs; [ zoom-us ffmpeg ];
 
-  home-manager.users.dave.home.file = {
-    "bin/tss" = {
-      executable = true;
-      text = builtins.readFile ./tailscale-switch-profile.sh;
-    };
-    "bin/delbr" = {
-      executable = true;
-      text = builtins.readFile ./delete-my-old-branches.sh;
-    };
-  };
-
   hardware.enableRedistributableFirmware = true;
   documentation.dev.enable = true;
 

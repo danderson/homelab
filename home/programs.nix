@@ -88,9 +88,24 @@ in
 
   config = {
     home.packages = cli-programs ++ (if config.my.gui-programs then gui-programs else []);
-    home.file."bin/needs-reboot" = {
-      executable = true;
-      text = builtins.readFile ./needs-reboot.sh;
+    home.file = {
+      "bin/needs-reboot" = {
+        executable = true;
+        text = builtins.readFile ./needs-reboot.sh;
+      };
+
+      "bin/delbr" = {
+        executable = true;
+        text = builtins.readFile ./delete-my-old-branches.sh;
+      };
+      "bin/tss" = {
+        executable = true;
+        text = builtins.readFile ./tailscale-switch-profile.sh;
+      };
+      "bin/layout" = lib.mkIf config.my.gui-programs {
+        executable = true;
+        text = builtins.readFile ./layout.sh;
+      };
     };
     programs.lesspipe.enable = true;
     programs.dircolors.enable = true;
