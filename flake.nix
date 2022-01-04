@@ -38,6 +38,7 @@
         izar = box nixos home-manager "izar";
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
+        rigel = box nixos home-manager "rigel";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {
