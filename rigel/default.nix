@@ -22,11 +22,9 @@
   networking.hostName = "rigel";
   networking.hostId = "1d358a90";
 
-  environment.systemPackages = [ pkgs.barrier pkgs.mono pkgs.libgdiplus ];
+  environment.systemPackages = [ pkgs.barrier ];
 
   services.fwupd.enable = true;
-  networking.firewall.allowedTCPPorts = [ 24800 ];
-  networking.firewall.allowedUDPPorts = [ 24800 ];
 
   virtualisation.libvirtd = {
     enable = true;
@@ -40,14 +38,6 @@
     enable = true;
     autoPrune.enable = true;
   };
-
-  # udev rule to allow the "dialout" group to speak to my Lattice FPGA
-  # board over its USB-serial chip.
-  services.udev.extraRules = ''
-    # FPGA dev board
-    SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-    ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-  '';
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

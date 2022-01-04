@@ -34,11 +34,9 @@
     hostId = "5c13d618";
   };
 
-  environment.systemPackages = [ pkgs.barrier pkgs.mono pkgs.libgdiplus ];
+  environment.systemPackages = [ pkgs.barrier ];
 
   services.fwupd.enable = true;
-  networking.firewall.allowedTCPPorts = [ 24800 ];
-  networking.firewall.allowedUDPPorts = [ 24800 ];
 
   virtualisation.libvirtd = {
     enable = true;

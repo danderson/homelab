@@ -1,4 +1,4 @@
-{ config, pkgs, flakes, ... }:
+{ config, pkgs, flakes, lib, ... }:
 {
   # Things that require setcap wrappers. Everything else is in ../home
   programs = {

@@ -9,7 +9,6 @@
   ];
 
   my.cpu-vendor = "amd";
-  my.mdns = true;
 
   boot = rec {
     kernelPackages = pkgs.linuxPackages_5_10;
