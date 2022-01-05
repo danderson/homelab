@@ -2,8 +2,6 @@
   require = [
     ../lib
     ./hardware-configuration.nix
-    ./sway.nix
-    ./i3.nix
   ];
 
   my.cpu-vendor = "intel";

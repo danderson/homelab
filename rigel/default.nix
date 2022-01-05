@@ -2,8 +2,6 @@
   require = [
     ../lib
     ./hardware-configuration.nix
-    ./i3.nix
-    ./private.nix
   ];
 
   my.cpu-vendor = "amd";

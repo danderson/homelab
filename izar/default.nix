@@ -2,8 +2,6 @@
   require = [
     ../lib
     ./hardware-configuration.nix
-    ./sway.nix
-    ./i3.nix
     flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
   ];
 
