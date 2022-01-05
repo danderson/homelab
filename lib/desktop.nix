@@ -1,12 +1,5 @@
 {config, lib, pkgs, ...}:
 {
-  options = {
-    my.desktop = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-  };
-
   config = lib.mkIf config.my.desktop {
     # ZFS is great.
     boot.supportedFilesystems = ["zfs"];

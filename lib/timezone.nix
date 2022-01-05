@@ -1,3 +1,3 @@
 {
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "America/Vancouver";
 }

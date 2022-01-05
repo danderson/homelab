@@ -10,6 +10,7 @@
     ./monitoring.nix
     ./networking.nix
     ./nix.nix
+    ./options.nix
     ./shell.nix
     ./ssh.nix
     ./tailscale.nix

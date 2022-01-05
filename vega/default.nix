@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ./i3.nix
     ./private.nix
-    ./tailscale.nix
   ];
 
   # zpool create -O recordsize=128K -O compression=on -O atime=off -O xattr=sa -O encryption=aes-256-gcm -O keyformat=passphrase -o ashift=12 -m none data /dev/disk/by-partuuid/...

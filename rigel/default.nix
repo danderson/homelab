@@ -4,7 +4,6 @@
     ./hardware-configuration.nix
     ./i3.nix
     ./private.nix
-    ./tailscale.nix
   ];
 
   my.cpu-vendor = "amd";
