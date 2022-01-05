@@ -8,11 +8,9 @@
 
   my.cpu-vendor = "amd";
   my.desktop = true;
+  my.ddc = true;
 
-  boot = rec {
-    #kernelModules = ["i2c-dev" "i2c-i801"];
-    loader.systemd-boot.enable = true;
-  };
+  boot.loader.systemd-boot.enable = true;
 
   networking = {
     hostName = "rigel";

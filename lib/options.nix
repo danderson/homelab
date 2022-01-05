@@ -5,6 +5,11 @@
       default = "none";
     };
 
+    ddc = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+
     desktop = lib.mkOption {
       type = lib.types.bool;
       default = false;

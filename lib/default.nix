@@ -3,6 +3,7 @@
   require = [
     ./boot.nix
     ./cpufreq.nix
+    ./ddc.nix
     ./desktop.nix
     ./dns.nix
     ./firewall.nix

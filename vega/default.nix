@@ -17,18 +17,9 @@
 
   my.cpu-vendor = "amd";
   my.desktop = true;
-  home-manager.users.dave.my.i3ExtraCommands = [
-    "${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 2560x1440 --rate 75 --pos 2560x383 --rotate normal --output DisplayPort-1 --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal --output DisplayPort-2 --mode 2560x1440 --rate 75 --pos 5120x1440 --rotate normal --output HDMI-A-0 --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal"
-    "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
-    "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
-    "${pkgs.picom}/bin/picom -CGb"
-    "${pkgs.nitrogen}/bin/nitrogen --restore"
-  ];
+  my.ddc = true;
 
-  boot = rec {
-    kernelModules = ["i2c-dev" "i2c-i801"];
-    loader.systemd-boot.enable = true;
-  };
+  boot.loader.systemd-boot.enable = true;
 
   networking = {
     hostName = "vega";
@@ -50,16 +41,20 @@
     autoPrune.enable = true;
   };
 
+  home-manager.users.dave.my.i3ExtraCommands = [
+    "${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 2560x1440 --rate 75 --pos 2560x383 --rotate normal --output DisplayPort-1 --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal --output DisplayPort-2 --mode 2560x1440 --rate 75 --pos 5120x1440 --rotate normal --output HDMI-A-0 --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal"
+    "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
+    "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
+    "${pkgs.picom}/bin/picom -CGb"
+    "${pkgs.nitrogen}/bin/nitrogen --restore"
+  ];
+
   # udev rule to allow the "dialout" group to speak to my Lattice FPGA
   # board over its USB-serial chip.
   services.udev.extraRules = ''
     # FPGA dev board
     SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
     ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-
-    # RGB controllers
-    KERNEL=="i2c-[0-99]*", TAG+="uaccess"
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", TAG+="uaccess"
   '';
 
   # This value determines the NixOS release with which your system is to be

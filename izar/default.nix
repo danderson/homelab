@@ -11,19 +11,16 @@
   my.desktop = true;
 
   boot = {
+    loader.systemd-boot.enable = true;
     kernelModules = ["acpi_call"];
     extraModulePackages = [config.boot.kernelPackages.acpi_call];
     kernelParams = ["acpi_backlight=native"];
-    loader.systemd-boot.enable = true;
   };
 
   networking = {
     hostName = "izar";
     hostId = "515b13ad";
-    firewall.checkReversePath = "loose"; # TODO: why?
   };
-
-  hardware.enableRedistributableFirmware = true;
 
   hardware.opengl.extraPackages = [ pkgs.amdvlk ];
   hardware.trackpoint.enable = true;
