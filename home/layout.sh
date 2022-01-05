@@ -70,6 +70,21 @@ randr_linux_mac() {
 		--output $rightdown --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal
 }
 
+inputs_linux_corp() {
+	set_input $sn_mid $input_hdmi
+	set_input $sn_rightdown $input_displayport
+	set_input $sn_left $input_displayport
+	set_input $sn_rightup $input_displayport
+}
+
+randr_linux_corp() {
+	xrandr \
+		--output $mid --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal \
+		--output $left --primary --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal \
+		--output $rightup --mode 2560x1440 --rate 75 --pos 2560x0 --rotate normal \
+		--output $rightdown --mode 2560x1440 --rate 75 --pos 2560x0 --rotate normal
+}
+
 brightness_sun() {
 	for sn in $sn_rightup $sn_rightdown $sn_mid $sn_left; do
 		ddcutil -n $sn setvcp x10 100 # Brightness=90
@@ -148,6 +163,9 @@ case "$1" in
 	linux)
 		inputs_linux
 		$0 code
+		;;
+	corp)
+		inputs_linux_corp
 		;;
 	reset)
 		set_basic_settings
