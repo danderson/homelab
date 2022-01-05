@@ -47,6 +47,12 @@
     "${pkgs.picom}/bin/picom -CGb"
     "${pkgs.nitrogen}/bin/nitrogen --restore"
   ];
+  home-manager.users.dave.my.i3Monitors = {
+    left = "DisplayPort-1";
+    mid = "DisplayPort-0";
+    rightdown = "DisplayPort-2";
+    rightup = "HDMI-A-0";
+  };
 
   # udev rule to allow the "dialout" group to speak to my Lattice FPGA
   # board over its USB-serial chip.

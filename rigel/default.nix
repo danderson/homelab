@@ -30,6 +30,13 @@
     autoPrune.enable = true;
   };
 
+  home-manager.users.dave.my.i3Monitors = {
+    left = ""; # TODO
+    mid = "HDMI-A-0";
+    rightdown = ""; # TODO
+    rightup = "DisplayPort-3";
+  };
+
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you

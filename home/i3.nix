@@ -5,6 +5,25 @@
       type = lib.types.listOf lib.types.str;
       default = [ ];
     };
+
+    my.i3Monitors = {
+      mid = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      left = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      rightup = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+      rightdown = lib.mkOption {
+        type = lib.types.str;
+        default = "";
+      };
+    };
   };
 
   config = lib.mkIf config.my.gui-programs {
@@ -42,20 +61,23 @@
             "${pkgs.networkmanagerapplet}/bin/nm-applet"
           ];
         in map (c: { command = c; notification = false; }) (cmds ++ config.my.i3ExtraCommands);
-        keybindings = {
+        keybindings = let
+          focusMonitor = which: if (which == "") then "nop" else "focus output ${which}";
+          moveToMonitor = which: if (which == "") then "nop" else "move workspace to output ${which}";
+        in {
           "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +10%";
           "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -10%";
           "XF86AudioMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
           "XF86AudioMicMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
           "Mod4+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-          "Mod4+shift+y" = "move workspace to output DisplayPort-1";
-          "Mod4+shift+u" = "move workspace to output DisplayPort-0";
-          "Mod4+shift+i" = "move workspace to output DisplayPort-2";
-          "Mod4+shift+o" = "move workspace to output HDMI-A-0";
-          "Mod4+y" = "focus output DisplayPort-1";
-          "Mod4+u" = "focus output DisplayPort-0";
-          "Mod4+i" = "focus output DisplayPort-2";
-          "Mod4+o" = "focus output HDMI-A-0";
+          "Mod4+shift+y" = moveToMonitor config.my.i3Monitors.left;
+          "Mod4+shift+u" = moveToMonitor config.my.i3Monitors.mid;
+          "Mod4+shift+i" = moveToMonitor config.my.i3Monitors.rightdown;
+          "Mod4+shift+o" = moveToMonitor config.my.i3Monitors.rightup;
+          "Mod4+y" = focusMonitor config.my.i3Monitors.left;
+          "Mod4+u" = focusMonitor config.my.i3Monitors.mid;
+          "Mod4+i" = focusMonitor config.my.i3Monitors.rightdown;
+          "Mod4+o" = focusMonitor config.my.i3Monitors.rightup;
           "Mod4+Shift+q" = "kill";
           "Mod4+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
           "Mod4+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
