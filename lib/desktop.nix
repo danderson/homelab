@@ -1,9 +1,7 @@
 {config, lib, pkgs, ...}:
 {
   config = lib.mkIf config.my.desktop {
-    # ZFS is great.
-    boot.supportedFilesystems = ["zfs"];
-    boot.zfs.requestEncryptionCredentials = true;
+    my.zfs = true;
 
     # mDNS is necessary for things like printers.
     my.mdns = true;

@@ -1,9 +1,9 @@
 { config, pkgs, lib, ... }:
 {
   options = {
-    my.home-desk = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
+    my.i3ExtraCommands = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
     };
   };
 
@@ -41,14 +41,7 @@
             "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- ${pkgs.i3lock}/bin/i3lock -e -f --nofork --color=000000"
             "${pkgs.networkmanagerapplet}/bin/nm-applet"
           ];
-          home-desk-cmds = if config.my.home-desk then [
-            "${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 2560x1440 --rate 75 --pos 2560x383 --rotate normal --output DisplayPort-1 --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal --output DisplayPort-2 --mode 2560x1440 --rate 75 --pos 5120x1440 --rotate normal --output HDMI-A-0 --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal"
-            "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
-            "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
-            "${pkgs.picom}/bin/picom -CGb"
-            "${pkgs.nitrogen}/bin/nitrogen --restore"
-          ] else [];
-        in map (c: { command = c; notification = false; }) (cmds ++ home-desk-cmds);
+        in map (c: { command = c; notification = false; }) (cmds ++ config.my.i3ExtraCommands);
         keybindings = {
           "XF86AudioRaiseVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +10%";
           "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -10%";

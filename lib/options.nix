@@ -14,5 +14,10 @@
       type = lib.types.bool;
       default = false;
     };
+
+    zfs = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 }

@@ -1,6 +1,7 @@
 { lib, flakes, ... }:
 {
   require = [
+    ./boot.nix
     ./cpufreq.nix
     ./desktop.nix
     ./dns.nix
@@ -19,5 +20,6 @@
     ./tmp.nix
     ./users.nix
     ./utilities.nix
+    ./zfs.nix
   ];
 }

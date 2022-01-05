@@ -17,15 +17,19 @@
 
   my.cpu-vendor = "amd";
   my.desktop = true;
-  home-manager.users.dave.my.home-desk = true;
+  home-manager.users.dave.my.i3ExtraCommands = [
+    "${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 2560x1440 --rate 75 --pos 2560x383 --rotate normal --output DisplayPort-1 --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal --output DisplayPort-2 --mode 2560x1440 --rate 75 --pos 5120x1440 --rotate normal --output HDMI-A-0 --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal"
+    "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
+    "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
+    "${pkgs.picom}/bin/picom -CGb"
+    "${pkgs.nitrogen}/bin/nitrogen --restore"
+  ];
 
   boot = rec {
     kernelPackages = pkgs.linuxPackages_5_15;
     kernelModules = ["i2c-dev" "i2c-i801"];
     extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
     loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-    zfs.enableUnstable = true;
   };
 
   networking = {
