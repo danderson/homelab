@@ -1,4 +1,4 @@
-{ flakes, pkgs, ... }: {
+{ flakes, config, pkgs, ... }: {
   require = [
     ../lib
     ./hardware-configuration.nix
@@ -8,91 +8,34 @@
   ];
 
   my.cpu-vendor = "amd";
+  my.desktop = true;
 
-  boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_10;
+  boot = {
     kernelModules = ["acpi_call"];
-    supportedFilesystems = ["zfs"];
-    zfs.requestEncryptionCredentials = true;
-    extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
+    extraModulePackages = [config.boot.kernelPackages.acpi_call];
     kernelParams = ["acpi_backlight=native"];
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
+    loader.systemd-boot.enable = true;
   };
-
-  networking.hostId = "515b13ad";
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.powersave = true;
-  networking.networkmanager.wifi.backend = "iwd";
-  networking.useDHCP = false;
 
   networking = {
     hostName = "izar";
-    iproute2.enable = true;
+    hostId = "515b13ad";
     firewall.checkReversePath = "loose"; # TODO: why?
   };
 
-  environment.systemPackages = with pkgs; [ zoom-us ffmpeg ];
-
   hardware.enableRedistributableFirmware = true;
-  documentation.dev.enable = true;
 
-  fonts = {
-    enableDefaultFonts = true;
-    # Give fonts to 32-bit binaries too (e.g. steam).
-    fontconfig.cache32Bit = true;
-    fonts = with pkgs; [
-        google-fonts liberation_ttf opensans-ttf roboto roboto-mono
-    ];
-  };
-
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport32Bit = true; # Maybe for steam?
-      extraPackages = [ pkgs.amdvlk ];
-      # TODO: figure out VAAPI support
-    };
-    trackpoint.enable = true;
-    bluetooth.enable = true;
-  };
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
-  users.users.dave.extraGroups = ["scanner" "lp" "audio" "video" "dialout"];
-  nixpkgs.config.pulseaudio = true;
-  location.provider = "geoclue2";
+  hardware.opengl.extraPackages = [ pkgs.amdvlk ];
+  hardware.trackpoint.enable = true;
 
   services = {
     upower.enable = true;
-    xserver = {
-      enable = true;
-      libinput.enable = true;
-      desktopManager.gnome.enable = true;
-      displayManager.gdm.enable = true;
-      videoDrivers = ["amdgpu"];
-    };
+    xserver.videoDrivers = ["amdgpu"];
     acpid.enable = true;
     colord.enable = true;
     fprintd.enable = true;
     fwupd.enable = true;
   };
-
-  services.printing = {
-    enable = true;
-    drivers = [ ];
-  };
-
-  services.octoprint = {
-    enable = true;
-    host = "100.107.67.11";
-    port = 5000;
-    group = "dialout";
-  };
-  #systemd.services.octoprint.path = ["${pkgs.python38Packages.pip}/bin"];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

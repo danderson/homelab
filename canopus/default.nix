@@ -9,17 +9,12 @@
   my.cpu-vendor = "intel";
   my.desktop = true;
 
-  boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_15;
-    loader.systemd-boot.enable = true;
-  };
+  boot.loader.systemd-boot.enable = true;
 
   networking = {
     hostName = "canopus";
     hostId = "02658bd1";
   };
-
-  environment.systemPackages = with pkgs; [ zoom-us ffmpeg ];
 
   services = {
     upower.enable = true;

@@ -6,6 +6,8 @@
     # mDNS is necessary for things like printers.
     my.mdns = true;
 
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_15;
+
     # Wifi and Bluetooth.
     networking.networkmanager = {
       enable = true;

@@ -26,9 +26,7 @@
   ];
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_15;
     kernelModules = ["i2c-dev" "i2c-i801"];
-    extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
     loader.systemd-boot.enable = true;
   };
 
@@ -36,8 +34,6 @@
     hostName = "vega";
     hostId = "5c13d618";
   };
-
-  environment.systemPackages = [ pkgs.barrier ];
 
   services.fwupd.enable = true;
 

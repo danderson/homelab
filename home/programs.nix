@@ -58,7 +58,7 @@ let
   ];
   gui-programs = with pkgs; [
     arandr
-    unstable.cura
+    barrier
     ddcutil
     feh
     firefox

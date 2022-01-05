@@ -8,22 +8,18 @@
 
   my.cpu-vendor = "amd";
   my.desktop = true;
-  home-manager.users.dave.my.home-desk = true;
 
   boot = rec {
-    kernelPackages = pkgs.linuxPackages_5_15;
     #kernelModules = ["i2c-dev" "i2c-i801"];
-    #extraModulePackages = [kernelPackages.acpi_call kernelPackages.v4l2loopback];
     loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "rigel";
-  networking.hostId = "1d358a90";
+  networking = {
+    hostName = "rigel";
+    hostId = "1d358a90";
+  };
 
-  environment.systemPackages = [ pkgs.barrier ];
-
-  services.fwupd.enable = true;
+  hardware.system76.enableAll = true;
 
   virtualisation.libvirtd = {
     enable = true;
