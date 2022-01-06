@@ -40,6 +40,8 @@
     autoPrune.enable = true;
   };
 
+  networking.firewall.allowedTCPPorts = [ 24800 ]; # Barrier
+
   home-manager.users.dave.my.i3ExtraCommands = [
     "${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 2560x1440 --rate 75 --pos 2560x383 --rotate normal --output DisplayPort-1 --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal --output DisplayPort-2 --mode 2560x1440 --rate 75 --pos 5120x1440 --rotate normal --output HDMI-A-0 --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal"
     "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
