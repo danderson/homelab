@@ -11,8 +11,9 @@ fi
 onehost() {
 	host=$1
 	shift
+	mkdir -p .gcroots
 	set -x
-	out=$(nix build --json .#nixosConfigurations.${host}.config.system.build.toplevel | jq -r '.[0].outputs.out')
+	out=$(nix build -o .gcroots/${host} --json .#nixosConfigurations.${host}.config.system.build.toplevel | jq -r '.[0].outputs.out')
 
 	nix copy -s --to "ssh://root@$host" "$out"
 	nix copy -s --derivation --to "ssh://root@$host" "$out"
