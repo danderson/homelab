@@ -67,12 +67,14 @@ let
     google-chrome
     gnome.gnome-screenshot
     graphviz
-    freecad
+    unstable.freecad
     nitrogen
     obs-studio
     openrgb
+    unstable.openscad
     pavucontrol
     plater
+    unstable.solvespace
     steam
     virt-manager
     zoom-us
