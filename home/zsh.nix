@@ -24,7 +24,7 @@
       EDITOR = "emacsclient";
       PAGER = "less -X";
       LESS = "-R";
-      #DIRENV_LOG_FORMAT = "";
+      WINIT_X11_SCALE_FACTOR = "1.2";
     };
     initExtra = lib.strings.concatMapStringsSep "\n" builtins.readFile [
       ./zsh-prompt.sh
