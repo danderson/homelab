@@ -1,6 +1,7 @@
-{ config, pkgs, lib, flakes, ... }:
+{ config, pkgs, agenix, lib, flakes, ... }:
 let
   unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
+  agenix = flakes.agenix.packages.x86_64-linux.agenix;
   weechat-with-matrix = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
       plugins = with availablePlugins; [
@@ -11,6 +12,7 @@ let
     };
   };
   cli-programs = with pkgs; [
+    agenix
     bc
     conntrack-tools
     discord

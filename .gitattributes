@@ -6,3 +6,7 @@ keys.sh filter=git-crypt diff=git-crypt
 secret.nix filter=git-crypt diff=git-crypt
 *.secret.nix filter=git-crypt diff=git-crypt
 keys.yml filter=git-crypt diff=git-crypt
+
+# For agenix
+secrets.nix filter=git-crypt diff=git-crypt
+*.age filter=git-crypt diff=git-crypt
