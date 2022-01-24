@@ -13,6 +13,7 @@ let
   cli-programs = with pkgs; [
     bc
     conntrack-tools
+    discord
     dmidecode
     dnsutils
     dstat
