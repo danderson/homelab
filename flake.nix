@@ -6,13 +6,26 @@
     nixos.url = github:NixOS/nixpkgs/nixos-21.11;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
     nixos-hardware.url = github:NixOS/nixos-hardware;
-    home-manager-old.url = github:nix-community/home-manager/release-21.05;
-    home-manager.url = github:nix-community/home-manager/release-21.11;
-    home-manager-unstable.url = github:nix-community/home-manager/master;
+    home-manager-old = {
+      url = github:nix-community/home-manager/release-21.05;
+      inputs.nixpkgs.follows = "nixos-old";
+    };
+    home-manager = {
+      url = github:nix-community/home-manager/release-21.11;
+      inputs.nixpkgs.follows = "nixos";
+    };
+    home-manager-unstable = {
+      url = github:nix-community/home-manager/master;
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     nur.url = github:nix-community/NUR;
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixos";
+    };
   };
 
-  outputs = { self, nixos-old, nixos, nixos-unstable, home-manager-old, home-manager, home-manager-unstable, nur, ... } @ flakes:
+  outputs = { self, nixos-old, nixos, nixos-unstable, home-manager-old, home-manager, home-manager-unstable, nur, agenix, ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
         system = "x86_64-linux";
@@ -23,6 +36,7 @@
               then self.rev
               else "DIRTY";
           })
+          agenix.nixosModules.age
           homeBase.nixosModules.home-manager
           ({ nixpkgs.overlays = [ nur.overlay ]; })
           ./lib/home.nix
