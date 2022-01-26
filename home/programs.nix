@@ -111,6 +111,10 @@ in
         executable = true;
         text = builtins.readFile ./layout.sh;
       };
+      "bin/rgb" = lib.mkIf config.my.gui-programs {
+        executable = true;
+        text = builtins.readFile ./rgb.sh;
+      };
     };
     programs.lesspipe.enable = true;
     programs.dircolors.enable = true;

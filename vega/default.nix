@@ -14,6 +14,18 @@
   # zfs create -o mountpoint=legacy data/safe/home
   # zfs create -o mountpoint=legacy data/safe/persist
 
+  # OpenRGB which LED controls are wired up to what:
+  #  - HyperX Fury RGB: all zones, entire device -> top of RAM sticks
+  #  - Asus ROG Crosshair (motherboard)
+  #    - Zone: Aura Mainboard
+  #      - LEDs 1-7: mobo accent lights
+  #      - RGB Header 1-2: not connected
+  #    - Zone: Aura addressable 1: not connected
+  #    - Zone: Aura addressable 2: chassis lights
+  #      - 36 LEDs connected, rest do nothing.
+  #      - Don't enable: 1,2,7,8,9,34,35 (they're at a blinding position)
+  #  - Asus ROG Aura addressable: not connected
+
   my.cpu-vendor = "amd";
   my.desktop = true;
   my.ddc = true;

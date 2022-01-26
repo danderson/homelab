@@ -8,5 +8,6 @@ secret.nix filter=git-crypt diff=git-crypt
 keys.yml filter=git-crypt diff=git-crypt
 
 # For agenix
+secrets-map.nix filter=git-crypt diff=git-crypt
 secrets.nix filter=git-crypt diff=git-crypt
 *.age filter=git-crypt diff=git-crypt
