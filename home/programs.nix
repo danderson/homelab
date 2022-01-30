@@ -71,6 +71,7 @@ let
     gnome.gnome-screenshot
     graphviz
     unstable.freecad
+    unstable.lutris-free
     nitrogen
     obs-studio
     openrgb
