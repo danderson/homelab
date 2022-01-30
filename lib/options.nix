@@ -24,5 +24,10 @@
       type = lib.types.bool;
       default = false;
     };
+
+    directory = lib.mkOption {
+      type = lib.types.attrsOf lib.types.int;
+      default = {};
+    };
   };
 }

@@ -52,6 +52,13 @@
         monthly = 12;
       };
     };
+
+    paperless-ng = {
+      enable = true;
+      dataDir = "/data/paperless";
+      passwordFile = "/etc/keys/paperless-admin-password";
+      address = "0.0.0.0";
+    };
   };
 
   # power.ups.enable = true # need to figure out out how

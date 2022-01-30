@@ -5,6 +5,7 @@
     ./cpufreq.nix
     ./ddc.nix
     ./desktop.nix
+    ./directory.nix
     ./dns.nix
     ./firewall.nix
     ./lldp.nix
