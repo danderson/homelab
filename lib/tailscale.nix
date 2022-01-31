@@ -1,6 +1,6 @@
 { config, lib, pkgs, flakes, ... } :
 {
-  config = lib.mkIf (!config.boot.isContainer) {
+  config = lib.mkIf config.my.tailscale {
     services.tailscale.enable = true;
     services.tailscale.package = flakes.nixos-unstable.legacyPackages.x86_64-linux.tailscale;
     systemd.services.tailscaled.path = [ pkgs.openresolv ];

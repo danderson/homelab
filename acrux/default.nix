@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flakes, ... }:
 {
   imports = [
     ../lib
@@ -53,11 +53,84 @@
       };
     };
 
+    user = {
+      users.paperless = {
+        group = "paperless";
+        uid = config.ids.uids.paperless;
+        home = "/data/paperless";
+      };
+      groups.paperless = {
+        gid = config.ids.gids.paperless;
+      };
+    };
     paperless-ng = {
-      enable = true;
+      enable = false;
       dataDir = "/data/paperless";
       passwordFile = "/etc/keys/paperless-admin-password";
       address = "0.0.0.0";
+    };
+
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      runAsRoot = false;
+      swtpm.enable = true;
+    };
+  };
+  fileSystems."/var/lib/libvirt/images" = {
+    device = "/data/vms";
+    options = [ "bind" ];
+  };
+
+  # Run in a container so it can get its own tailscale IP and hostname
+  containers.paperless = {
+    autoStart = true;
+    ephemeral = true;
+    privateNetwork = true;
+    hostAddress = "192.168.254.10";
+    localAddress = "192.168.254.11";
+    bindMounts = {
+      "/data/paperless" = {
+        hostPath = "/data/paperless";
+        isReadOnly = false;
+      };
+      "/etc/keys/paperless-admin-password" = {
+        hostPath = "/etc/keys/paperless-admin-password";
+        isReadOnly = true;
+      };
+      "/var/lib/tailscale" = {
+        hostPath = "/var/lib/tailscale/paperless";
+        isReadOnly = false;
+      };
+    };
+    config = {
+      # Inject the flakes parameter into the container's evaluation
+      # environment. Because of the way declarative containers work,
+      # they don't get evaluated with the full module context of their
+      # parent, and don't provide a handy place to inject
+      # this. Fortunately, doing the obvious thing of "smash the value
+      # into the module by hand" seems to work correctly, muahahah.
+      _module.args.flakes = flakes;
+
+      imports = [
+        ../lib
+      ];
+
+      services.paperless-ng = {
+        enable = true;
+        dataDir = "/data/paperless";
+        passwordFile = "/etc/keys/paperless-admin-password";
+      };
+      networking.firewall.extraCommands = ''
+        iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport 80 -j DNAT --to 127.0.0.1:28981
+      '';
+      networking.firewall.extraStopCommands = ''
+        iptables -t nat -D OUTPUT -d 127.0.0.1 -p tcp --dport 80 -j DNAT --to 127.0.0.1:28981
+      '';
+      my.tailscale = true;
+      services.tailscale.interfaceName = "userspace-networking";
     };
   };
 

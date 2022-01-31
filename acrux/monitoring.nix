@@ -35,6 +35,7 @@
       port = 9000;
       auth.anonymous = {
         enable = true;
+        org_name = "Main Org.";
         org_role = "Admin";
       };
     };

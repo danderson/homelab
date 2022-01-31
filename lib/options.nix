@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ config, lib, ... }: {
   options.my = {
     cpu-vendor = lib.mkOption {
       type = lib.types.enum ["none" "intel" "amd"];
@@ -28,6 +28,11 @@
     directory = lib.mkOption {
       type = lib.types.attrsOf lib.types.int;
       default = {};
+    };
+
+    tailscale = lib.mkOption {
+      type = lib.types.bool;
+      default = !config.boot.isContainer;
     };
   };
 }
