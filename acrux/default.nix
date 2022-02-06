@@ -28,8 +28,8 @@
       ];
     };
   };
-  networking.interfaces.enp2s0f1.ipv4.addresses = [{
-    address = "192.168.5.2";
+  networking.interfaces.enp2s0f0.ipv4.addresses = [{
+    address = "10.0.0.1";
     prefixLength = 24;
   }];
   networking.interfaces.eno2.useDHCP = false;
@@ -53,16 +53,6 @@
       };
     };
 
-    user = {
-      users.paperless = {
-        group = "paperless";
-        uid = config.ids.uids.paperless;
-        home = "/data/paperless";
-      };
-      groups.paperless = {
-        gid = config.ids.gids.paperless;
-      };
-    };
     paperless-ng = {
       enable = false;
       dataDir = "/data/paperless";
@@ -70,6 +60,16 @@
       address = "0.0.0.0";
     };
 
+  };
+  users = {
+    users.paperless = {
+      group = "paperless";
+      uid = config.ids.uids.paperless;
+      home = "/data/paperless";
+    };
+    groups.paperless = {
+      gid = config.ids.gids.paperless;
+    };
   };
 
   virtualisation.libvirtd = {

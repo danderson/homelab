@@ -38,6 +38,7 @@ let
     lm_sensors
     lsof
     mosh
+    my.fileserve
     neofetch
     niv
     nix-diff

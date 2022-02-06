@@ -30,12 +30,18 @@ onehost() {
 host=$1
 shift
 if [[ "$host" == "all" ]]; then
-	for host in `grep '= box' flake.nix | awk '{print $1}'`; do
+	for host in `./all-hosts`; do
 		echo
 		echo "##################################"
 		echo "# $host"
 		echo "##################################"
-		onehost "$host" "$@"
+		echo
+		read -p "Deploy (Y/n) ? " resp
+		if [[ $resp =~ ^[Yy]?$ ]]; then
+			onehost "$host" "$@"
+		else
+			echo "$host skipped"
+		fi
 	done
 else
 	onehost "$host" "$@"

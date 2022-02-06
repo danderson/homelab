@@ -14,6 +14,7 @@
     ./networking.nix
     ./nix.nix
     ./options.nix
+    ./programs.nix
     ./shell.nix
     ./ssh.nix
     ./tailscale.nix
@@ -23,5 +24,6 @@
     ./users.nix
     ./utilities.nix
     ./zfs.nix
+    ./zrepl.nix
   ];
 }

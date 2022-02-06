@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# -*- mode: shell-script -*-
-
-grep -R system.stateVersion */default.nix | cut -f1 -d/ | xargs -n1 -I{} ./deploy {} switch

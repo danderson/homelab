@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+grep -R system.stateVersion */default.nix | cut -f1 -d/

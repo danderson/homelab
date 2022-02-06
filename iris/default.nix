@@ -17,7 +17,7 @@ in
       systemd-boot.configurationLimit = 5;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_4_19;
+    kernelPackages = pkgs.linuxPackages_5_10;
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = false;
     kernelModules = ["sg"];
@@ -34,7 +34,7 @@ in
       prefixLength = 24;
     }];
     interfaces.enp6s0f1.ipv4.addresses = [{
-      address = "192.168.5.3";
+      address = "10.0.0.2";
       prefixLength = 24;
     }];
   };
