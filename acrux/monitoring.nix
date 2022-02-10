@@ -20,14 +20,19 @@
           "iris"
           "vega"
         ];
-        nodeScrape = host: {
-          job_name = "${host}_node";
+        hostScrape = host: type: port: {
+          job_name = "${host}_${type}";
           static_configs = [{
-            targets = ["${host}:9100"];
+            targets = ["${host}:${builtins.toString port}"];
+            labels.host = host;
           }];
         };
+        nodeScrape = host: hostScrape host "node" 9100;
+        nodeConfigs = map nodeScrape hosts;
+        zreplScrape = host: hostScrape host "zrepl" 9811;
+        zreplConfigs = map zreplScrape ["iris" "acrux" "gacrux"];
       in
-        map nodeScrape hosts;
+        nodeConfigs ++ zreplConfigs;
     };
     grafana = {
       enable = true;

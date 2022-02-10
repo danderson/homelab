@@ -91,6 +91,13 @@
     privateNetwork = true;
     hostAddress = "192.168.254.10";
     localAddress = "192.168.254.11";
+    forwardPorts = [
+      {
+        containerPort = 28981;
+        hostPort = 28981;
+        protocol = "tcp";
+      }
+    ];
     bindMounts = {
       "/data/paperless" = {
         hostPath = "/data/paperless";
