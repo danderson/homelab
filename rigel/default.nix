@@ -31,10 +31,10 @@
   };
 
   home-manager.users.dave.my.i3Monitors = {
-    left = ""; # TODO
-    mid = "HDMI-A-0";
-    rightdown = ""; # TODO
-    rightup = "DisplayPort-3";
+    left = "DisplayPort-1";
+    mid = "DisplayPort-2";
+    rightdown = "DisplayPort-0";
+    rightup = "HDMI-A-0";
   };
 
   # This value determines the NixOS release with which your system is to be

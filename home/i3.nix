@@ -81,6 +81,7 @@
           "Mod4+Shift+q" = "kill";
           "Mod4+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
           "Mod4+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
+          "Mod4+n" = "exec ${pkgs.xdg-utils}/bin/xdg-open http://";
           "Mod4+Left" = "focus left";
           "Mod4+Down" = "focus down";
           "Mod4+Up" = "focus up";
