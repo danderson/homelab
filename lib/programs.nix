@@ -10,8 +10,8 @@
     src = pkgs.fetchFromGitHub {
       owner = "danderson";
       repo = "livemon";
-      rev = "0f360d63adf735dad4336cdc95bfbf9297d1bdb1";
-      sha256 = "sha256-5PwsQXLIzZaISkUFKS0zdLzAuqU74gWkMk6tsusn040=";
+      rev = "6c14d61dffea58b3c81368ea76a4de4e51ec881a";
+      sha256 = "sha256-gFjt78iXMdkUQiMeCl42YS0GynYH9E2Ts5bHth5yffU=";
     };
     vendorSha256 = "sha256-hw+vD9vo/lSHSVCMGdTFaO/dwAocAkcUyADANu12zjc=";
   };
