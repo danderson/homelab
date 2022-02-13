@@ -34,5 +34,10 @@
       type = lib.types.bool;
       default = !config.boot.isContainer;
     };
+
+    livemon = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 }

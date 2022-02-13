@@ -31,8 +31,10 @@
         nodeConfigs = map nodeScrape hosts;
         zreplScrape = host: hostScrape host "zrepl" 9811;
         zreplConfigs = map zreplScrape ["iris" "acrux" "gacrux"];
+        livemonScrape = host: hostScrape host "livemon" 9843;
+        livemonConfigs = map livemonScrape ["acrux"];
       in
-        nodeConfigs ++ zreplConfigs;
+        nodeConfigs ++ zreplConfigs ++ livemonConfigs;
     };
     grafana = {
       enable = true;
