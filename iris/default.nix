@@ -19,7 +19,7 @@ in
     };
     kernelPackages = pkgs.linuxPackages_5_10;
     supportedFilesystems = ["zfs"];
-    zfs.requestEncryptionCredentials = false;
+    zfs.requestEncryptionCredentials = true; # also loads keys off disk
     kernelModules = ["sg"];
   };
 

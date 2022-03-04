@@ -8,6 +8,7 @@
     ./directory.nix
     ./dns.nix
     ./firewall.nix
+    ./jlink.nix
     ./lldp.nix
     ./microcode.nix
     ./monitoring.nix
@@ -21,6 +22,7 @@
     ./time.nix
     ./timezone.nix
     ./tmp.nix
+    ./ulxs.nix
     ./users.nix
     ./utilities.nix
     ./zfs.nix

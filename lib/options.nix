@@ -39,5 +39,15 @@
       type = lib.types.bool;
       default = false;
     };
+
+    jlink = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+
+    ulxs = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 }

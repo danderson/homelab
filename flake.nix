@@ -23,9 +23,13 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixos";
     };
+    livemon = {
+      url = "github:danderson/livemon";
+      inputs.nixpkgs.follows = "nixos";
+    };
   };
 
-  outputs = { self, nixos-old, nixos, nixos-unstable, home-manager-old, home-manager, home-manager-unstable, nur, agenix, ... } @ flakes:
+  outputs = { self, nixos-old, nixos, nixos-unstable, home-manager-old, home-manager, home-manager-unstable, nur, agenix, livemon, ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
         system = "x86_64-linux";
@@ -38,6 +42,7 @@
           })
           agenix.nixosModules.age
           homeBase.nixosModules.home-manager
+          livemon.nixosModules.livemon
           ({ nixpkgs.overlays = [ nur.overlay ]; })
           ./lib/home.nix
           (./. + "/${name}")

@@ -15,7 +15,6 @@ let
     agenix
     bc
     conntrack-tools
-    discord
     dmidecode
     dnsutils
     dstat
@@ -29,7 +28,7 @@ let
     git-crypt
     glances
     unstable.go_1_17
-    unstable.goimports
+    unstable.gotools
     unstable.gopls
     ipcalc
     ipmitool
@@ -65,6 +64,7 @@ let
     arandr
     barrier
     ddcutil
+    discord
     feh
     firefox
     gnome3.dconf-editor

@@ -68,13 +68,12 @@
     rightup = "HDMI-A-0";
   };
 
-  # udev rule to allow the "dialout" group to speak to my Lattice FPGA
-  # board over its USB-serial chip.
-  services.udev.extraRules = ''
-    # FPGA dev board
-    SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-    ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", MODE="664", GROUP="dialout"
-  '';
+  my.ulxs = true;
+  my.jlink = true;
+
+  services.livemon = {
+    enable = true;
+  };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
