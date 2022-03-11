@@ -66,7 +66,7 @@ let
     ddcutil
     discord
     feh
-    firefox
+    unstable.firefox
     gnome3.dconf-editor
     gimp
     google-chrome
