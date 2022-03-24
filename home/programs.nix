@@ -1,6 +1,7 @@
 { config, pkgs, agenix, lib, flakes, ... }:
 let
   unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
+  unstable-small = flakes.nixos-unstable-small.legacyPackages.x86_64-linux;
   agenix = flakes.agenix.packages.x86_64-linux.agenix;
   weechat-with-matrix = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
@@ -66,7 +67,7 @@ let
     ddcutil
     discord
     feh
-    unstable.firefox
+    unstable-small.firefox-bin
     gnome3.dconf-editor
     gimp
     google-chrome

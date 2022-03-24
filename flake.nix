@@ -5,6 +5,7 @@
     nixos-old.url = github:NixOS/nixpkgs/nixos-21.05;
     nixos.url = github:NixOS/nixpkgs/nixos-21.11;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
+    nixos-unstable-small.url = github:NixOS/nixpkgs/nixos-unstable-small;
     nixos-hardware.url = github:NixOS/nixos-hardware;
     home-manager-old = {
       url = github:nix-community/home-manager/release-21.05;
@@ -29,7 +30,18 @@
     };
   };
 
-  outputs = { self, nixos-old, nixos, nixos-unstable, home-manager-old, home-manager, home-manager-unstable, nur, agenix, livemon, ... } @ flakes:
+  outputs = { self,
+              nixos-old,
+              nixos,
+              nixos-unstable,
+              nixos-unstable-small,
+              home-manager-old,
+              home-manager,
+              home-manager-unstable,
+              nur,
+              agenix,
+              livemon,
+              ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
         system = "x86_64-linux";
