@@ -28,7 +28,7 @@ let
     gcc
     git-crypt
     glances
-    unstable.go_1_17
+    unstable.go_1_18
     unstable.gotools
     unstable.gopls
     ipcalc
