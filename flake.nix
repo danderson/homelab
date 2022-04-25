@@ -31,16 +31,16 @@
   };
 
   outputs = { self,
-              nixos-old,
-              nixos,
-              nixos-unstable,
-              nixos-unstable-small,
-              home-manager-old,
-              home-manager,
-              home-manager-unstable,
               nur,
               agenix,
               livemon,
+              nixos-old,
+              home-manager-old,
+              nixos,
+              home-manager,
+              nixos-unstable,
+              nixos-unstable-small,
+              home-manager-unstable,
               ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
