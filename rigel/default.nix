@@ -21,10 +21,6 @@
     enable = true;
     qemu.runAsRoot = false;
   };
-  virtualisation.virtualbox.host = {
-    enable = true;
-    enableExtensionPack = true;
-  };
   virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
