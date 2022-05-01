@@ -19,6 +19,7 @@
     };
     shellAliases = {
       e = "emacsclient -n";
+      t = "tailscale";
     };
     sessionVariables = {
       EDITOR = "emacsclient";
