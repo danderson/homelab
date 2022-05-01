@@ -2,4 +2,4 @@
 # -*- mode: shell-script -*-
 
 set -x
-grep -R system.stateVersion */default.nix | cut -f1 -d/ | xargs -I{} sh -c "echo {}; ssh {} needs-reboot"
+./all-hosts | xargs -I{} sh -c "echo {}; ssh {} needs-reboot"

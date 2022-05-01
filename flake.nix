@@ -65,8 +65,8 @@
       nixosConfigurations = {
         acrux = box nixos home-manager "acrux";
         gacrux = box nixos home-manager "gacrux";
-        mimosa = box nixos home-manager "mimosa";
-        izar = box nixos home-manager "izar";
+        #mimosa = box nixos home-manager "mimosa";
+        #izar = box nixos home-manager "izar";
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
         rigel = box nixos home-manager "rigel";
