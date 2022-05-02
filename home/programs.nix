@@ -1,6 +1,9 @@
 { config, pkgs, agenix, lib, flakes, ... }:
 let
-  unstable = flakes.nixos-unstable.legacyPackages.x86_64-linux;
+  unstable = import flakes.nixos-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
   unstable-small = flakes.nixos-unstable-small.legacyPackages.x86_64-linux;
   agenix = flakes.agenix.packages.x86_64-linux.agenix;
   weechat-with-matrix = pkgs.weechat.override {
@@ -65,31 +68,29 @@ let
   gui-programs = with pkgs; [
     arandr
     barrier
-    ddcutil
     discord
     feh
-    unstable-small.firefox-bin
+    unstable-small.firefox-bin # To get updates ASAP
     gnome3.dconf-editor
     gimp
     google-chrome
     gnome.gnome-screenshot
     graphviz
     nitrogen
-    openrgb
     pavucontrol
     virt-manager
     zoom-us
     xine-ui
   ];
   gaming = with pkgs; [
-    unstable.lutris-free
+    unstable.lutris
     obs-studio
     steam
   ];
   printing = with unstable; [
     freecad
     openscad
-    pkgs.plater
+    plater
     solvespace
     super-slicer
     prusa-slicer
@@ -100,6 +101,10 @@ in
     my.gui-programs = lib.mkEnableOption "GUI programs";
     my.gaming = lib.mkEnableOption "Gaming stuff";
     my.printing = lib.mkEnableOption "3D printing tools";
+    my.extraPkgs = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+    };
   };
 
   config = {
@@ -108,6 +113,7 @@ in
       (maybeList config.my.gui-programs gui-programs)
       (maybeList config.my.gaming gaming)
       (maybeList config.my.printing printing)
+      config.my.extraPkgs
     ];
     home.file = {
       "bin/needs-reboot" = {

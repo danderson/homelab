@@ -4,8 +4,10 @@
     ./hardware-configuration.nix
   ];
 
-  my.cpu-vendor = "intel";
-  my.desktop = true;
+  my = {
+    cpu-vendor = "intel";
+    desktop = true;
+  };
 
   boot.loader.systemd-boot.enable = true;
 

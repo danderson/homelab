@@ -5,26 +5,6 @@
       default = "none";
     };
 
-    ddc = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
-    desktop = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
-    mdns = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
-    zfs = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
     directory = lib.mkOption {
       type = lib.types.attrsOf lib.types.int;
       default = {};
@@ -35,22 +15,19 @@
       default = !config.boot.isContainer;
     };
 
-    livemon = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
-    jlink = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
-    ulxs = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-
+    ddc = lib.mkEnableOption "Support configuring monitors with DDC";
+    desktop = lib.mkEnableOption "Configure desktop/laptop GUI and services";
+    mdns = lib.mkEnableOption "Use local dynamic DNS (mdns, llmnr)";
+    zfs = lib.mkEnableOption "ZFS support";
+    livemon = lib.mkEnableOption "Run Livemon on the system";
+    jlink = lib.mkEnableOption "J-Link programmer hardware support";
+    ulxs = lib.mkEnableOption "ULXS FPGA hardware support";
     gaming = lib.mkEnableOption "Videogames support";
     printing = lib.mkEnableOption "3D printing support";
+
+    extraHomePkgs = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [];
+    };
   };
 }

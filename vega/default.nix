@@ -26,9 +26,19 @@
   #      - Don't enable: 1,2,7,8,9,34,35 (they're at a blinding position)
   #  - Asus ROG Aura addressable: not connected
 
-  my.cpu-vendor = "amd";
-  my.desktop = true;
-  my.ddc = true;
+  my = {
+    cpu-vendor = "amd";
+    desktop = true;
+    ddc = true;
+    gaming = true;
+    printing = true;
+    ulxs = true;
+    jlink = true;
+    extraHomePkgs = with pkgs; [
+      openrgb
+      ddcutil
+    ];
+  };
 
   boot.loader.systemd-boot.enable = true;
 
@@ -63,11 +73,6 @@
     rightdown = "DisplayPort-2";
     rightup = "HDMI-A-0";
   };
-
-  my.ulxs = true;
-  my.jlink = true;
-  my.gaming = true;
-  my.printing = true;
 
   services.livemon = {
     enable = true;
