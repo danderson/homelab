@@ -21,7 +21,13 @@
     hardware.enableRedistributableFirmware = true;
 
     # For the hacking.
-    documentation.dev.enable = true;
+    documentation = {
+      man.enable = true;
+      doc.enable = true;
+      dev.enable = true;
+      info.enable = true;
+      nixos.enable = true;
+    };
 
     # Noises and stuff.
     sound.enable = true;
