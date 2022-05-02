@@ -1,8 +1,6 @@
 {config, lib, pkgs, ...}:
 {
   config = lib.mkIf config.my.desktop {
-    my.zfs = true;
-
     # mDNS is necessary for things like printers.
     my.mdns = true;
 

@@ -6,14 +6,18 @@
     ./private.nix
   ];
 
-  my.bootloader = "grub";
+  my = {
+    bootloader = "grub";
+    zfs = true;
+  };
   boot.loader.grub.device = "/dev/vda";
 
   networking.hostName = "gacrux";
   networking.interfaces.enp1s0.useDHCP = true;
   networking.nameservers = ["8.8.8.8" "8.8.4.4"];
 
-  boot.supportedFilesystems = ["zfs"];
+  # The ZFS pool isn't used by local mounts, have to import it
+  # explicitly and not try to decrypt it.
   boot.zfs.extraPools = ["data"];
   boot.zfs.requestEncryptionCredentials = false;
 
@@ -21,9 +25,6 @@
 
   services = {
     openssh.openFirewall = false;
-    zfs = {
-      autoScrub.enable = true;
-    };
     robustirc-bridge = {
       enable = true;
       extraFlags = ["-socks=localhost:1080"];

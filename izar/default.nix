@@ -7,6 +7,7 @@
 
   my.cpu-vendor = "amd";
   my.desktop = true;
+  my.zfs = true;
 
   boot = {
     kernelModules = ["acpi_call"];

@@ -8,9 +8,10 @@
     ./private.nix
   ];
 
-  my.cpu-vendor = "intel";
-
-  boot.supportedFilesystems = ["zfs"];
+  my = {
+    cpu-vendor = "intel";
+    zfs = true;
+  };
 
   networking.hostName = "acrux"; # Define your hostname.
   networking.defaultGateway = "192.168.4.1";
@@ -41,7 +42,6 @@
 
   services = {
     zfs = {
-      autoScrub.enable = true;
       autoSnapshot = {
         enable = true;
         frequent = 4;

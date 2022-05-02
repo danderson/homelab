@@ -29,6 +29,7 @@
   my = {
     cpu-vendor = "amd";
     desktop = true;
+    zfs = true;
     ddc = true;
     gaming = true;
     printing = true;

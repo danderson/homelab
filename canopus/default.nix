@@ -7,6 +7,7 @@
   my = {
     cpu-vendor = "intel";
     desktop = true;
+    zfs = true;
   };
 
   networking = {
