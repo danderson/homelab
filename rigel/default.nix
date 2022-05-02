@@ -8,8 +8,6 @@
   my.desktop = true;
   my.ddc = true;
 
-  boot.loader.systemd-boot.enable = true;
-
   networking = {
     hostName = "rigel";
     hostId = "1d358a90";

@@ -9,7 +9,6 @@
   my.desktop = true;
 
   boot = {
-    loader.systemd-boot.enable = true;
     kernelModules = ["acpi_call"];
     extraModulePackages = [config.boot.kernelPackages.acpi_call];
     kernelParams = ["acpi_backlight=native"];

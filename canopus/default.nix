@@ -9,8 +9,6 @@
     desktop = true;
   };
 
-  boot.loader.systemd-boot.enable = true;
-
   networking = {
     hostName = "canopus";
     hostId = "02658bd1";

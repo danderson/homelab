@@ -12,11 +12,6 @@ in
 
   my.cpu-vendor = "intel";
   boot = {
-    loader = {
-      systemd-boot.enable = true;
-      systemd-boot.configurationLimit = 5;
-      efi.canTouchEfiVariables = true;
-    };
     kernelPackages = pkgs.linuxPackages_5_10;
     supportedFilesystems = ["zfs"];
     zfs.requestEncryptionCredentials = true; # also loads keys off disk

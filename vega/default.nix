@@ -40,8 +40,6 @@
     ];
   };
 
-  boot.loader.systemd-boot.enable = true;
-
   networking = {
     hostName = "vega";
     hostId = "5c13d618";
