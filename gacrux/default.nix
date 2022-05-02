@@ -6,9 +6,9 @@
     ./private.nix
   ];
 
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub.enable = true;
+  my.bootloader = "grub";
   boot.loader.grub.device = "/dev/vda";
+
   networking.hostName = "gacrux";
   networking.interfaces.enp1s0.useDHCP = true;
   networking.nameservers = ["8.8.8.8" "8.8.4.4"];

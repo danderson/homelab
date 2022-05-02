@@ -5,6 +5,11 @@
       default = "none";
     };
 
+    bootloader = lib.mkOption {
+      type = lib.types.enum ["systemd-boot" "grub"];
+      default = "systemd-boot";
+    };
+
     directory = lib.mkOption {
       type = lib.types.attrsOf lib.types.int;
       default = {};
