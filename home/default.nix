@@ -15,5 +15,5 @@
   # Shell prompt: powerline? starship?
   # zathura?
 
-  home.stateVersion = "20.09";
+  home.stateVersion = "21.11";
 }
