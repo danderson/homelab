@@ -12,6 +12,7 @@ let
       scripts = [ pkgs.weechatScripts.weechat-matrix ];
     };
   };
+  maybeList = toggle: list: if toggle then list else [];
   cli-programs = with pkgs; [
     agenix
     bc
@@ -73,30 +74,41 @@ let
     google-chrome
     gnome.gnome-screenshot
     graphviz
-    unstable.freecad
-    unstable.lutris-free
     nitrogen
-    obs-studio
     openrgb
-    unstable.openscad
     pavucontrol
-    plater
-    unstable.solvespace
-    steam
     virt-manager
     zoom-us
-    unstable.super-slicer
-    unstable.prusa-slicer
     xine-ui
+  ];
+  gaming = with pkgs; [
+    unstable.lutris-free
+    obs-studio
+    steam
+  ];
+  printing = with unstable; [
+    freecad
+    openscad
+    pkgs.plater
+    solvespace
+    super-slicer
+    prusa-slicer
   ];
 in
 {
   options = {
     my.gui-programs = lib.mkEnableOption "GUI programs";
+    my.gaming = lib.mkEnableOption "Gaming stuff";
+    my.printing = lib.mkEnableOption "3D printing tools";
   };
 
   config = {
-    home.packages = cli-programs ++ (if config.my.gui-programs then gui-programs else []);
+    home.packages = lib.flatten [
+      cli-programs
+      (maybeList config.my.gui-programs gui-programs)
+      (maybeList config.my.gaming gaming)
+      (maybeList config.my.printing printing)
+    ];
     home.file = {
       "bin/needs-reboot" = {
         executable = true;

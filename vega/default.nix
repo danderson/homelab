@@ -66,6 +66,8 @@
 
   my.ulxs = true;
   my.jlink = true;
+  my.gaming = true;
+  my.printing = true;
 
   services.livemon = {
     enable = true;

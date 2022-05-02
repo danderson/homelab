@@ -12,6 +12,8 @@
           ../home
         ];
         my.gui-programs = config.services.xserver.enable;
+        my.printing = config.my.printing;
+        my.gaming = config.my.gaming;
       };
       root = {
         imports = [

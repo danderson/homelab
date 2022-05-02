@@ -49,5 +49,8 @@
       type = lib.types.bool;
       default = false;
     };
+
+    gaming = lib.mkEnableOption "Videogames support";
+    printing = lib.mkEnableOption "3D printing support";
   };
 }
