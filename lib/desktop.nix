@@ -4,7 +4,7 @@
     # mDNS is necessary for things like printers.
     my.mdns = true;
 
-    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_17;
+    boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_5_15;
 
     # Wifi and Bluetooth.
     networking.networkmanager = {
@@ -29,8 +29,12 @@
 
     # Noises and stuff.
     sound.enable = true;
-    hardware.pulseaudio.enable = lib.mkDefault true;
-    hardware.pulseaudio.support32Bit = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
     nixpkgs.config.pulseaudio = true;
 
     # X11-based display things.
