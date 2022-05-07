@@ -29,12 +29,8 @@
 
     # Noises and stuff.
     sound.enable = true;
-    services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-    };
+    hardware.pulseaudio.enable = true;
+    hardware.pulseaudio.support32Bit = true;
     nixpkgs.config.pulseaudio = true;
 
     # X11-based display things.
