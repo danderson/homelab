@@ -23,6 +23,9 @@
   hardware.opengl.extraPackages = [ pkgs.amdvlk ];
   hardware.trackpoint.enable = true;
 
+  services.openiscsi.enable = true;
+  services.openiscsi.name = "iqn.2020-08.org.linux-iscsi.izar:izar";
+
   services = {
     upower.enable = true;
     xserver.videoDrivers = ["amdgpu"];

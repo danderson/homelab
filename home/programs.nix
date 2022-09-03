@@ -63,7 +63,7 @@ let
     weechat-with-matrix
     wget
     whois
-    wireguard
+    wireguard-tools
   ];
   gui-programs = with pkgs; [
     arandr
@@ -88,12 +88,12 @@ let
     steam
   ];
   printing = with unstable; [
-    freecad
+    #freecad
     openscad
     plater
     solvespace
     super-slicer
-    prusa-slicer
+    #prusa-slicer
   ];
 in
 {

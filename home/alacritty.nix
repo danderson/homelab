@@ -6,7 +6,7 @@
       TERM = "xterm-256color";
       WINIT_X11_SCALE_FACTOR = "1.2";
     };
-    background_opacity = 0.7;
+    window.opacity = 0.7;
     cursor = {
       style.blinking = "On";
       unfocused_hollow = true;

@@ -2,17 +2,17 @@
   description = "Personal NixOS configs";
 
   inputs = {
-    nixos-old.url = github:NixOS/nixpkgs/nixos-21.05;
-    nixos.url = github:NixOS/nixpkgs/nixos-21.11;
+    nixos-old.url = github:NixOS/nixpkgs/nixos-21.11;
+    nixos.url = github:NixOS/nixpkgs/nixos-22.05;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
     nixos-unstable-small.url = github:NixOS/nixpkgs/nixos-unstable-small;
     nixos-hardware.url = github:NixOS/nixos-hardware;
     home-manager-old = {
-      url = github:nix-community/home-manager/release-21.05;
+      url = github:nix-community/home-manager/release-21.11;
       inputs.nixpkgs.follows = "nixos-old";
     };
     home-manager = {
-      url = github:nix-community/home-manager/release-21.11;
+      url = github:nix-community/home-manager/release-22.05;
       inputs.nixpkgs.follows = "nixos";
     };
     home-manager-unstable = {
@@ -65,8 +65,8 @@
       nixosConfigurations = {
         acrux = box nixos home-manager "acrux";
         gacrux = box nixos home-manager "gacrux";
-        #mimosa = box nixos home-manager "mimosa";
-        #izar = box nixos home-manager "izar";
+        #mimosa = box nixos-old home-manager-old "mimosa";
+        izar = box nixos-old home-manager-old "izar";
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
         rigel = box nixos home-manager "rigel";

@@ -44,13 +44,14 @@
       enableDefaultFonts = true;
       fontconfig.cache32Bit = true;
       fonts = with pkgs; [
-        google-fonts liberation_ttf opensans-ttf roboto roboto-mono
+        google-fonts liberation_ttf open-sans roboto roboto-mono
       ];
     };
     hardware.opengl = {
       enable = true;
       driSupport32Bit = true;
     };
+    environment.systemPackages = [ pkgs.alacritty ];
 
     # Printing - mostly, doesn't handle magic IPP Everywhere
     # configuration, but it's not bad.

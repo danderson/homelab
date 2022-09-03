@@ -4,7 +4,7 @@
     ./hardware-configuration.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_17;
+  boot.kernelPackages = pkgs.linuxPackages_5_18;
 
   my.cpu-vendor = "amd";
   my.desktop = true;

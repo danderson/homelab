@@ -19,7 +19,10 @@ onehost() {
 	nix copy -s --derivation --to "ssh://root@$host" "$out"
 
 	if [ "$1" = "diff" ]; then
-		ssh "root@$host" "nix-store -qd /run/current-system $out | xargs nix-diff --color=always" | less
+		tmpfile=$(mktemp nix-diff.XXXXXX)
+		ssh "root@$host" "nix-store -qd /run/current-system $out | xargs nix-diff --color=always" >"$tmpfile"
+		less -R "$tmpfile"
+		rm -f "$tmpfile"
 	else
 		ssh "root@$host" nix build --profile /nix/var/nix/profiles/system "$out"
 		ssh "root@$host" nix shell -vv "$out" -c switch-to-configuration "$@"

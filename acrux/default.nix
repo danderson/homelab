@@ -51,7 +51,7 @@
       };
     };
 
-    paperless-ng = {
+    paperless = {
       enable = false;
       dataDir = "/data/paperless";
       passwordFile = "/etc/keys/paperless-admin-password";
@@ -118,12 +118,13 @@
       # this. Fortunately, doing the obvious thing of "smash the value
       # into the module by hand" seems to work correctly, muahahah.
       _module.args.flakes = flakes;
+      system.stateVersion = "21.11";
 
       imports = [
         ../lib
       ];
 
-      services.paperless-ng = {
+      services.paperless = {
         enable = true;
         dataDir = "/data/paperless";
         passwordFile = "/etc/keys/paperless-admin-password";
