@@ -6,6 +6,7 @@
     ./hardware-configuration.nix
     ./monitoring.nix
     ./private.nix
+    ./virtual-tape.nix
   ];
 
   my = {
