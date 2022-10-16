@@ -6,9 +6,9 @@
     ./emacs.nix
     ./git.nix
     ./go.nix
-    ./i3.nix
     ./programs.nix
     ./ssh.nix
+    ./wm.nix
     ./zsh.nix
   ];
 

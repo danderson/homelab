@@ -1,10 +1,14 @@
-{
+{ flakes, ... } : {
   fileSystems."/var/lib/prometheus2" =
     { device = "/data/monitoring/prometheus";
       options = [ "bind" ];
     };
   fileSystems."/var/lib/grafana" =
     { device = "/data/monitoring/grafana";
+      options = [ "bind" ];
+    };
+  fileSystems."/var/lib/influxdb2" =
+    { device = "/data/monitoring/influxdb";
       options = [ "bind" ];
     };
 
@@ -45,6 +49,11 @@
         org_name = "Main Org.";
         org_role = "Admin";
       };
+    };
+
+    influxdb2 = {
+      enable = true;
+      package = flakes.nixos-dave.legacyPackages.x86_64-linux.influxdb2-server;
     };
   };
 }

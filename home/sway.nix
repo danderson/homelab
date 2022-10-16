@@ -1,45 +1,38 @@
 { config, pkgs, lib, ... }:
 {
   options = {
-    my.i3ExtraCommands = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-    };
-
-    my.i3Monitors = {
-      mid = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-      };
-      left = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-      };
-      rightup = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-      };
-      rightdown = lib.mkOption {
-        type = lib.types.str;
-        default = "";
-      };
-    };
   };
 
   config = lib.mkIf config.my.gui-programs {
-    xsession.windowManager.i3 = {
+    services = {
+      swayidle.enable = true;
+    };
+    xdg.configFile."swaylock/config" = {
+      text = ''
+        show-keyboard-layout
+        indicator-caps-lock
+        color=000000
+        ignore-empty-password
+        show-failed-attempts
+      '';
+    };
+    wayland.windowManager.sway = {
       enable = true;
       config = {
-        bars = [{
-          statusCommand = "${pkgs.i3status}/bin/i3status";
-          position = "top";
-        }];
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         fonts = {
           names = ["pango:DejaVu Sans Mono"];
           size = 11.0;
         };
+        bars = [{
+          mode = "dock";
+          hiddenState = "hide";
+          position = "top";
+          workspaceButtons = true;
+          workspaceNumbers = true;
+          statusCommand = "${pkgs.i3status}/bin/i3status";
+        }];
         modes = {
           resize = {
             "j" = "resize shrink width 10 px or 10 ppt";
@@ -55,12 +48,25 @@
             "Mod4+r" = ''mode "default"'';
           };
         };
-        startup = let
-          cmds = [
-            "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- ${pkgs.i3lock}/bin/i3lock -e -f --nofork --color=000000"
-            "${pkgs.networkmanagerapplet}/bin/nm-applet"
-          ];
-        in map (c: { command = c; notification = false; }) (cmds ++ config.my.i3ExtraCommands);
+        output = {
+          "${config.my.i3Monitors.mid}" = {
+            res = "2560x1440";
+            pos = "2560 383";
+            # TODO: bg
+          };
+          "${config.my.i3Monitors.left}" = {
+            res = "2560x1440";
+            pos = "0 383";
+          };
+          "${config.my.i3Monitors.rightup}" = {
+            res = "2560x1440";
+            pos = "5120 0";
+          };
+          "${config.my.i3Monitors.rightdown}" = {
+            res = "2560x1440";
+            pos = "5120 1440";
+          };
+        };
         keybindings = let
           focusMonitor = which: if (which == "") then "nop" else "focus output ${which}";
           moveToMonitor = which: if (which == "") then "nop" else "move workspace to output ${which}";
@@ -79,7 +85,7 @@
           "Mod4+i" = focusMonitor config.my.i3Monitors.rightdown;
           "Mod4+o" = focusMonitor config.my.i3Monitors.rightup;
           "Mod4+Shift+q" = "kill";
-          "Mod4+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
+          "Mod4+d" = "exec ${pkgs.bemenu}/bin/bemenu-run";
           "Mod4+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
           "Mod4+n" = "exec ${pkgs.xdg-utils}/bin/xdg-open http://";
           "Mod4+Left" = "focus left";
@@ -121,89 +127,13 @@
           "Mod4+Shift+0" = "move container to workspace 10: video";
           "Mod4+Shift+c" = "reload";
           "Mod4+Shift+r" = "restart";
-          "Mod4+Shift+e" = ''exec "${pkgs.i3}/bin/i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' '${pkgs.i3}/bin/i3-msg exit'"'';
+          "Mod4+Shift+e" = "exec ${pkgs.sway}/bin/swaynag -t warning -m 'Really exit?' -B 'Yes' '${pkgs.sway}/bin/swaymsg exit'";
           "Mod4+r" = ''mode "resize"'';
           "Mod4+p" = "exec /home/dave/bin/layout _interactive";
         };
-        window.commands = [
-          {
-            criteria = { window_role = "pop-up"; };
-            command = "floating enable";
-          }
+        startup = [
+          { command = "swayidle -w timeout 1800 'swaylock' lock 'swaylock'"; }
         ];
-      };
-      extraConfig = ''
-        title_align center
-        assign [class="emacs"] "1: emacs"
-        assign [class="Alactritty" title="^\[mosh\] "] "3: comms"
-        assign [class=".obs-wrapped"] "8: obs"
-        assign [class="Steam"] "9: game"
-        workspace "1: emacs" output DisplayPort-0
-        workspace "2: browsing" output DisplayPort-1
-        workspace "3: comms" output DisplayPort-2
-        workspace "10: video" output HDMI-A-0
-      '';
-    };
-    programs.i3status = {
-      enable = true;
-      enableDefault = false;
-      general = {
-        output_format = "i3bar";
-        interval = 5;
-      };
-      modules = {
-        "ipv6" = {
-          position = 1;
-        };
-        "wireless wlan0" = {
-          position = 1;
-          settings = {
-            format_up = "W: %ip (%quality)";
-            format_down = "!W";
-            format_quality = "%2d%s";
-          };
-        };
-        "ethernet enp5s0" = {
-          position = 2;
-          settings = {
-            format_up = "E: %ip";
-            format_down = "!E";
-          };
-        };
-        "ethernet enp4s0" = {
-          position = 2;
-          settings = {
-            format_up = "E: %ip";
-            format_down = "!E";
-          };
-        };
-        "tztime paris" = {
-          position = 3;
-          settings = {
-            format = "%H:%M Paris";
-            timezone = "Europe/Paris";
-          };
-        };
-        "tztime toronto" = {
-          position = 4;
-          settings = {
-            format = "%H:%M Toronto";
-            timezone = "America/Toronto";
-          };
-        };
-        "tztime victoria" = {
-          position = 5;
-          settings = {
-            format = "%H:%M:%S";
-            timezone = "America/Vancouver";
-          };
-        };
-        "time" = {
-          position = 6;
-          settings = {
-            format = "%Y-%m-%d";
-          };
-        };
       };
     };
   };

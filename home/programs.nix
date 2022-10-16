@@ -129,21 +129,9 @@ in
         executable = true;
         text = builtins.readFile ./tailscale-switch-profile.sh;
       };
-      "bin/layout" = lib.mkIf config.my.gui-programs {
-        executable = true;
-        text = builtins.readFile ./layout.sh;
-      };
       "bin/rgb" = lib.mkIf config.my.gui-programs {
         executable = true;
         text = builtins.readFile ./rgb.sh;
-      };
-      ".config/dave/layout_config.sh" = lib.mkIf config.my.gui-programs {
-        text = ''
-          mid="${config.my.i3Monitors.mid}"
-          left="${config.my.i3Monitors.left}"
-          rightdown="${config.my.i3Monitors.rightdown}"
-          rightup="${config.my.i3Monitors.rightup}"
-        '';
       };
     };
     programs.lesspipe.enable = true;

@@ -5,6 +5,7 @@
     nixos-old.url = github:NixOS/nixpkgs/nixos-21.11;
     nixos.url = github:NixOS/nixpkgs/nixos-22.05;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
+    nixos-dave.url = github:danderson/nixpkgs/danderson/influx2.4;
     nixos-unstable-small.url = github:NixOS/nixpkgs/nixos-unstable-small;
     nixos-hardware.url = github:NixOS/nixos-hardware;
     home-manager-old = {

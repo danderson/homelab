@@ -29,8 +29,8 @@
 
     # Noises and stuff.
     sound.enable = true;
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.support32Bit = true;
+    hardware.pulseaudio.enable = false;
+    hardware.pulseaudio.support32Bit = false;
     nixpkgs.config.pulseaudio = true;
 
     # X11-based display things.
@@ -40,6 +40,7 @@
       displayManager.gdm.enable = true;
       windowManager.i3.enable = true;
     };
+
     fonts = {
       enableDefaultFonts = true;
       fontconfig.cache32Bit = true;
@@ -62,5 +63,22 @@
     # password prompter GUIs to the session bus's service list, so it
     # can fire interactive prompts for auth.
     services.gnome.gnome-keyring.enable = true;
+
+    # EXPERIMENT: getting sway to work properly, maybe.
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      gtkUsePortal = true;
+    };
+    programs.sway = {
+      enable = true;
+    };
+    services.flatpak.enable = true;
   };
 }
