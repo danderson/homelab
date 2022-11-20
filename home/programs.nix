@@ -32,7 +32,7 @@ let
     gcc
     git-crypt
     glances
-    unstable.go_1_18
+    unstable.go_1_19
     unstable.gotools
     unstable.gopls
     ipcalc
@@ -79,8 +79,8 @@ let
     nitrogen
     pavucontrol
     virt-manager
+    vscode
     zoom-us
-    xine-ui
   ];
   gaming = with pkgs; [
     unstable.lutris
@@ -89,6 +89,7 @@ let
   ];
   printing = with unstable; [
     #freecad
+    flatpak
     openscad
     plater
     solvespace
