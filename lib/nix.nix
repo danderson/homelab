@@ -3,9 +3,11 @@
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = "experimental-features = nix-command flakes";
-    autoOptimiseStore = true;
-    useSandbox = true;
-    trustedUsers = ["dave"];
+    settings = {
+      sandbox = true;
+      trusted-users = ["dave"];
+      auto-optimise-store = true;
+    };
     gc = {
       automatic = true;
       dates = "03:15";

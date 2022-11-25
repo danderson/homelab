@@ -273,7 +273,7 @@ in {
       '';
     };
 
-    home.file."bin/layout" = {
+    home.file."bin/layout" = lib.mkIf (false) {
       executable = true;
       source = let
         monName = mon: if mon == null then i3Monitors.mid.name else mon.name; in

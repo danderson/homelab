@@ -23,8 +23,8 @@
   hardware.opengl.extraPackages = [ pkgs.amdvlk ];
   hardware.trackpoint.enable = true;
 
-  services.openiscsi.enable = true;
-  services.openiscsi.name = "iqn.2020-08.org.linux-iscsi.izar:izar";
+  #services.openiscsi.enable = true;
+  #services.openiscsi.name = "iqn.2020-08.org.linux-iscsi.izar:izar";
 
   services = {
     upower.enable = true;
@@ -34,6 +34,8 @@
     fprintd.enable = true;
     fwupd.enable = true;
   };
+
+  home-manager.users.dave.my.monitors = {};
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

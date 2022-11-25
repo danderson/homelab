@@ -5,7 +5,7 @@
     subPackages = [ "fileserve" ];
     vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
   };
-  livemon = pkgs.buildGo117Module {
+  livemon = pkgs.buildGo119Module {
     name = "livemon";
     src = pkgs.fetchFromGitHub {
       owner = "danderson";
