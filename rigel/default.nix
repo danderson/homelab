@@ -1,10 +1,10 @@
-{ flakes, pkgs, ... }: {
+{ flakes, config, pkgs, ... }: {
   require = [
     ../lib
     ./hardware-configuration.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_19;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   my.cpu-vendor = "amd";
   my.desktop = true;
