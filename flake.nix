@@ -65,10 +65,10 @@
     in {
       nixosConfigurations = {
         acrux = box nixos-old home-manager-old "acrux";
-        gacrux = box nixos-old home-manager-old "gacrux";
+        gacrux = box nixos home-manager "gacrux";
         #mimosa = box nixos-old home-manager-old-old "mimosa";
         izar = box nixos home-manager "izar";
-        iris = box nixos-old home-manager-old "iris";
+        iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
         rigel = box nixos-old home-manager-old "rigel";
         canopus = box nixos-old home-manager-old "canopus";

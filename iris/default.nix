@@ -16,7 +16,6 @@ in
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_5_10;
     kernelModules = ["sg"];
     zfs.extraPools = ["data"];
   };
