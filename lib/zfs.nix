@@ -1,6 +1,7 @@
 { config, lib, ... }:
 {
   config = lib.mkIf config.my.zfs {
+    boot.kernelPackages = lib.mkDefault config.boot.zfs.package.latestCompatibleLinuxPackages;
     boot.supportedFilesystems = [ "zfs" ];
     boot.initrd.supportedFilesystems = [ "zfs" ];
     boot.zfs.requestEncryptionCredentials = lib.mkDefault true;

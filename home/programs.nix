@@ -87,14 +87,18 @@ let
     obs-studio
     steam
   ];
-  printing = with unstable; [
-    #freecad
-    flatpak
-    openscad
-    plater
-    solvespace
-    super-slicer
-    #prusa-slicer
+  printing = let
+  s = pkgs;
+  u = unstable;
+  in [
+    u.freecad
+    u.flatpak
+    u.plater
+    u.solvespace
+    # Build broken in unstable 2022-12-10
+    s.openscad
+    s.super-slicer
+    s.prusa-slicer
   ];
 in
 {
