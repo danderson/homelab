@@ -70,7 +70,7 @@
         izar = box nixos home-manager "izar";
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
-        rigel = box nixos-old home-manager-old "rigel";
+        rigel = box nixos home-manager "rigel";
         canopus = box nixos-old home-manager-old "canopus";
       };
 

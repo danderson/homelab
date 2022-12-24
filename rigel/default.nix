@@ -4,8 +4,6 @@
     ./hardware-configuration.nix
   ];
 
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
   my.cpu-vendor = "amd";
   my.desktop = true;
   my.ddc = true;
