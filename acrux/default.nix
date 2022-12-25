@@ -136,7 +136,7 @@
       networking.firewall.extraStopCommands = ''
         iptables -t nat -D OUTPUT -d 127.0.0.1 -p tcp --dport 80 -j DNAT --to 127.0.0.1:28981
       '';
-      my.tailscale = true;
+      my.tailscale = "stable";
       services.tailscale.interfaceName = "userspace-networking";
     };
   };

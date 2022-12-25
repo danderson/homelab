@@ -8,6 +8,7 @@
   my.cpu-vendor = "amd";
   my.desktop = true;
   my.zfs = true;
+  my.tailscale = "unstable";
 
   boot = {
     kernelModules = ["acpi_call"];

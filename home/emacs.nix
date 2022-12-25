@@ -2,7 +2,7 @@
 let em = pkgs.emacsPackagesFor pkgs.emacs;
     bsv-mode = em.trivialBuild {
       pname = "bsv-mode";
-      vwersion = "0.0";
+      version = "0.0";
       src = pkgs.fetchFromGitHub {
         owner = "danderson";
         repo = "bsv-mode";

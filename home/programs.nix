@@ -70,7 +70,7 @@ let
     barrier
     discord
     feh
-    unstable-small.firefox-bin # To get updates ASAP
+    firefox-bin
     gnome3.dconf-editor
     gimp
     google-chrome

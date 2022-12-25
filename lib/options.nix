@@ -16,8 +16,8 @@
     };
 
     tailscale = lib.mkOption {
-      type = lib.types.bool;
-      default = !config.boot.isContainer;
+      type = lib.types.enum ["off" "stable" "unstable"];
+      default = if config.boot.isContainer then "off" else "stable";
     };
 
     ddc = lib.mkEnableOption "Support configuring monitors with DDC";

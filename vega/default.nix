@@ -35,6 +35,7 @@
     printing = true;
     ulxs = true;
     jlink = true;
+    tailscale = "unstable";
     extraHomePkgs = with pkgs; [
       openrgb
       ddcutil

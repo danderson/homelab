@@ -23,11 +23,15 @@
     nur.url = github:nix-community/NUR;
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
     livemon = {
       url = "github:danderson/livemon";
-      inputs.nixpkgs.follows = "nixos";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
+    tailscale = {
+      url = "github:tailscale/tailscale";
+      inputs.nixpkgs.follows = "nixos-unstable";
     };
   };
 
@@ -42,6 +46,7 @@
               nixos-unstable,
               nixos-unstable-small,
               home-manager-unstable,
+              tailscale,
               ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
