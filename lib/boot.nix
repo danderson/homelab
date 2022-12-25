@@ -1,11 +1,9 @@
-{ config, lib, ... }:
-let
+{ config, lib, ... }: let
   loader = config.my.bootloader;
   bareMetal = !config.boot.isContainer;
   useSDBoot = bareMetal && loader == "systemd-boot";
   useGrub = bareMetal && loader == "grub";
-in
-{
+in {
   assertions = [
     {
       assertion = useGrub -> config.boot.loader.grub.device != "";

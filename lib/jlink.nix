@@ -1,4 +1,4 @@
-{ config, lib, ...}: {
+{ config, lib, ... }: {
   services.udev.extraRules = lib.mkIf config.my.jlink ''
     #
     # This file is going to be stored at /etc/udev/rules.d on installation of the J-Link package

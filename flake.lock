@@ -139,11 +139,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1671941210,
-        "narHash": "sha256-o/4pJOUJ3CnvNuSV6beW9EwFxY7nIKt6HZO75yUv9EA=",
+        "lastModified": 1671949121,
+        "narHash": "sha256-ZuRPiCuCm/oEYNEDiXV5FibcokOBf669M4KFBp+aIIA=",
         "owner": "danderson",
         "repo": "livemon",
-        "rev": "80d29fa6394c9a1d91db7fb5c21ab19908189a64",
+        "rev": "5c146ce5f1954a94144405607065f7e575632bc1",
         "type": "github"
       },
       "original": {

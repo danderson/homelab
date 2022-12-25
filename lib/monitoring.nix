@@ -1,8 +1,6 @@
-{ config, lib, pkgs, ... }:
-let
+{ config, lib, pkgs, ... }: let
   wantMonitoring = !config.boot.isContainer && config.services.tailscale.enable;
-in lib.mkIf wantMonitoring
-{
+in lib.mkIf wantMonitoring {
   services.prometheus.exporters.node = {
     enable = true;
     enabledCollectors = [ "systemd" ];

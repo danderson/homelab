@@ -1,5 +1,4 @@
-{ config, pkgs, flakes, ... }:
-{
+{ config, pkgs, flakes, ... }: {
   environment.homeBinInPath = true;
   home-manager = {
     useGlobalPkgs = true;

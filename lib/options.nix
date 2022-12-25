@@ -5,6 +5,11 @@
       default = "none";
     };
 
+    kernel = lib.mkOption {
+      type = lib.types.enum ["lts" "latest"];
+      default = "lts";
+    };
+
     bootloader = lib.mkOption {
       type = lib.types.enum ["systemd-boot" "grub"];
       default = "systemd-boot";
@@ -22,7 +27,6 @@
 
     ddc = lib.mkEnableOption "Support configuring monitors with DDC";
     desktop = lib.mkEnableOption "Configure desktop/laptop GUI and services";
-    mdns = lib.mkEnableOption "Use local dynamic DNS (mdns, llmnr)";
     zfs = lib.mkEnableOption "ZFS support";
     livemon = lib.mkEnableOption "Run Livemon on the system";
     jlink = lib.mkEnableOption "J-Link programmer hardware support";

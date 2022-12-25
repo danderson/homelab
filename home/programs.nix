@@ -43,7 +43,6 @@ let
     lsof
     mosh
     my.fileserve
-    my.livemon
     neofetch
     niv
     nix-diff

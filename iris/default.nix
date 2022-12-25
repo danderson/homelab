@@ -13,6 +13,9 @@ in
   my = {
     cpu-vendor = "intel";
     zfs = true;
+    # Ended up on the latest kernel becauze zfs at some point, not
+    # willing to downgrade it right now.
+    kernel = "latest";
   };
 
   boot = {

@@ -1,4 +1,3 @@
-{ lib, flakes, ... }:
 {
   require = [
     ./boot.nix
@@ -9,6 +8,7 @@
     ./dns.nix
     ./firewall.nix
     ./jlink.nix
+    ./kernel.nix
     ./lldp.nix
     ./microcode.nix
     #./monitoring.nix

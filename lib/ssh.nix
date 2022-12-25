@@ -1,6 +1,3 @@
-{config, lib, ...}:
-{
-  config = lib.mkIf (!config.boot.isContainer) {
-    services.openssh.enable = true;
-  };
+{ config, lib, ... }: lib.mkIf (!config.boot.isContainer) {
+  services.openssh.enable = true;
 }
