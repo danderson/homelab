@@ -17,15 +17,6 @@
     hostId = "1d358a90";
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.runAsRoot = false;
-  };
-  virtualisation.docker = {
-    enable = true;
-    autoPrune.enable = true;
-  };
-
   home-manager.users.dave.my.monitors = {
     left = {
       type = "DisplayPort";

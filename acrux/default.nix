@@ -14,6 +14,7 @@
     # Ended up on the latest kernel becauze zfs at some point, not
     # willing to downgrade it right now.
     kernel = "latest";
+    vms = true;
   };
 
   networking = {
@@ -40,14 +41,6 @@
     interfaces.eno4.useDHCP = false;
   };
 
-  security.polkit.enable = true;
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      runAsRoot = false;
-      swtpm.enable = true;
-    };
-  };
   fileSystems."/var/lib/libvirt/images" = {
     device = "/data/vms";
     options = [ "bind" ];

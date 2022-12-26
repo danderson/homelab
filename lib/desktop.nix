@@ -13,6 +13,10 @@
   # Modern hardware tends to need fancy firmware.
   hardware.enableRedistributableFirmware = true;
 
+  # VMs and containers are useful.
+  my.vms = true;
+  my.docker = true;
+
   # For the hacking.
   documentation = {
     man.enable = true;

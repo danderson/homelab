@@ -38,6 +38,8 @@
     ulxs = lib.mkEnableOption "ULXS FPGA hardware support";
     gaming = lib.mkEnableOption "Videogames support";
     printing = lib.mkEnableOption "3D printing support";
+    vms = lib.mkEnableOption "VM support (libvirtd)";
+    docker = lib.mkEnableOption "Rootless docker";
 
     extraHomePkgs = lib.mkOption {
       type = lib.types.listOf lib.types.package;

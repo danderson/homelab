@@ -26,6 +26,7 @@
     ./ulxs.nix
     ./users.nix
     ./utilities.nix
+    ./virt.nix
     ./zfs.nix
     ./zrepl.nix
   ];

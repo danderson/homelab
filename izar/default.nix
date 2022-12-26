@@ -29,12 +29,6 @@
     fwupd.enable = true;
   };
 
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-    daemon.settings.dns = [ "8.8.8.8" "8.8.4.4" ];
-  };
-
   home-manager.users.dave.my.monitors = {};
 
   # This value determines the NixOS release with which your system is to be
