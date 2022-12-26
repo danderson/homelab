@@ -15,6 +15,11 @@
       default = "systemd-boot";
     };
 
+    gpu = lib.mkOption {
+      type = lib.types.enum ["none" "intel" "amd"];
+      default = "none";
+    };
+
     directory = lib.mkOption {
       type = lib.types.attrsOf lib.types.int;
       default = {};

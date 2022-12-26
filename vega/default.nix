@@ -28,6 +28,7 @@
 
   my = {
     cpu-vendor = "amd";
+    gpu = "amd";
     desktop = true;
     zfs = true;
     ddc = true;

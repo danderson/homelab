@@ -2,18 +2,20 @@
   require = [
     ../lib
     ./hardware-configuration.nix
+    flakes.nixos-hardware.nixosModules.system76
   ];
 
-  my.cpu-vendor = "amd";
-  my.desktop = true;
-  my.ddc = true;
+  my = {
+    cpu-vendor = "amd";
+    gpu = "amd";
+    desktop = true;
+    ddc = true;
+  };
 
   networking = {
     hostName = "rigel";
     hostId = "1d358a90";
   };
-
-  hardware.system76.enableAll = true;
 
   virtualisation.libvirtd = {
     enable = true;

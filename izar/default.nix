@@ -5,15 +5,12 @@
     flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
   ];
 
-  my.cpu-vendor = "amd";
-  my.desktop = true;
-  my.zfs = true;
-  my.tailscale = "unstable";
-
-  boot = {
-    kernelModules = ["acpi_call"];
-    extraModulePackages = [config.boot.kernelPackages.acpi_call];
-    kernelParams = ["acpi_backlight=native"];
+  my = {
+    cpu-vendor = "amd";
+    gpu = "amd";
+    desktop = true;
+    zfs = true;
+    tailscale = "unstable";
   };
 
   networking = {
@@ -21,23 +18,24 @@
     hostId = "515b13ad";
   };
 
-  hardware.opengl.extraPackages = [ pkgs.amdvlk ];
-  hardware.trackpoint.enable = true;
-
   #services.openiscsi.enable = true;
   #services.openiscsi.name = "iqn.2020-08.org.linux-iscsi.izar:izar";
 
   services = {
     upower.enable = true;
-    xserver.videoDrivers = ["amdgpu"];
     acpid.enable = true;
     colord.enable = true;
     fprintd.enable = true;
     fwupd.enable = true;
   };
 
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+    daemon.settings.dns = [ "8.8.8.8" "8.8.4.4" ];
+  };
+
   home-manager.users.dave.my.monitors = {};
-  services.livemon.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

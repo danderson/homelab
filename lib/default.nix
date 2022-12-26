@@ -7,6 +7,7 @@
     ./directory.nix
     ./dns.nix
     ./firewall.nix
+    ./gpu.nix
     ./jlink.nix
     ./kernel.nix
     ./lldp.nix
