@@ -1,15 +1,20 @@
-{ pkgs, ...}:
-let em = pkgs.emacsPackagesFor pkgs.emacs;
-    bsv-mode = em.trivialBuild {
-      pname = "bsv-mode";
-      version = "0.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "danderson";
-        repo = "bsv-mode";
-        rev = "dd526198472c977a2350aefb0594da322b14e5f9";
-        sha256 = "sha256-QcgDivhRKaiWNvSIH/0rKQvxprEN6N+bAxyp9iCcmiM=";
-      };
+{ pkgs, ...}: let
+  em = pkgs.emacsPackagesFor pkgs.emacs;
+  bsv-mode = em.trivialBuild {
+    pname = "bsv-mode";
+    version = "0.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "danderson";
+      repo = "bsv-mode";
+      rev = "dd526198472c977a2350aefb0594da322b14e5f9";
+      sha256 = "sha256-QcgDivhRKaiWNvSIH/0rKQvxprEN6N+bAxyp9iCcmiM=";
     };
+  };
+  fastSwank = pkgs.runCommandWith {name = "sbcl.core-with-swank";} ''
+    export HOME=`pwd`
+    loader=$(echo ${pkgs.emacsPackages.slime}/share/emacs/site-lisp/elpa/slime-*/swank-loader.lisp)
+    ${pkgs.sbcl}/bin/sbcl --eval "(load \"$loader\")" --eval "(swank-loader:dump-image \"$out\")"
+  '';
 in
 {
   programs.emacs = {
@@ -200,6 +205,15 @@ in
           mode = [''"\\.yaml\\'"''];
         };
         lua-mode.enable = true;
+        slime = {
+          enable = true;
+          config = ''
+            (setq slime-lisp-implementations
+               '((sbcl ("sbcl" "--core" "${fastSwank}")
+                       :init (lambda (port-file _)
+                                     (format "(swank:start-server %S)\n" port-file)))))
+          '';
+        };
       };
     };
   };

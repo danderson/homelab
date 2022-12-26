@@ -51,6 +51,7 @@ let
     pwgen
     rename
     ripgrep
+    sbcl
     smartmontools
     sshfs
     sysstat
