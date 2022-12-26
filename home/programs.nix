@@ -32,15 +32,14 @@ let
     gcc
     git-crypt
     glances
-    unstable.go_1_19
-    unstable.gotools
-    unstable.gopls
+    hdparm
     ipcalc
     ipmitool
     jq
     lftp
     lm_sensors
     lsof
+    lsscsi
     mosh
     my.fileserve
     neofetch
@@ -57,6 +56,9 @@ let
     sysstat
     tcpdump
     tmux
+    unstable.go_1_19
+    unstable.gopls
+    unstable.gotools
     unzip
     v4l-utils
     weechat-with-matrix
@@ -70,10 +72,10 @@ let
     discord
     feh
     firefox-bin
-    gnome3.dconf-editor
     gimp
-    google-chrome
     gnome.gnome-screenshot
+    gnome3.dconf-editor
+    google-chrome
     graphviz
     nitrogen
     pavucontrol

@@ -16,61 +16,28 @@
     kernel = "latest";
   };
 
-  networking.hostName = "acrux"; # Define your hostname.
-  networking.defaultGateway = "192.168.4.1";
-  networking.nameservers = ["127.0.0.1:54"];
-  networking.interfaces.eno1 = {
-    useDHCP = false;
-    ipv4 = {
-      addresses = [
-        {
-          address = "192.168.4.2";
-          prefixLength = 24;
-        }
-      ];
-    };
-  };
-  networking.interfaces.enp2s0f0.ipv4.addresses = [{
-    address = "10.0.0.1";
-    prefixLength = 24;
-  }];
-  networking.interfaces.eno2.useDHCP = false;
-  networking.interfaces.eno3.useDHCP = false;
-  networking.interfaces.eno4.useDHCP = false;
-
-  environment.systemPackages = with pkgs; [
-    hdparm
-    lsscsi
-  ];
-
-  services = {
-    zfs = {
-      autoSnapshot = {
-        enable = true;
-        frequent = 4;
-        hourly = 2;
-        daily = 7;
-        monthly = 12;
+  networking = {
+    hostName = "acrux";
+    defaultGateway = "192.168.4.1";
+    nameservers = ["127.0.0.1:54"];
+    interfaces.eno1 = {
+      useDHCP = false;
+      ipv4 = {
+        addresses = [
+          {
+            address = "192.168.4.2";
+            prefixLength = 24;
+          }
+        ];
       };
     };
-
-    paperless = {
-      enable = false;
-      dataDir = "/data/paperless";
-      passwordFile = "/etc/keys/paperless-admin-password";
-      address = "0.0.0.0";
-    };
-
-  };
-  users = {
-    users.paperless = {
-      group = "paperless";
-      uid = config.ids.uids.paperless;
-      home = "/data/paperless";
-    };
-    groups.paperless = {
-      gid = config.ids.gids.paperless;
-    };
+    interfaces.enp2s0f0.ipv4.addresses = [{
+      address = "10.0.0.1";
+      prefixLength = 24;
+    }];
+    interfaces.eno2.useDHCP = false;
+    interfaces.eno3.useDHCP = false;
+    interfaces.eno4.useDHCP = false;
   };
 
   security.polkit.enable = true;
@@ -87,6 +54,17 @@
   };
 
   # Run in a container so it can get its own tailscale IP and hostname
+  # Host system still gets a paperless user/group so ls makes sense.
+  users = {
+    users.paperless = {
+      group = "paperless";
+      uid = config.ids.uids.paperless;
+      home = "/data/paperless";
+    };
+    groups.paperless = {
+      gid = config.ids.gids.paperless;
+    };
+  };
   containers.paperless = {
     autoStart = true;
     ephemeral = true;
