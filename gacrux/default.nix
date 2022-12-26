@@ -15,24 +15,19 @@
   };
   boot.loader.grub.device = "/dev/vda";
 
-  networking.hostName = "gacrux";
-  networking.interfaces.enp1s0.useDHCP = true;
-  networking.nameservers = ["8.8.8.8" "8.8.4.4"];
+  networking = {
+    hostName = "gacrux";
+    interfaces.enp1s0.useDHCP = true;
+    nameservers = ["8.8.8.8" "8.8.4.4"];
+  };
 
   # The ZFS pool isn't used by local mounts, have to import it
   # explicitly and not try to decrypt it.
-  boot.zfs.extraPools = ["data"];
+  boot.zfs.extraPools = [ "data" ];
   boot.zfs.requestEncryptionCredentials = false;
 
-  environment.systemPackages = [pkgs.irssi];
-
-  services = {
-    openssh.openFirewall = false;
-    robustirc-bridge = {
-      enable = true;
-      extraFlags = ["-socks=localhost:1080"];
-    };
-  };
+  # Accessible over Tailscale and other private means only.
+  services.openssh.openFirewall = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
