@@ -64,6 +64,7 @@
   services.gnome.gnome-keyring.enable = true;
 
   # EXPERIMENT: getting sway to work properly, maybe.
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
