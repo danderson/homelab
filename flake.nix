@@ -69,7 +69,7 @@
       };
     in {
       nixosConfigurations = {
-        acrux = box nixos-old home-manager-old "acrux";
+        acrux = box nixos home-manager "acrux";
         gacrux = box nixos home-manager "gacrux";
         #mimosa = box nixos-old home-manager-old-old "mimosa";
         izar = box nixos home-manager "izar";
