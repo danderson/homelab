@@ -81,7 +81,7 @@ let
     nitrogen
     pavucontrol
     virt-manager
-    vscode
+    unstable.vscode-fhs
     zoom-us
   ];
   gaming = with pkgs; [
