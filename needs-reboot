@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 # -*- mode: shell-script -*-
 
-set -x
-./all-hosts | xargs -I{} sh -c "echo {}; ssh {} needs-reboot"
+for host in `./all-hosts`; do
+	echo "====== $host ======"
+	if ! ping -c1 -w3 $host >/dev/null; then
+		echo "Offline, skipping"
+	elif ssh $host needs-reboot; then
+		echo "OK"
+	fi
+done

@@ -39,11 +39,15 @@ if [[ "$host" == "all" ]]; then
 		echo "# $host"
 		echo "##################################"
 		echo
-		read -p "Deploy (Y/n) ? " resp
-		if [[ $resp =~ ^[Yy]?$ ]]; then
-			onehost "$host" "$@"
+		if ! ping -c1 -w3 $host >/dev/null; then
+			echo "Offline, skipping"
 		else
-			echo "$host skipped"
+			read -p "Deploy (Y/n) ? " resp
+			if [[ $resp =~ ^[Yy]?$ ]]; then
+				onehost "$host" "$@"
+			else
+				echo "$host skipped"
+			fi
 		fi
 	done
 else
