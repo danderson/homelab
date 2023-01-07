@@ -7,6 +7,7 @@
     ./directory.nix
     ./dns.nix
     ./firewall.nix
+    ./firmware.nix
     ./gpu.nix
     ./jlink.nix
     ./kernel.nix
@@ -19,6 +20,7 @@
     ./programs.nix
     ./shell.nix
     ./ssh.nix
+    ./steam.nix
     ./tailscale.nix
     ./time.nix
     ./timezone.nix

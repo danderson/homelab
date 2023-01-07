@@ -76,7 +76,7 @@
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
         rigel = box nixos home-manager "rigel";
-        canopus = box nixos-old home-manager-old "canopus";
+        canopus = box nixos home-manager "canopus";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {

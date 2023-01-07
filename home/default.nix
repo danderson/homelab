@@ -15,5 +15,7 @@
   # Shell prompt: powerline? starship?
   # zathura?
 
+  fonts.fontconfig.enable = true;
+
   home.stateVersion = "21.11";
 }

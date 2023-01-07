@@ -30,6 +30,11 @@
       default = if config.boot.isContainer then "off" else "stable";
     };
 
+    fwupd = lib.mkOption {
+      type = lib.types.enum [true false "framework"];
+      default = false;
+    };
+
     ddc = lib.mkEnableOption "Support configuring monitors with DDC";
     desktop = lib.mkEnableOption "Configure desktop/laptop GUI and services";
     zfs = lib.mkEnableOption "ZFS support";

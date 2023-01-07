@@ -87,7 +87,8 @@ let
   gaming = with pkgs; [
     unstable.lutris
     obs-studio
-    steam
+    # Steam is installed by NixOS via lib/steam.nix, because of NixOS
+    # specific tweaks.
   ];
   printing = let
   s = pkgs;

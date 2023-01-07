@@ -1,13 +1,16 @@
-{ flakes, pkgs, ... }: {
+{ config, flakes, pkgs, lib, ... }: {
   require = [
     ../lib
     ./hardware-configuration.nix
+    flakes.nixos-hardware.nixosModules.framework
   ];
 
   my = {
     cpu-vendor = "intel";
+    gpu = "intel";
     desktop = true;
     zfs = true;
+    fwupd = "framework";
   };
 
   networking = {
@@ -20,9 +23,9 @@
     acpid.enable = true;
     colord.enable = true;
     fprintd.enable = true;
-    fwupd.enable = true;
   };
 
+  # Stay running with lid closed on AC power.
   services.logind.lidSwitchExternalPower = "ignore";
 
   # This value determines the NixOS release with which your system is to be

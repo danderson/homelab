@@ -42,9 +42,15 @@
 
   fonts = {
     enableDefaultFonts = true;
+    fontDir.enable = true;
     fontconfig.cache32Bit = true;
     fonts = with pkgs; [
-      google-fonts liberation_ttf open-sans roboto roboto-mono
+      google-fonts
+      liberation_ttf
+      open-sans
+      roboto
+      roboto-mono
+      vistafonts
     ];
   };
   hardware.opengl = {
