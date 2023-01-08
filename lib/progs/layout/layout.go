@@ -54,7 +54,7 @@ func dmenu(cfg *Config) (string, error) {
 	}
 	sort.Strings(layouts)
 
-	cmd := exec.Command("dmenu")
+	cmd := exec.Command("dmenu", "-i")
 	cmd.Stdin = strings.NewReader(strings.Join(layouts, "\n") + "\n")
 	bs, err := cmd.Output()
 	if err != nil {
