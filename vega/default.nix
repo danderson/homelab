@@ -56,6 +56,42 @@
     "${pkgs.picom}/bin/picom -CGb"
     "${pkgs.nitrogen}/bin/nitrogen --restore"
   ];
+  home-manager.users.dave.my.layout = {
+    outputs = let
+      screen = name: x: y: {
+        output = name;
+        position.x = x;
+        position.y = y;
+        resolution.x = 2560;
+        resolution.y = 1440;
+      };
+    in {
+      mid = screen "DP-1" 2560 383 // { primary = true; };
+      left = screen "DP-2" 0 383;
+      rightdown = screen "DP-3" 5120 1440;
+      rightup = screen "HDMI-A-1" 5120 0;
+    };
+    layouts = {
+      code = {
+        mid = ["1" "*"];
+        left = ["3"];
+        rightdown = ["2"];
+        rightup = ["10"];
+      };
+      bug = {
+        mid = ["2" "*"];
+        left = ["3"];
+        rightdown = ["1"];
+        rightup = ["10"];
+      };
+      game = {
+        mid = ["9"];
+        left = ["3"];
+        rightdown = ["2" "*"];
+        rightup = ["10"];
+      };
+    };
+  };
   home-manager.users.dave.my.monitors = {
     left = {
       type = "DisplayPort";

@@ -11,6 +11,12 @@
     subPackages = [ "directory" ];
     vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
   };
+  layout = pkgs.buildGoModule {
+    name = "layout";
+    src = ./progs;
+    subPackages = [ "layout" ];
+    vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
+  };
 in {
   nixpkgs.overlays = [
     (final: prev: {
@@ -18,6 +24,7 @@ in {
         fileserve = fileserve;
         directory = directory;
         livemon = flakes.livemon.packages.x86_64-linux.livemon;
+        layout = layout;
       };
     })
   ];

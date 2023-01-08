@@ -60,6 +60,8 @@
     "XF86AudioLowerVolume" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -10%";
     "XF86AudioMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
     "XF86AudioMicMute" = "exec --no-startup-id ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+    "XF86MonBrightnessUp" = "exec --no-startup-id ${pkgs.acpilight}/bin/xbacklight -perceived -inc 5";
+    "XF86MonBrightnessDown" = "exec --no-startup-id ${pkgs.acpilight}/bin/xbacklight -perceived -dec 5";
     "Mod4+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
     "Mod4+Shift+q" = "kill";
     "Mod4+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
@@ -112,7 +114,7 @@
     "Mod4+Shift+c" = "reload";
     "Mod4+Shift+r" = "restart";
     "Mod4+r" = ''mode "resize"'';
-    "Mod4+p" = "exec /home/dave/bin/layout _interactive";
+    "Mod4+p" = "exec ${pkgs.my.layout}/bin/layout --interactive";
   };
   barConfig = x11: [{
     mode = "dock";
@@ -123,11 +125,18 @@
     statusCommand = "${pkgs.i3status}/bin/i3status";
     trayOutput = if x11 then "primary" else null;
   }];
+
+  format = pkgs.formats.json {};
 in {
   options = {
     my.i3ExtraCommands = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
+    };
+
+    my.layout = lib.mkOption {
+      type = format.type;
+      default = {};
     };
 
     my.monitors = let
@@ -193,7 +202,7 @@ in {
           (n: v: { name = v.name; value = { res = "2560x1440"; pos = "${toString v.x} ${toString v.y}"; }; })
           swayActiveMonitors;
         startup = swayStartupCmds [
-          "swayidle -w timeout 1800 '${pkgs.systemd}/bin/loginctl lock-session' lock 'swaylock'"
+          "swayidle -w timeout 1800 '${pkgs.systemd}/bin/loginctl lock-session' before-sleep '${pkgs.systemd}/bin/loginctl lock-session' lock 'swaylock'"
         ];
       };
     };
@@ -263,28 +272,18 @@ in {
 
     services.swayidle.enable = true;
 
+    xdg.configFile."layout/config".source = format.generate "layout.json" config.my.layout;
+
     xdg.configFile."swaylock/config" = {
       text = ''
         show-keyboard-layout
         indicator-caps-lock
-        color=000000
+        color=111111
         ignore-empty-password
         show-failed-attempts
+        daemonize
+        indicator-idle-visible
       '';
-    };
-
-    home.file."bin/layout" = lib.mkIf (false) {
-      executable = true;
-      source = let
-        monName = mon: if mon == null then i3Monitors.mid.name else mon.name; in
-        pkgs.substituteAll {
-          src = ./layout.sh;
-          inherit xrandrReset;
-          mainM = monName i3Monitors.mid;
-          videoM = monName i3Monitors.rightup;
-          commsM = monName i3Monitors.left;
-          secondaryM = monName i3Monitors.rightdown;
-        };
     };
   };
 }
