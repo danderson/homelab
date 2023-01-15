@@ -42,12 +42,16 @@
     };
     grafana = {
       enable = true;
-      addr = "0.0.0.0";
-      port = 9000;
-      auth.anonymous = {
-        enable = true;
-        org_name = "Main Org.";
-        org_role = "Admin";
+      settings = {
+        server = {
+          http_port = 9000;
+          http_addr = "0.0.0.0";
+        };
+        "auth.anonymous" = {
+          enable = true;
+          org_role = "Admin";
+          org_name = "Main Org.";
+        };
       };
     };
 
