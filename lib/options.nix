@@ -45,6 +45,7 @@
     printing = lib.mkEnableOption "3D printing support";
     vms = lib.mkEnableOption "VM support (libvirtd)";
     docker = lib.mkEnableOption "Rootless docker";
+    mdns = lib.mkEnableOption "mdns resolution";
 
     extraHomePkgs = lib.mkOption {
       type = lib.types.listOf lib.types.package;

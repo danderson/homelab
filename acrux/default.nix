@@ -15,6 +15,7 @@
     # willing to downgrade it right now.
     kernel = "latest";
     vms = true;
+    mdns = true; # So airscan works
   };
 
   networking = {
