@@ -11,6 +11,20 @@
     desktop = true;
     zfs = true;
     fwupd = "framework";
+    layout = {
+      outputs.laptop = {
+        output = "eDP-1";
+        position.x = 0;
+        position.y = 0;
+        resolution.x = 2256;
+        resolution.y = 1504;
+        refreshRate = 60;
+      };
+      layouts = {
+        code = { laptop = ["1" "*"]; };
+        bug = { laptop = ["2" "*"]; };
+      };
+    };
   };
 
   networking = {
@@ -23,21 +37,6 @@
     acpid.enable = true;
     colord.enable = true;
     fprintd.enable = true;
-  };
-
-  home-manager.users.dave.my.layout = {
-    outputs.laptop = {
-      output = "eDP-1";
-      position.x = 0;
-      position.y = 0;
-      resolution.x = 2256;
-      resolution.y = 1504;
-      refreshRate = 60;
-    };
-    layouts = {
-      code = { laptop = ["1" "*"]; };
-      bug = { laptop = ["2" "*"]; };
-    };
   };
 
   # Stay running with lid closed on AC power.

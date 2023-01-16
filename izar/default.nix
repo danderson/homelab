@@ -11,6 +11,7 @@
     desktop = true;
     zfs = true;
     tailscale = "unstable";
+    layout = {};
   };
 
   networking = {
@@ -28,8 +29,6 @@
     fprintd.enable = true;
     fwupd.enable = true;
   };
-
-  home-manager.users.dave.my.monitors = {};
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

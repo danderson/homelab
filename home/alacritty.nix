@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  programs.alacritty.enable = config.my.gui-programs;
+  programs.alacritty.enable = config.my.desktop;
   programs.alacritty.settings = {
     env = {
       TERM = "xterm-256color";

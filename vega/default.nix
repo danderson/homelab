@@ -38,57 +38,56 @@
     jlink = true;
     fwupd = true;
     tailscale = "unstable";
-    extraHomePkgs = with pkgs; [
+    homePkgs = with pkgs; [
       openrgb
       ddcutil
     ];
+    wmCommands = [
+      "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
+      "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
+    ];
+    layout = {
+      outputs = let
+        screen = name: letter: x: y: {
+          output = name;
+          letter = letter;
+          position.x = x;
+          position.y = y;
+          resolution.x = 2560;
+          resolution.y = 1440;
+        };
+      in {
+        mid = screen "DP-1" "u" 2560 383 // { primary = true; };
+        left = screen "DP-2" "y" 0 383;
+        rightdown = screen "DP-3" "i" 5120 1440;
+        rightup = screen "HDMI-A-1" "o" 5120 0;
+      };
+      layouts = {
+        code = {
+          mid = ["1" "*"];
+          left = ["3"];
+          rightdown = ["2"];
+          rightup = ["10"];
+        };
+        bug = {
+          mid = ["2" "*"];
+          left = ["3"];
+          rightdown = ["1"];
+          rightup = ["10"];
+        };
+        game = {
+          mid = ["9"];
+          left = ["3"];
+          rightdown = ["2" "*"];
+          rightup = ["10"];
+        };
+      };
+    };
   };
 
   networking = {
     hostName = "vega";
     hostId = "5c13d618";
-  };
-
-  home-manager.users.dave.my.wmExtraCommands = [
-    "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
-    "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
-  ];
-  home-manager.users.dave.my.layout = {
-    outputs = let
-      screen = name: letter: x: y: {
-        output = name;
-        letter = letter;
-        position.x = x;
-        position.y = y;
-        resolution.x = 2560;
-        resolution.y = 1440;
-      };
-    in {
-      mid = screen "DP-1" "u" 2560 383 // { primary = true; };
-      left = screen "DP-2" "y" 0 383;
-      rightdown = screen "DP-3" "i" 5120 1440;
-      rightup = screen "HDMI-A-1" "o" 5120 0;
-    };
-    layouts = {
-      code = {
-        mid = ["1" "*"];
-        left = ["3"];
-        rightdown = ["2"];
-        rightup = ["10"];
-      };
-      bug = {
-        mid = ["2" "*"];
-        left = ["3"];
-        rightdown = ["1"];
-        rightup = ["10"];
-      };
-      game = {
-        mid = ["9"];
-        left = ["3"];
-        rightdown = ["2" "*"];
-        rightup = ["10"];
-      };
-    };
   };
 
   # This value determines the NixOS release with which your system is to be

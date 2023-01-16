@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   options.my = {
     cpu-vendor = lib.mkOption {
       type = lib.types.enum ["none" "intel" "amd"];
@@ -47,9 +47,19 @@
     docker = lib.mkEnableOption "Rootless docker";
     mdns = lib.mkEnableOption "mdns resolution";
 
-    extraHomePkgs = lib.mkOption {
+    homePkgs = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [];
+    };
+
+    wmCommands = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+    };
+
+    layout = lib.mkOption {
+      type = (pkgs.formats.json {}).type;
+      default = {};
     };
   };
 }

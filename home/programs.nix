@@ -1,10 +1,11 @@
 { config, pkgs, agenix, lib, flakes, ... }:
 let
-  unstable = import flakes.nixos-unstable {
+  s = pkgs;
+  u = import flakes.nixos-unstable {
     system = pkgs.system;
     config.allowUnfree = true;
   };
-  unstable-small = flakes.nixos-unstable-small.legacyPackages.x86_64-linux;
+
   agenix = flakes.agenix.packages.x86_64-linux.agenix;
   weechat-with-matrix = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
@@ -15,8 +16,10 @@ let
       scripts = [ pkgs.weechatScripts.weechat-matrix ];
     };
   };
+
   maybeList = toggle: list: if toggle then list else [];
-  cli-programs = with pkgs; [
+
+  cli-programs = with s; [
     agenix
     bc
     conntrack-tools
@@ -41,7 +44,6 @@ let
     lsof
     lsscsi
     mosh
-    my.fileserve
     neofetch
     niv
     nix-diff
@@ -57,17 +59,20 @@ let
     sysstat
     tcpdump
     tmux
-    unstable.go_1_19
-    unstable.gopls
-    unstable.gotools
     unzip
     v4l-utils
     weechat-with-matrix
     wget
     whois
     wireguard-tools
+
+    u.go_1_19
+    u.gopls
+    u.gotools
+
+    my.fileserve
   ];
-  gui-programs = with pkgs; [
+  gui-programs = with s; [
     arandr
     barrier
     discord
@@ -81,23 +86,20 @@ let
     nitrogen
     pavucontrol
     virt-manager
-    unstable.vscode-fhs
     zoom-us
+
+    u.vscode-fhs # FHS so plugin installs work
   ];
-  gaming = with pkgs; [
-    unstable.lutris
+  gaming = with s; [
+    lutris
     obs-studio
     # Steam is installed by NixOS via lib/steam.nix, because of NixOS
     # specific tweaks.
   ];
-  printing = let
-  s = pkgs;
-  u = unstable;
-  in [
-    u.freecad
-    u.flatpak
-    u.plater
-    u.solvespace
+  printing = with u; [
+    freecad
+    plater
+    solvespace
     # Build broken in unstable 2022-12-10
     s.openscad
     s.super-slicer
@@ -107,10 +109,10 @@ in
 {
   home.packages = lib.flatten [
     cli-programs
-    (maybeList config.my.gui-programs gui-programs)
+    (maybeList config.my.desktop gui-programs)
     (maybeList config.my.gaming gaming)
     (maybeList config.my.printing printing)
-    config.my.extraPkgs
+    config.my.homePkgs
   ];
   home.file = {
     "bin/needs-reboot" = {
@@ -126,7 +128,7 @@ in
       executable = true;
       text = builtins.readFile ./tailscale-switch-profile.sh;
     };
-    "bin/rgb" = lib.mkIf config.my.gui-programs {
+    "bin/rgb" = lib.mkIf config.my.desktop {
       executable = true;
       text = builtins.readFile ./rgb.sh;
     };

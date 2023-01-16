@@ -124,7 +124,7 @@
   swayLayout = pkgs.runCommandLocal "sway-layout" {} ''${pkgs.my.layout}/bin/layout --config ${layoutCfg} --gen-sway >$out'';
   i3Layout = pkgs.runCommandLocal "i3-layout" {} ''${pkgs.my.layout}/bin/layout --config ${layoutCfg} --gen-i3 >$out'';
 
-in lib.mkIf config.my.gui-programs {
+in lib.mkIf config.my.desktop {
   xsession.windowManager.i3 = {
     enable = true;
     config = wmConfig // {
@@ -134,7 +134,7 @@ in lib.mkIf config.my.gui-programs {
       startup = i3StartupCmds ([
         "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- ${pkgs.i3lock}/bin/i3lock -e -f --nofork --color=000000"
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
-      ] ++ config.my.wmExtraCommands);
+      ] ++ config.my.wmCommands);
     };
     extraConfig = ''
       include ${i3Layout}
@@ -146,7 +146,7 @@ in lib.mkIf config.my.gui-programs {
     config = wmConfig // {
       bars = barConfig false;
       keybindings = keybindings;
-      startup = swayStartupCmds config.my.wmExtraCommands;
+      startup = swayStartupCmds config.my.wmCommands;
     };
     extraConfig = ''
       include ${swayLayout}
