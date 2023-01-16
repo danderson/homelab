@@ -6,6 +6,7 @@
     ./emacs.nix
     ./git.nix
     ./go.nix
+    ./options.nix
     ./programs.nix
     ./ssh.nix
     ./wm.nix

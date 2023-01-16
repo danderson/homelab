@@ -49,27 +49,25 @@
     hostId = "5c13d618";
   };
 
-  home-manager.users.dave.my.i3ExtraCommands = [
-    "${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 2560x1440 --rate 75 --pos 2560x383 --rotate normal --output DisplayPort-1 --mode 2560x1440 --rate 75 --pos 0x383 --rotate normal --output DisplayPort-2 --mode 2560x1440 --rate 75 --pos 5120x1440 --rotate normal --output HDMI-A-0 --mode 2560x1440 --rate 75 --pos 5120x0 --rotate normal"
+  home-manager.users.dave.my.wmExtraCommands = [
     "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
     "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
-    "${pkgs.picom}/bin/picom -CGb"
-    "${pkgs.nitrogen}/bin/nitrogen --restore"
   ];
   home-manager.users.dave.my.layout = {
     outputs = let
-      screen = name: x: y: {
+      screen = name: letter: x: y: {
         output = name;
+        letter = letter;
         position.x = x;
         position.y = y;
         resolution.x = 2560;
         resolution.y = 1440;
       };
     in {
-      mid = screen "DP-1" 2560 383 // { primary = true; };
-      left = screen "DP-2" 0 383;
-      rightdown = screen "DP-3" 5120 1440;
-      rightup = screen "HDMI-A-1" 5120 0;
+      mid = screen "DP-1" "u" 2560 383 // { primary = true; };
+      left = screen "DP-2" "y" 0 383;
+      rightdown = screen "DP-3" "i" 5120 1440;
+      rightup = screen "HDMI-A-1" "o" 5120 0;
     };
     layouts = {
       code = {
@@ -90,36 +88,6 @@
         rightdown = ["2" "*"];
         rightup = ["10"];
       };
-    };
-  };
-  home-manager.users.dave.my.monitors = {
-    left = {
-      type = "DisplayPort";
-      num = 2;
-      x = 0;
-      y = 383;
-      res = "2560x1440";
-    };
-    mid = {
-      type = "DisplayPort";
-      num = 1;
-      x = 2560;
-      y = 383;
-      res = "2560x1440";
-    };
-    rightdown = {
-      type = "DisplayPort";
-      num = 3;
-      x = 5120;
-      y = 1440;
-      res = "2560x1440";
-    };
-    rightup = {
-      type = "HDMI";
-      num = 1;
-      x = 5120;
-      y = 0;
-      res = "2560x1440";
     };
   };
 

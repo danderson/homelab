@@ -105,44 +105,32 @@ let
   ];
 in
 {
-  options = {
-    my.gui-programs = lib.mkEnableOption "GUI programs";
-    my.gaming = lib.mkEnableOption "Gaming stuff";
-    my.printing = lib.mkEnableOption "3D printing tools";
-    my.extraPkgs = lib.mkOption {
-      type = lib.types.listOf lib.types.package;
-      default = [];
+  home.packages = lib.flatten [
+    cli-programs
+    (maybeList config.my.gui-programs gui-programs)
+    (maybeList config.my.gaming gaming)
+    (maybeList config.my.printing printing)
+    config.my.extraPkgs
+  ];
+  home.file = {
+    "bin/needs-reboot" = {
+      executable = true;
+      text = builtins.readFile ./needs-reboot.sh;
+    };
+
+    "bin/delbr" = {
+      executable = true;
+      text = builtins.readFile ./delete-my-old-branches.sh;
+    };
+    "bin/tss" = {
+      executable = true;
+      text = builtins.readFile ./tailscale-switch-profile.sh;
+    };
+    "bin/rgb" = lib.mkIf config.my.gui-programs {
+      executable = true;
+      text = builtins.readFile ./rgb.sh;
     };
   };
-
-  config = {
-    home.packages = lib.flatten [
-      cli-programs
-      (maybeList config.my.gui-programs gui-programs)
-      (maybeList config.my.gaming gaming)
-      (maybeList config.my.printing printing)
-      config.my.extraPkgs
-    ];
-    home.file = {
-      "bin/needs-reboot" = {
-        executable = true;
-        text = builtins.readFile ./needs-reboot.sh;
-      };
-
-      "bin/delbr" = {
-        executable = true;
-        text = builtins.readFile ./delete-my-old-branches.sh;
-      };
-      "bin/tss" = {
-        executable = true;
-        text = builtins.readFile ./tailscale-switch-profile.sh;
-      };
-      "bin/rgb" = lib.mkIf config.my.gui-programs {
-        executable = true;
-        text = builtins.readFile ./rgb.sh;
-      };
-    };
-    programs.lesspipe.enable = true;
-    programs.dircolors.enable = true;
-  };
+  programs.lesspipe.enable = true;
+  programs.dircolors.enable = true;
 }

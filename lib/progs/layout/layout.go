@@ -16,6 +16,8 @@ var (
 	cfgPath     = flag.String("config", "", "path to config file")
 	debug       = flag.Bool("debug", false, "print debug output")
 	interactive = flag.Bool("interactive", false, "run interactively through dmenu")
+	genSway     = flag.Bool("gen-sway", false, "generate sway config snippet")
+	geni3       = flag.Bool("gen-i3", false, "generate i3 config snippet")
 
 	isSway = os.Getenv("XDG_SESSION_DESKTOP") == "sway"
 )
@@ -28,14 +30,25 @@ func main() {
 	}
 
 	var layout string
-	if *interactive {
+	switch {
+	case *genSway:
+		if err := generateConfig(cfg, true); err != nil {
+			log.Fatalf("generating sway config: %v", err)
+		}
+		return
+	case *geni3:
+		if err := generateConfig(cfg, false); err != nil {
+			log.Fatalf("generating sway config: %v", err)
+		}
+		return
+	case *interactive:
 		layout, err = dmenu(cfg)
 		if err != nil {
 			log.Fatalf("getting layout: %s", err)
 		}
-	} else if flag.NArg() > 0 {
+	case flag.NArg() > 0:
 		layout = flag.Arg(0)
-	} else {
+	default:
 		log.Fatalf("need a layout name")
 	}
 
