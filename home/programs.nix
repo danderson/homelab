@@ -87,8 +87,6 @@ let
     pavucontrol
     virt-manager
     zoom-us
-
-    u.vscode-fhs # FHS so plugin installs work
   ];
   gaming = with s; [
     lutris
@@ -135,4 +133,9 @@ in
   };
   programs.lesspipe.enable = true;
   programs.dircolors.enable = true;
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode.fhs;
+  };
+  services.vscode-server.enable = true;
 }
