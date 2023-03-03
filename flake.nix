@@ -33,10 +33,6 @@
       url = "github:tailscale/tailscale";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
-    vscode-server= {
-      url = "github:msteen/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixos-unstable";
-    };
   };
 
   outputs = { self,
@@ -51,7 +47,6 @@
               nixos-unstable-small,
               home-manager-unstable,
               tailscale,
-              vscode-server,
               ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
