@@ -26,17 +26,20 @@ in
   networking = {
     hostName = "iris";
     hostId = "2a939c2d";
-    defaultGateway = "192.168.4.1";
-    nameservers = ["192.168.4.2"];
+    #defaultGateway = "192.168.4.1";
+    nameservers = ["8.8.8.8"];
 
-    interfaces.eno1.ipv4.addresses = [{
-      address = "192.168.4.3";
-      prefixLength = 24;
-    }];
-    interfaces.enp6s0f1.ipv4.addresses = [{
-      address = "10.0.0.2";
-      prefixLength = 24;
-    }];
+    interfaces.eno1 = {
+      useDHCP = true;
+    };
+    #interfaces.eno1.ipv4.addresses = [{
+    #  address = "192.168.4.3";
+    #  prefixLength = 24;
+    #}];
+    #interfaces.enp6s0f1.ipv4.addresses = [{
+    #  address = "10.0.0.2";
+    #  prefixLength = 24;
+    #}];
   };
 
   # List packages installed in system profile. To search, run:
