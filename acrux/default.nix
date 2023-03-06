@@ -20,23 +20,23 @@
 
   networking = {
     hostName = "acrux";
-    defaultGateway = "192.168.4.1";
-    nameservers = ["127.0.0.1:54"];
+    #defaultGateway = "192.168.4.1";
+    nameservers = ["8.8.8.8"]; #127.0.0.1:54"];
     interfaces.eno1 = {
-      useDHCP = false;
-      ipv4 = {
-        addresses = [
-          {
-            address = "192.168.4.2";
-            prefixLength = 24;
-          }
-        ];
-      };
+      useDHCP = true;
+      #ipv4 = {
+      #  addresses = [
+      #    {
+      #      address = "192.168.4.2";
+      #      prefixLength = 24;
+      #    }
+      #  ];
+      #};
     };
-    interfaces.enp2s0f0.ipv4.addresses = [{
-      address = "10.0.0.1";
-      prefixLength = 24;
-    }];
+    #interfaces.enp2s0f0.ipv4.addresses = [{
+    #  address = "10.0.0.1";
+    #  prefixLength = 24;
+    #}];
     interfaces.eno2.useDHCP = false;
     interfaces.eno3.useDHCP = false;
     interfaces.eno4.useDHCP = false;
