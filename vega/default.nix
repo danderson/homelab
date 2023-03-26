@@ -57,8 +57,8 @@
           resolution.y = 1440;
         };
       in {
-        mid = screen "DP-1" "u" 2560 383 // { primary = true; };
-        left = screen "DP-2" "y" 0 383;
+        mid = screen "DP-2" "u" 2560 510 // { primary = true; };
+        left = screen "DP-1" "y" 0 510;
         rightdown = screen "DP-3" "i" 5120 1440;
         rightup = screen "HDMI-A-1" "o" 5120 0;
       };
