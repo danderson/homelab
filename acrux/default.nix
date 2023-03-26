@@ -33,10 +33,10 @@
       #  ];
       #};
     };
-    #interfaces.enp2s0f0.ipv4.addresses = [{
-    #  address = "10.0.0.1";
-    #  prefixLength = 24;
-    #}];
+    interfaces.enp2s0f0.ipv4.addresses = [{
+      address = "10.0.0.1";
+      prefixLength = 24;
+    }];
     interfaces.eno2.useDHCP = false;
     interfaces.eno3.useDHCP = false;
     interfaces.eno4.useDHCP = false;
