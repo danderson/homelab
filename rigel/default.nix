@@ -13,25 +13,25 @@
     layout = {
       outputs = {
         left = {
-          output = "DP-2";
+          output = "DP-3";
           letter = "y";
-          position = { x = 0; y = 383; };
+          position = { x = 0; y = 510; };
           resolution = { x = 2560; y = 1440; };
         };
         mid = {
-          output = "DP-3";
+          output = "DP-2";
           letter = "u";
-          position = { x = 2560; y = 383; };
+          position = { x = 2560; y = 510; };
           resolution = { x = 2560; y = 1440; };
         };
         rightdown = {
-          output = "DP-1";
+          output = "HDMI-A-1";
           letter = "i";
           position = { x = 5120; y = 1440; };
           resolution = { x = 2560; y = 1440; };
         };
         rightup = {
-          output = "HDMI-A-1";
+          output = "DP-4";
           letter = "o";
           position = { x = 5120; y = 0; };
           resolution = { x = 2560; y = 1440; };
