@@ -1,6 +1,6 @@
-{ pkgs, ...}: let
+{ pkgs, lib, ...}: let
   em = pkgs.emacsPackagesFor pkgs.emacs;
-  bsv-mode = em.trivialBuild {
+  bsvPkg = emPkgs: emPkgs.trivialBuild {
     pname = "bsv-mode";
     version = "0.0";
     src = pkgs.fetchFromGitHub {
@@ -15,6 +15,9 @@
     loader=$(echo ${pkgs.emacsPackages.slime}/share/emacs/site-lisp/elpa/slime-*/swank-loader.lisp)
     ${pkgs.sbcl}/bin/sbcl --eval "(load \"$loader\")" --eval "(swank-loader:dump-image \"$out\")"
   '';
+  pkg = opts: { enable = lib.mkDefault true; } // opts;
+  ext = str: ''"${builtins.replaceStrings ["." "'"] [''\\.'' ''\\''] str}\\'"'';
+  exts = es: map ext es;
 in
 {
   programs.emacs = {
@@ -22,9 +25,6 @@ in
     init = {
       enable = true;
       recommendedGcSettings = true;
-      prelude = ''
-        (add-to-list 'load-path "${bsv-mode}/share/emacs/site-lisp")
-      '';
       postlude = ''
         (windmove-default-keybindings)
 
@@ -32,14 +32,14 @@ in
         (global-set-key [(meta l)] 'goto-line)
         (global-set-key [(meta c)] 'comment-region)
         (global-set-key [(meta u)] 'uncomment-region)
+        (global-unset-key (kbd "C-z"))
 
+        (defalias 'yes-or-no-p 'y-or-n-p)
         (setq 'confirm-kill-emacs (quote y-or-n-p))
-        (setq 'exec-path-from-shell-variables (quote ("PATH" "MANPATH" "GOPATH")))
 
         (setq inhibit-startup-message t)
         (setq initial-scratch-message nil)
 
-        (defalias 'yes-or-no-p 'y-or-n-p)
         (set-face-attribute 'default nil :family "Source Code Pro" :height 130 :weight 'normal :width 'normal)
 
         (tool-bar-mode -1)
@@ -53,65 +53,47 @@ in
 
         (setq make-backup-files nil)
 
+        ;; Delete whole line + newline on C-k at start of line
         (setq kill-whole-line t)
-        (setq indent-tabs-mode nil)
+        ;; Indent with spaces only, not tabs
+        (setq-default indent-tabs-mode nil)
+        ;; Tab indents 4 spaces unless overridden by other modes/files
         (setq-default tab-width 4)
-        (setq tramp-default-method "sshx")
+        ;; Show matching paren always, immediately
         (setq show-paren-mode t)
         (setq show-paren-delay 0)
+        ;; Prefer UTF-8 as much as possible.
+        (set-default-coding-systems 'utf-8)
 
-        (prefer-coding-system 'utf-8)
-        (transient-mark-mode 1)
-
+        ;; Use shell-script-mode to edit redo and redoconf files
         (add-to-list 'auto-mode-alist '("\\.do$" . shell-script-mode))
         (add-to-list 'auto-mode-alist '("\\.od$" . shell-script-mode))
-
-        (autoload 'bsv-mode "bsv-mode" "BSV mode" t )
-        (add-to-list 'auto-mode-alist '("\\.bsv\\'" . bsv-mode))
-
-        (defun turn-off-indent-tabs-mode ()
-          (setq indent-tabs-mode nil))
-        (add-hook 'bsv-mode-hook #'turn-off-indent-tabs-mode)
       '';
       usePackage = {
-        scad-mode.enable = true;
-        ansi-color = {
-          enable = true;
-          command = [ "ansi-color-apply-on-region" ];
+        ansi-color = pkg {
+          command = ["ansi-color-apply-on-region"];
         };
-        autorevert = {
-          enable = true;
-          diminish = [ "auto-revert-mode" ];
-          command = [ "auto-revert-mode" ];
+        autorevert = pkg {
+          diminish = ["auto-revert-mode"];
           config = "(global-auto-revert-mode)";
         };
-        base16-theme = {
-          enable = true;
+        base16-theme = pkg {
           config = "(load-theme 'base16-solarized-dark t)";
         };
-        beacon = {
-          enable = true;
-          command = [ "beacon-mode" ];
-          diminish = [ "beacon-mode" ];
-          defer = 1;
+        beacon = pkg {
+          diminish = ["beacon-mode"];
           config = "(beacon-mode 1)";
         };
-        direnv = {
-          enable = true;
+        direnv = pkg {
           config = "(direnv-mode)";
         };
-        dockerfile-mode = {
-          enable = true;
-          mode = [ ''"Dockerfile\\'"'' ];
+        exec-path-from-shell = pkg {
+          config = ''
+            (setq 'exec-path-from-shell-variables (quote ("PATH" "MANPATH" "GOPATH")))
+          '';
         };
-        exec-path-from-shell = {
-          enable = true;
-        };
-        flycheck = {
-          enable = true;
-          diminish = [ "flycheck-mode" ];
-          command = [ "global-flycheck-mode" ];
-          defer = 1;
+        flycheck = pkg {
+          diminish = ["flycheck-mode"];
           config = ''
             ;; Only check buffer when mode is enabled or buffer is saved.
             (setq flycheck-check-syntax-automatically '(mode-enabled save))
@@ -119,26 +101,8 @@ in
             (global-flycheck-mode)
           '';
         };
-        go-mode = {
-	        enable = true;
-	        mode = [''"\\.go\\'"''];
-          config = ''
-            (setq gofmt-command "goimports")
-            (add-hook 'before-save-hook 'gofmt-before-save)
-          '';
-	      };
-        graphviz-dot-mode = {
-          enable = true;
-          mode = [''"\\.dot\\'"''];
-          config = ''
-            (setq gofmt-command "goimports")
-          '';
-        };
-        ivy = {
-          enable = true;
-          demand = true;
-          diminish = [ "ivy-mode" ];
-          command = [ "ivy-mode" ];
+        ivy = pkg {
+          diminish = ["ivy-mode"];
           config = ''
             (setq ivy-use-virtual-buffers t
                   ivy-count-format "%d/%d "
@@ -148,70 +112,71 @@ in
             (ivy-mode 1)
           '';
         };
-        js = {
-          enable = true;
-          mode = [
-            ''("\\.js\\'" . js-mode)''
-            ''("\\.json\\'" . js-mode)''
-          ];
+        uniquify = pkg {};
+
+        systemd = pkg {
+          # Could attempt to defer this with mode settings, but the
+          # mode matches for the systemd package include quite complex
+          # regexes, so just eat the always-load time for now.
+        };
+        dockerfile-mode = pkg {};
+        go-mode = pkg {
+	        mode = exts [".go"];
+          config = ''
+            (setq gofmt-command "goimports")
+            (add-hook 'before-save-hook 'gofmt-before-save)
+          '';
+	      };
+        scad-mode = pkg {};
+        graphviz-dot-mode = pkg {
+          mode = exts [".dot"];
+        };
+        js = pkg {
+          mode = exts [".js" ".json"];
           config = ''
             (setq js-indent-level 2)
           '';
         };
-        json-mode = {
-          enable = true;
-          mode = [''"\\.json\\'"''];
+        json-mode = pkg {
+          mode = exts [".json"];
         };
-        markdown-mode = {
-          enable = true;
-          mode = [''"\\.md\\'"''];
+        markdown-mode = pkg {
+          mode = exts [".md"];
         };
-	      nix-mode = {
-	        enable = true;
-	        mode = [''"\\.nix\\'"''];
+	      nix-mode = pkg {
+	        mode = exts [".nix"];
 	      };
-        terraform-mode.enable = true;
-        protobuf-mode = {
-          enable = true;
-          mode = [
-            ''"\\.proto\\'"''
-            ''"\\.pb\\'"''
-          ];
+        terraform-mode = pkg {};
+        protobuf-mode = pkg {
+          mode = exts [".proto" ".pb"];
         };
-        python = {
-          enable = true;
-          mode = [ ''("\\.py\\'" . python-mode)'' ];
+        python = pkg {
+          mode = ["(${ext ".py"} . python-mode)"];
         };
-        rust-mode = {
-          enable = true;
-          mode = [''"\\.rs\\'"''];
+        rust-mode = pkg {
+          mode = exts [".rs"];
         };
-        systemd = {
-          enable = true;
-          defer = true;
+        web-mode = pkg {
+          mode = exts [".html" ".htm"];
         };
-        uniquify = {
-          enable = true;
+        yaml-mode = pkg {
+          mode = exts [".yaml"];
         };
-        web-mode = {
-          enable = true;
-          mode = [
-            ''"\\.html\\'"''
-            ''"\\.htm\\'"''
-          ];
-        };
-        yaml-mode = {
-          enable = true;
-          mode = [''"\\.yaml\\'"''];
-        };
-        lua-mode.enable = true;
-        slime = {
-          enable = true;
+        lua-mode = pkg {};
+        slime = pkg {
           config = ''
             (setq slime-lisp-implementations
-               '((sbcl ("sbcl" "--core" "${fastSwank}")
-                       :init (lambda (port-file _)
-                                     (format "(swank:start-server %S)\n" port-file)))))
+              '((sbcl ("sbcl" "--core" "${fastSwank}")
+                      :init (lambda (port-file _)
+                                    (format "(swank:start-server %S)\n" port-file)))))
+          '';
+        };
+        bsv-mode = pkg {
+          package = bsvPkg;
+          mode = exts [".bsv"];
+          config = ''
+            (defun turn-off-indent-tabs-mode () (setq indent-tabs-mode nil))
+            (add-hook 'bsv-mode-hook #'turn-off-indent-tabs-mode)
           '';
         };
       };
