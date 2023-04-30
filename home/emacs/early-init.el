@@ -16,10 +16,8 @@
 
 (my/reduce-gc)
 (add-hook 'emacs-startup-hook #'my/restore-gc)
-
 (add-hook 'minibuffer-setup-hook #'my/reduce-gc -50)
 (add-hook 'minibuffer-exit-hook #'my/restore-gc)
-
 (add-hook 'kill-emacs-hook #'my/reduce-gc -50)
 
 ;; Turn off regexp file matching while loading config.

@@ -33,6 +33,10 @@
       url = "github:tailscale/tailscale";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay/master";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
   };
 
   outputs = { self,
@@ -47,6 +51,7 @@
               nixos-unstable-small,
               home-manager-unstable,
               tailscale,
+              emacs-overlay,
               ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
@@ -61,7 +66,12 @@
           agenix.nixosModules.age
           homeBase.nixosModules.home-manager
           livemon.nixosModules.livemon
-          ({ nixpkgs.overlays = [ nur.overlay ]; })
+          ({
+            nixpkgs.overlays = [
+              nur.overlay
+              emacs-overlay.overlay
+            ];
+          })
           ./lib/home.nix
           (./. + "/${name}")
         ];
