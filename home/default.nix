@@ -4,6 +4,7 @@
     ./bash.nix
     ./direnv.nix
     #./emacs.nix
+    ./emacs2.nix
     ./git.nix
     ./go.nix
     ./options.nix

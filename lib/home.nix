@@ -7,14 +7,14 @@
     users = {
       dave = {
         imports = [
-          pkgs.nur.repos.rycee.hmModules.emacs-init
+          #pkgs.nur.repos.rycee.hmModules.emacs-init
           ../home
         ];
         my = config.my;
       };
       root = {
         imports = [
-          pkgs.nur.repos.rycee.hmModules.emacs-init
+          #pkgs.nur.repos.rycee.hmModules.emacs-init
           ../home
         ];
         my = config.my;
