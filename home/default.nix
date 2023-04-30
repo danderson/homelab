@@ -3,7 +3,7 @@
     ./alacritty.nix
     ./bash.nix
     ./direnv.nix
-    ./emacs.nix
+    #./emacs.nix
     ./git.nix
     ./go.nix
     ./options.nix

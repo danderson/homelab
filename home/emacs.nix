@@ -39,6 +39,7 @@ in
 
         (setq inhibit-startup-message t)
         (setq initial-scratch-message nil)
+        (setq ring-bell-function 'ignore)
 
         (set-face-attribute 'default nil :family "Source Code Pro" :height 130 :weight 'normal :width 'normal)
 
@@ -92,6 +93,45 @@ in
             (setq 'exec-path-from-shell-variables (quote ("PATH" "MANPATH" "GOPATH")))
           '';
         };
+        vertico = pkg {
+          # bind = {
+          #   #"RET" = "vertico-directory-enter";
+          #   #"DEL" = "vertico-directory-delete-word";
+          #   #"M-d" = "vertico-directory-delete-char";
+          # };
+          config = ''
+            (vertico-mode t)
+            (define-key vertico-map (kbd "RET") #'vertico-directory-enter)
+            (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-word)
+            (define-key vertico-map (kbd "M-d") #'vertico-directory-delete-char)
+          '';
+        };
+        consult = pkg {
+          # bind = {
+          #   #"[rebind switch-to-buffer]" = "consult-buffer";
+          #   "C-x b" = "consult-buffer";
+          #   "C-c j" = "consult-line";
+          #   "C-c i" = "consult-imenu";
+          # };
+          config = ''
+            (setq read-buffer-completion-ignore-case t
+                  read-file-name-completion-ignore-case t
+                  completion-ignore-case t)
+            (global-set-key [rebind switch-to-buffer] #'consult-buffer)
+            (global-set-key (kbd "C-c j") #'consult-line)
+            (global-set-key (kbd "C-c i") #'consult-imenu)
+          '';
+        };
+        eglot = pkg {
+          hook = ["(prog-mode . eglot-ensure)"];
+          config = ''
+            (add-to-list 'eglot-server-programs
+                         '(go-mode . ("${pkgs.gopls}/bin/gopls"))
+                         '(nix-mode . ("${pkgs.rnix-lsp}/bin/rnix-lsp"))
+                         '((js-mode typescript-mode) .
+                             ("${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server" "--stdio")))
+          '';
+        };
         flycheck = pkg {
           diminish = ["flycheck-mode"];
           config = ''
@@ -101,17 +141,28 @@ in
             (global-flycheck-mode)
           '';
         };
-        ivy = pkg {
-          diminish = ["ivy-mode"];
+        corfu = pkg {
+          hook = ["prog-mode"];
+        };
+        magit = pkg {
+          bind = {
+            "C-c g" = "magic-status";
+          };
           config = ''
-            (setq ivy-use-virtual-buffers t
-                  ivy-count-format "%d/%d "
-                  ivy-virtual-abbreviate 'full)
-            (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
-            (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
-            (ivy-mode 1)
+            (setq magit-diff-refine-hunk t)
           '';
         };
+        # ivy = pkg {
+        #   diminish = ["ivy-mode"];
+        #   config = ''
+        #     (setq ivy-use-virtual-buffers t
+        #           ivy-count-format "%d/%d "
+        #           ivy-virtual-abbreviate 'full)
+        #     (define-key ivy-minibuffer-map (kbd "C-j") #'ivy-immediate-done)
+        #     (define-key ivy-minibuffer-map (kbd "RET") #'ivy-alt-done)
+        #     (ivy-mode 1)
+        #   '';
+        # };
         uniquify = pkg {};
 
         systemd = pkg {
