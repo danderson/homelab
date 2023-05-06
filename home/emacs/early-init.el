@@ -39,5 +39,13 @@
 ;(setq package-quickstart t
 ;      package-quickstart-file "package-quickstart.el")
 
+;; Make the GUI things go away before they have a chance to be
+;; displayed.
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(setq inhibit-startup-screen t
+      use-file-dialog nil)
+
 (provide 'early-init)
 ;;; early-init.el ends here
