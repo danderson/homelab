@@ -197,7 +197,8 @@
   :mode "\\.pb\\'")
 
 (use-package python
-  :mode ("\\.py\\'" . python-mode))
+  :ensure nil ; builtin
+  :mode ("\\.py\\'" . python-ts-mode))
 
 (use-package rust-mode
   :mode ("\\.rs\\'"))
