@@ -5,6 +5,37 @@
     extraEmacsPackages = epkgs: with epkgs; [
       use-package
       diminish
+
+      base16-theme
+      beacon
+      vertico
+      orderless
+      marginalia
+      consult
+      consult-flycheck
+      corfu
+      exec-path-from-shell
+      eglot
+      flycheck
+      magit
+      dockerfile-mode
+      go-mode
+      graphviz-dot-mode
+      js
+      json-mode
+      lua-mode
+      markdown-mode
+      nix-mode
+      protobuf-mode
+      python
+      rust-mode
+      scad-mode
+      slime
+      systemd
+      terraform-mode
+      web-mode
+      yaml-mode
+      envrc
     ];
     alwaysEnsure = true;
   };
