@@ -10,26 +10,32 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(setq kill-whole-line t ; C-k at line start deletes entire line+newline
-      ; Show matching parentheses, without delay.
-      show-paren-mode t
-      show-parent-delay 0
-      ; Don't make backup files, I have ZFS and version control.
-      make-backup-files nil
-      auto-save-default nil
-      ; Don't lock files either, editing collisions don't matter to me.
-      create-lockfiles nil
-      ; Make sure you want to kill emacs.
-      confirm-kill-emacs 'y-or-n-p
-      ; Nothing the in scratch buffer to start with.
-      initial-scratch-message nil
-      ; Never make a noise, you're not Twitter.
-      ring-bell-function 'ignore
-      ; Make tab indent if not already indented, otherwise autocomplete
-      tab-always-indent 'complete)
-(setq-default indent-tabs-mode nil
-              tab-width 4
-              show-trailing-whitespace t)
+(setq
+ ;; C-k at line start deletes entire line+newline
+ kill-whole-line t
+ ;; Show matching parentheses, without delay.
+ show-paren-mode t
+ show-parent-delay 0
+ ;; Don't make backup files, I have ZFS and version control.
+ make-backup-files nil
+ auto-save-default nil
+ ;; Don't lock files either, editing collisions don't matter to me.
+ create-lockfiles nil
+ ;; Make sure you want to kill emacs.
+ confirm-kill-emacs 'y-or-n-p
+ ;; Nothing the in scratch buffer to start with.
+ initial-scratch-message nil
+ ;; Never make a noise, you're not Twitter.
+ ring-bell-function 'ignore
+ ;; Make tab indent if not already indented, otherwise autocomplete
+ tab-always-indent 'complete)
+
+(setq-default
+ ;; Don't use tabs for spacing, and 4 spaces per tabstop.
+ indent-tabs-mode nil
+ tab-width 4
+ ;; Highlight trailing whitespace.
+ show-trailing-whitespace t)
 
 ;; Prefer UTF-8 as much as possible.
 (set-default-coding-systems 'utf-8)
@@ -45,13 +51,14 @@
 (set-face-attribute 'default nil :family "Source Code Pro" :height 130 :weight 'normal :width 'normal)
 
 ;; Use shell-script-mode to edit redo and redoconf files
-(add-to-list 'auto-mode-alist '("\\.do$" . sh-mode))
-(add-to-list 'auto-mode-alist '("\\.od$" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(do\\|od\\)\\'" . sh-mode))
 
 ;; Quick chord to close a file.
 (global-set-key [(control backspace)] 'kill-this-buffer)
+
 ;; Quick way to navigate to a line.
 (global-set-key [(meta l)] 'goto-line)
+
 ;; Quick comment/uncomment.
 (global-set-key [(meta c)] 'comment-region)
 (global-set-key [(meta u)] 'uncomment-region)
@@ -73,29 +80,24 @@
   :ensure nil ; builtin
   :diminish (auto-revert-mode)
   :config
-  (global-auto-revert-mode)
-  (setq auto-revert-verbose nil))
+  (setq auto-revert-verbose nil)
+  (global-auto-revert-mode))
 
 ;; Attract the eye to cursor position on events like buffer switching
 ;; where it's not obvious where the cursor is.
 (use-package beacon
   :diminish (beacon-mode)
-  :config (beacon-mode 1))
-
-;; Make unique, useful buffer names for files that have the same name
-;; in different directories.
-(use-package uniquify
-  :ensure nil) ; builtin
+  :config (beacon-mode))
 
 (use-package vertico
   :config
-  (vertico-mode t)
   (setq vertico-count 20
         read-extended-command-predicate #'command-completion-default-include-p
         enable-recursive-minibuffers t)
   (define-key vertico-map (kbd "RET") #'vertico-directory-enter)
   (keymap-set vertico-map "DEL" #'vertico-directory-delete-char)
-  (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word))
+  (keymap-set vertico-map "M-DEL" #'vertico-directory-delete-word)
+  (vertico-mode))
 
 (use-package orderless
   :config
@@ -103,20 +105,22 @@
         completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package marginalia
+  :demand t
   :bind (:map minibuffer-local-map ("M-A" . marginalia-cycle))
-  :init (marginalia-mode))
+  :config (marginalia-mode))
 
 (use-package savehist
   :ensure nil ; builtin
-  :init (savehist-mode))
+  :config (savehist-mode))
 
 (use-package recentf
   :ensure nil ; builtin
+  :demand t
   :bind ("C-x C-r" . consult-recent-file)
-  :init (recentf-mode)
   :config
   (setq recentf-max-menu-items 25)
   (setq recentf-max-saved-items 25)
+  (recentf-mode)
   (run-at-time nil (* 5 60) 'recentf-save-list))
 
 ; TODO: all-the-icons and all-the-icons-completion
@@ -137,13 +141,15 @@
   :commands (consult-flycheck))
 
 (use-package corfu
-  :init (global-corfu-mode))
+  :config (global-corfu-mode))
 
-(use-package exec-path-from-shell)
+(use-package exec-path-from-shell
+  :config (exec-path-from-shell-initialize))
 
 (use-package eglot
-  :ensure nil
-  :hook (prog-mode . eglot-ensure))
+  :ensure nil ; builtin
+  :config
+  (add-hook 'prog-mode-hook 'eglot-ensure))
 
 (use-package flycheck
   :diminish (flycheck-mode)
@@ -157,7 +163,7 @@
 
 (use-package magit
   :bind (("C-x g" . magit-status))
-  :config (setq magit-diff-refine-hunk t))
+  :config (setq magit-diff-refine-hunk t)) ; TODO: maybe load magit always? Does it provide cool ambient things?
 
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; A whole bunch of major modes for different files.
@@ -168,13 +174,12 @@
 
 (use-package go-mode
   :mode "\\.go\\'"
-  :init
-  (defun my/eglot-organize-imports ()
-    (eglot-code-actions nil nil "source.organizeImports" t))
-  (defun my/eglot-goimport ()
-    (add-hook 'before-save-hook #'eglot-format-buffer)
-    (add-hook 'before-save-hook #'my/eglot-organize-imports))
-  (add-hook 'go-mode-hook #'my/eglot-goimport))
+  :config
+  (defun my/eglot-goimport () (interactive)
+         (eglot-code-actions nil nil "source.organizeImports" t))
+  (add-hook 'go-mode-hook (lambda ()
+                            (add-hook 'before-save-hook 'my/eglot-goimport)
+                            (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
 
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'")
@@ -183,7 +188,8 @@
   :ensure nil ; builtin
   :mode "\\.js\\'"
   :mode "\\.json\\'"
-  :config (setq js-indent-level 2))
+  :config
+  (setq js-indent-level 2))
 
 (use-package json-mode
   :mode "\\.json\\'")
@@ -229,6 +235,9 @@
 (use-package envrc
   :diminish (envrc-mode)
   :config (envrc-global-mode))
+
+;; TODO: apheleia-mode?
+
 
 (when (file-exists-p "~/.emacs.d/local.el")
   (load-file "~/.emacs.d/local.el"))
