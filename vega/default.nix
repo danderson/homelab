@@ -36,6 +36,7 @@
     printing = true;
     ulxs = true;
     jlink = true;
+    flipperZero = true;
     fwupd = true;
     tailscale = "unstable";
     homePkgs = with pkgs; [

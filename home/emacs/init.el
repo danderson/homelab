@@ -172,14 +172,18 @@
 (use-package dockerfile-mode
   :mode "Dockerfile\\'")
 
-(use-package go-mode
-  :mode "\\.go\\'"
+(use-package go-ts-mode
+  :ensure nil ; builtin
+  ;;:mode "\\.go\\'"
   :config
   (defun my/eglot-goimport () (interactive)
          (eglot-code-actions nil nil "source.organizeImports" t))
-  (add-hook 'go-mode-hook (lambda ()
-                            (add-hook 'before-save-hook 'my/eglot-goimport)
-                            (add-hook 'before-save-hook 'eglot-format-buffer nil t))))
+  (defun my/eglot-go-hooks ()
+    (add-hook 'before-save-hook 'eglot-format-buffer nil t)
+    (add-hook 'before-save-hook 'my/eglot-goimport))
+  ;;(add-hook 'go-mode-hook 'my/eglot-go-hooks)
+  (add-hook 'go-ts-mode-hook 'my/eglot-go-hooks)
+  (setq go-ts-mode-indent-offset 4))
 
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'")

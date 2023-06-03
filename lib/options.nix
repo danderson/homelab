@@ -41,6 +41,7 @@
     livemon = lib.mkEnableOption "Run Livemon on the system";
     jlink = lib.mkEnableOption "J-Link programmer hardware support";
     ulxs = lib.mkEnableOption "ULXS FPGA hardware support";
+    flipperZero = lib.mkEnableOption "Flipper Zero hardware support";
     gaming = lib.mkEnableOption "Videogames support";
     printing = lib.mkEnableOption "3D printing support";
     vms = lib.mkEnableOption "VM support (libvirtd)";

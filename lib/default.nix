@@ -8,6 +8,7 @@
     ./dns.nix
     ./firewall.nix
     ./firmware.nix
+    ./flipperzero.nix
     ./gpu.nix
     ./jlink.nix
     ./kernel.nix
