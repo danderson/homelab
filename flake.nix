@@ -2,18 +2,18 @@
   description = "Personal NixOS configs";
 
   inputs = {
-    nixos-old.url = github:NixOS/nixpkgs/nixos-22.05;
-    nixos.url = github:NixOS/nixpkgs/nixos-22.11;
+    nixos-old.url = github:NixOS/nixpkgs/nixos-22.11;
+    nixos.url = github:NixOS/nixpkgs/nixos-23.05;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
     nixos-dave.url = github:danderson/nixpkgs/danderson/influx2.4;
     nixos-unstable-small.url = github:NixOS/nixpkgs/nixos-unstable-small;
     nixos-hardware.url = github:NixOS/nixos-hardware;
     home-manager-old = {
-      url = github:nix-community/home-manager/release-22.05;
+      url = github:nix-community/home-manager/release-22.11;
       inputs.nixpkgs.follows = "nixos-old";
     };
     home-manager = {
-      url = github:nix-community/home-manager/release-22.11;
+      url = github:nix-community/home-manager/release-23.05;
       inputs.nixpkgs.follows = "nixos";
     };
     home-manager-unstable = {
@@ -79,14 +79,14 @@
       };
     in {
       nixosConfigurations = {
-        acrux = box nixos home-manager "acrux";
+        acrux = box nixos-old home-manager-old "acrux";
         gacrux = box nixos home-manager "gacrux";
-        #mimosa = box nixos-old home-manager-old-old "mimosa";
-        izar = box nixos home-manager "izar";
+        #mimosa = box nixos-old-old home-manager-old-old-old "mimosa";
+        izar = box nixos-old home-manager-old "izar";
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
         rigel = box nixos home-manager "rigel";
-        canopus = box nixos home-manager "canopus";
+        canopus = box nixos-old home-manager-old "canopus";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {

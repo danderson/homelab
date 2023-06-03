@@ -134,7 +134,7 @@ in
   programs.lesspipe.enable = true;
   programs.dircolors.enable = true;
   programs.vscode = {
-    enable = true;
+    enable = config.my.desktop;
     package = u.vscode.fhs;
   };
 }

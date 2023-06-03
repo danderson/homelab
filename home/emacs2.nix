@@ -1,10 +1,12 @@
 { pkgs, lib, ...}: let
+  is2305 = builtins.hasAttr "emacs29" pkgs;
   emacs = pkgs.emacsWithPackagesFromUsePackage {
-    package = pkgs.emacsUnstable;
+    package = if is2305 then pkgs.emacs29 else pkgs.emacsUnstable;
     config = ./emacs/init.el;
     extraEmacsPackages = epkgs: with epkgs; [
       use-package
       diminish
+      (if is2305 then treesit-grammars.with-all-grammars else null)
     ];
     alwaysEnsure = true;
   };
