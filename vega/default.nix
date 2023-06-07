@@ -44,7 +44,7 @@
       ddcutil
     ];
     wmCommands = [
-      "${pkgs.openrgb}/bin/openrgb -p magenta.orp"
+      "${pkgs.openrgb}/bin/openrgb -p off.orp"
       "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
     ];
     layout = {
@@ -89,6 +89,11 @@
   networking = {
     hostName = "vega";
     hostId = "5c13d618";
+  };
+
+  home-manager.users.dave.home.file."bin/switch-desktop" = {
+    executable = true;
+    text = builtins.readFile ./../switch.sh;
   };
 
   # This value determines the NixOS release with which your system is to be
