@@ -5,6 +5,7 @@ let
     system = pkgs.system;
     config.allowUnfree = true;
   };
+  my = s.my;
 
   agenix = flakes.agenix.packages.x86_64-linux.agenix;
   weechat-with-matrix = pkgs.weechat.override {
@@ -92,7 +93,7 @@ let
     wdisplays
     zoom-us
   ];
-  gaming = with s; [
+  gaming = with u; [
     lutris
     obs-studio
     # Steam is installed by NixOS via lib/steam.nix, because of NixOS
