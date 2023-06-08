@@ -37,6 +37,7 @@
 
     ddc = lib.mkEnableOption "Support configuring monitors with DDC";
     desktop = lib.mkEnableOption "Configure desktop/laptop GUI and services";
+    battlestation = lib.mkEnableOption "tweaks specific to home battlestation setup";
     zfs = lib.mkEnableOption "ZFS support";
     livemon = lib.mkEnableOption "Run Livemon on the system";
     jlink = lib.mkEnableOption "J-Link programmer hardware support";

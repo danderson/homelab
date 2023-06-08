@@ -66,7 +66,7 @@ let
     whois
     wireguard-tools
 
-    u.go_1_19
+    u.go_1_20
     u.gopls
     u.gotools
 
@@ -89,6 +89,7 @@ let
     slurp
     virt-manager
     vlc
+    wdisplays
     zoom-us
   ];
   gaming = with s; [
@@ -101,10 +102,13 @@ let
     freecad
     plater
     solvespace
-    # Build broken in unstable 2022-12-10
-    s.openscad
-    s.super-slicer
-    s.prusa-slicer
+    openscad
+    super-slicer
+    prusa-slicer
+  ];
+  battlestation = with u; [
+    openrgb
+    ddcutil
   ];
 in
 {
@@ -113,6 +117,7 @@ in
     (maybeList config.my.desktop gui-programs)
     (maybeList config.my.gaming gaming)
     (maybeList config.my.printing printing)
+    (maybeList config.my.battlestation battlestation)
     config.my.homePkgs
   ];
   home.file = {
@@ -120,14 +125,20 @@ in
       executable = true;
       text = builtins.readFile ./needs-reboot.sh;
     };
-
     "bin/delbr" = {
       executable = true;
       text = builtins.readFile ./delete-my-old-branches.sh;
     };
-    "bin/rgb" = lib.mkIf config.my.desktop {
+    "bin/rgb" = lib.mkIf config.my.battlestation {
       executable = true;
       text = builtins.readFile ./rgb.sh;
+    };
+    "bin/switch-desktop" = lib.mkIf config.my.battlestation {
+      executable = true;
+      source = pkgs.substituteAll {
+        src = ./switch.sh;
+        ddcutil = "${pkgs.ddcutil}/bin/ddcutil";
+      };
     };
   };
   programs.lesspipe.enable = true;

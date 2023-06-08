@@ -30,6 +30,7 @@
     cpu-vendor = "amd";
     gpu = "amd";
     desktop = true;
+    battlestation = true;
     zfs = true;
     ddc = true;
     gaming = true;
@@ -39,10 +40,6 @@
     flipperZero = true;
     fwupd = true;
     tailscale = "unstable";
-    homePkgs = with pkgs; [
-      openrgb
-      ddcutil
-    ];
     wmCommands = [
       "${pkgs.openrgb}/bin/openrgb -p off.orp"
       "${pkgs.openrgb}/bin/openrgb --gui --startminimized"
@@ -89,11 +86,6 @@
   networking = {
     hostName = "vega";
     hostId = "5c13d618";
-  };
-
-  home-manager.users.dave.home.file."bin/switch-desktop" = {
-    executable = true;
-    text = builtins.readFile ./../switch.sh;
   };
 
   # This value determines the NixOS release with which your system is to be

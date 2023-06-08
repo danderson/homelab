@@ -9,6 +9,7 @@
     cpu-vendor = "amd";
     gpu = "amd";
     desktop = true;
+    battlestation = true;
     ddc = true;
     layout = {
       outputs = {
@@ -63,11 +64,6 @@
   networking = {
     hostName = "rigel";
     hostId = "1d358a90";
-  };
-
-  home-manager.users.dave.home.file."bin/switch-desktop" = {
-    executable = true;
-    text = builtins.readFile ./../switch.sh;
   };
 
   # This value determines the NixOS release with which your system is to be
