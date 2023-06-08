@@ -83,9 +83,12 @@ let
     gnome3.dconf-editor
     google-chrome
     graphviz
+    grim
     nitrogen
     pavucontrol
+    slurp
     virt-manager
+    vlc
     zoom-us
   ];
   gaming = with s; [
@@ -121,10 +124,6 @@ in
     "bin/delbr" = {
       executable = true;
       text = builtins.readFile ./delete-my-old-branches.sh;
-    };
-    "bin/tss" = {
-      executable = true;
-      text = builtins.readFile ./tailscale-switch-profile.sh;
     };
     "bin/rgb" = lib.mkIf config.my.desktop {
       executable = true;
