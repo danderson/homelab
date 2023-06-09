@@ -79,14 +79,13 @@
       };
     in {
       nixosConfigurations = {
-        acrux = box nixos-old home-manager-old "acrux";
+        acrux = box nixos home-manager "acrux";
         gacrux = box nixos home-manager "gacrux";
-        #mimosa = box nixos-old-old home-manager-old-old-old "mimosa";
-        izar = box nixos-old home-manager-old "izar";
+        izar = box nixos home-manager "izar";
         iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
         rigel = box nixos home-manager "rigel";
-        canopus = box nixos-old home-manager-old "canopus";
+        canopus = box nixos home-manager "canopus";
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {

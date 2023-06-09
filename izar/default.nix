@@ -19,9 +19,6 @@
     hostId = "515b13ad";
   };
 
-  #services.openiscsi.enable = true;
-  #services.openiscsi.name = "iqn.2020-08.org.linux-iscsi.izar:izar";
-
   services = {
     upower.enable = true;
     acpid.enable = true;
@@ -29,6 +26,9 @@
     fprintd.enable = true;
     fwupd.enable = true;
   };
+
+  # Stay running with lid closed on AC power.
+  services.logind.lidSwitchExternalPower = "ignore";
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

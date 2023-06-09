@@ -11,18 +11,22 @@
   my = {
     cpu-vendor = "intel";
     zfs = true;
-    # Ended up on the latest kernel becauze zfs at some point, not
-    # willing to downgrade it right now.
-    kernel = "latest";
     vms = true;
     mdns = true; # So airscan works
   };
 
   networking = {
     hostName = "acrux";
+    defaultGateway = "192.168.4.1";
     nameservers = ["8.8.8.8"];
     interfaces.eno1 = {
-      useDHCP = true;
+      useDHCP = false;
+      ipv4 = {
+        addresses = [{
+          address = "192.168.4.2";
+          prefixLength = 22;
+        }];
+      };
     };
     interfaces.enp2s0f1.ipv4.addresses = [{
       address = "10.0.0.1";
