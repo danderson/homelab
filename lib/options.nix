@@ -63,5 +63,10 @@
       type = (pkgs.formats.json {}).type;
       default = {};
     };
+
+    archive = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.numbers.between 0 20);
+      default = {};
+    };
   };
 }

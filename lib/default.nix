@@ -1,5 +1,6 @@
 {
   require = [
+    ./archive.nix
     ./boot.nix
     ./cpufreq.nix
     ./ddc.nix
