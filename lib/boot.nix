@@ -19,6 +19,5 @@ in {
     efi.canTouchEfiVariables = lib.mkDefault true;
 
     grub.enable = useGrub;
-    grub.version = 2;
   };
 }
