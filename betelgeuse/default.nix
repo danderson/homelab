@@ -18,7 +18,7 @@ in
       "imgur" = 2;
       "issuu" = 0;
       "telegram" = 2;
-      "github" = 0;
+      "github" = 2;
       "pastebin" = 2;
     };
   };
