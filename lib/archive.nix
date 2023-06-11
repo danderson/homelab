@@ -14,7 +14,7 @@
       archive-watchtower = {
         volumes = ["/var/run/docker.sock:/var/run/docker.sock"];
         image = "containrrr/watchtower";
-        cmd = ["--label-enable" "--cleanup" "--interval" "3600"];
+        cmd = ["--label-enable" "--cleanup" "--interval" "3600" "--stop-timeout" "1h" "--rolling-restart"];
       };
   };
 in lib.mkIf wantArchive {
