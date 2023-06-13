@@ -15,11 +15,13 @@ in
     archive = {
       "shortener" = 2;
       "reddit" = 8;
-      "imgur" = 2;
+      "imgur" = 4;
       "issuu" = 0;
       "telegram" = 2;
       "github" = 2;
       "pastebin" = 2;
+      "egloos" = 0;
+      "lineblog" = 0;
     };
   };
 
@@ -33,6 +35,7 @@ in
     };
   };
 
+  services.journald.extraConfig = "Storage=volatile";
   services.tailscale.interfaceName = "userspace-networking";
 
   # This value determines the NixOS release with which your system is to be
