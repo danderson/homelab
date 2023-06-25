@@ -1,5 +1,5 @@
 {
-  require = [
+  imports = [
     ./archive.nix
     ./boot.nix
     ./cpufreq.nix

@@ -1,5 +1,6 @@
 # Private nix config
 private.nix filter=git-crypt diff=git-crypt
+*.private.* filter=git-crypt diff=git-crypt
 
 # For agenix
 secrets.nix filter=git-crypt diff=git-crypt

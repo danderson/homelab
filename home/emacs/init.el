@@ -233,6 +233,9 @@
 (use-package yaml-mode
   :mode "\\.yaml\\'")
 
+(use-package hledger-mode
+  :mode "\\.journal\\'")
+
 ;; Needs to be loaded late, so that direnv stuff gets set _early_ in a
 ;; mode's startup (it installs its hooks last, which puts them at the
 ;; start of the hook list).

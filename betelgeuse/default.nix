@@ -20,8 +20,8 @@ in
       "telegram" = 2;
       "github" = 2;
       "pastebin" = 2;
-      "egloos" = 0;
-      "lineblog" = 0;
+      "egloos" = 8;
+      "lineblog" = 2;
     };
   };
 
