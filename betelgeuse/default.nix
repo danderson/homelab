@@ -20,8 +20,7 @@ in
       "telegram" = 2;
       "github" = 2;
       "pastebin" = 2;
-      "egloos" = 8;
-      "lineblog" = 2;
+      "mediafire" = 2;
     };
   };
 
