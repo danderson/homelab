@@ -19,6 +19,7 @@
     ./networking.nix
     ./nix.nix
     ./options.nix
+    ./private.nix
     ./programs.nix
     ./shell.nix
     ./ssh.nix
