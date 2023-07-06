@@ -22,6 +22,7 @@ in
       "pastebin" = 2;
       "mediafire" = 2;
     };
+    nodeMonitoring = true;
   };
 
   boot.loader.grub.device = "/dev/vda";

@@ -7,10 +7,6 @@
     { device = "/data/monitoring/grafana";
       options = [ "bind" ];
     };
-  fileSystems."/var/lib/influxdb2" =
-    { device = "/data/monitoring/influxdb";
-      options = [ "bind" ];
-    };
 
   services = {
     prometheus = {
@@ -19,9 +15,8 @@
         hosts = [
           "acrux"
           "gacrux"
-          "mimosa"
-          "izar"
           "iris"
+          "betelgeuse"
           "vega"
         ];
         hostScrape = host: type: port: {
@@ -36,10 +31,11 @@
         zreplScrape = host: hostScrape host "zrepl" 9811;
         zreplConfigs = map zreplScrape ["iris" "acrux" "gacrux"];
         livemonScrape = host: hostScrape host "livemon" 9843;
-        livemonConfigs = map livemonScrape ["acrux"];
+        livemonConfigs = map livemonScrape [];
       in
         nodeConfigs ++ zreplConfigs ++ livemonConfigs;
     };
+
     grafana = {
       enable = true;
       settings = {
@@ -53,11 +49,6 @@
           org_name = "Main Org.";
         };
       };
-    };
-
-    influxdb2 = {
-      enable = true;
-      package = flakes.nixos-dave.legacyPackages.x86_64-linux.influxdb2-server;
     };
   };
 }

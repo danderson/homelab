@@ -15,7 +15,7 @@
     ./kernel.nix
     ./lldp.nix
     ./microcode.nix
-    #./monitoring.nix
+    ./monitoring.nix
     ./networking.nix
     ./nix.nix
     ./options.nix

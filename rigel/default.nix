@@ -11,6 +11,7 @@
     desktop = true;
     battlestation = true;
     ddc = true;
+    nodeMonitoring = true;
     layout = {
       outputs = {
         left = {

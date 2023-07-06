@@ -13,6 +13,7 @@ in
   my = {
     cpu-vendor = "intel";
     zfs = true;
+    nodeMonitoring = true;
   };
 
   boot = {

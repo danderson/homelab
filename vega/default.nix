@@ -40,6 +40,7 @@
     flipperZero = true;
     fwupd = true;
     tailscale = "unstable";
+    nodeMonitoring = true;
     wmCommands = [
       "${pkgs.openrgb}/bin/openrgb -p off.orp"
       "${pkgs.openrgb}/bin/openrgb --gui --startminimized"

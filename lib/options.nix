@@ -48,6 +48,7 @@
     vms = lib.mkEnableOption "VM support (libvirtd)";
     docker = lib.mkEnableOption "Rootless docker";
     mdns = lib.mkEnableOption "mdns resolution";
+    nodeMonitoring = lib.mkEnableOption "node monitoring agent";
 
     homePkgs = lib.mkOption {
       type = lib.types.listOf lib.types.package;

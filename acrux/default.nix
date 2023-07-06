@@ -13,6 +13,7 @@
     zfs = true;
     vms = true;
     mdns = true; # So airscan works
+    nodeMonitoring = true;
   };
 
   networking = {
