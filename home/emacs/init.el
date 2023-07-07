@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 
+(load-file "~/.emacs.d/slime-loader.el")
+
 ;; Activate use-package and the things it needs. use-package is installed by
 ;; emacs.nix, and the other two libs are bundled with emacs.
 (require 'use-package)
@@ -219,7 +221,12 @@
 
 (use-package scad-mode)
 
-(use-package slime) ; TODO: preloaded SBCL
+(use-package slime
+  :config
+  (setq slime-lisp-implementations
+        `((sbcl ("sbcl" "--core" ,my/slime-precompiled)
+                :init (lambda (port-file _)
+                        (format "(swank:start-server %S)\n" port-file))))))
 
 (use-package systemd)
 
@@ -236,6 +243,10 @@
 (use-package hledger-mode
   :mode "\\.journal\\'")
 
+(use-package bsv-mode
+  :ensure nil ; provided manually
+  :mode "\\.bsv\\'")
+
 ;; Needs to be loaded late, so that direnv stuff gets set _early_ in a
 ;; mode's startup (it installs its hooks last, which puts them at the
 ;; start of the hook list).
@@ -248,6 +259,8 @@
 
 (when (file-exists-p "~/.emacs.d/local.el")
   (load-file "~/.emacs.d/local.el"))
+
+(server-start)
 
 (provide 'init)
 ;;; init.el ends here

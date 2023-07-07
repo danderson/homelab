@@ -10,28 +10,35 @@ fi
 
 onehost() {
 	host=$1
-	shift
-	mkdir -p .gcroots
-	set -x
-	out=$(nix build -o .gcroots/${host} --json .#nixosConfigurations.${host}.config.system.build.toplevel | jq -r '.[0].outputs.out')
+    action=$2
+	shift 2
 
-	nix copy -s --to "ssh://root@$host" "$out"
-	nix copy -s --derivation --to "ssh://root@$host" "$out"
+    mkdir -p .gcroots
+    set -x
+    out=$(nix build -o .gcroots/${host} --json .#nixosConfigurations.${host}.config.system.build.toplevel | jq -r '.[0].outputs.out')
+    nix copy -s --to "ssh://root@$host" "$out"
 
-	if [ "$1" = "diff" ]; then
-		tmpfile=$(mktemp nix-diff.XXXXXX)
-		ssh "root@$host" "nix-store -qd /run/current-system $out | xargs nix-diff --color=always" >"$tmpfile"
-		less -R "$tmpfile"
-		rm -f "$tmpfile"
-	else
-		ssh "root@$host" nix build --profile /nix/var/nix/profiles/system "$out"
-		ssh "root@$host" nix shell -vv "$out" -c switch-to-configuration "$@"
-	fi
-	set +x
+    set +x
+    if [[ "$action" == "dry" || "$action" == "diff" ]]; then
+        action="dry-activate"
+    else
+        set -x
+        ssh "root@$host" nix build --profile /nix/var/nix/profiles/system "$out"
+        set +x
+    fi
+    set -x
+
+    ssh "root@$host" nix shell -vv "$out" -c switch-to-configuration "$action" "$@"
+    set +x
 }
 
 host=$1
 shift
+confirm=0
+if [[ "$host" == "some" ]]; then
+    host="all"
+    confirm=1
+fi
 if [[ "$host" == "all" ]]; then
 	for host in `./all-hosts`; do
 		echo
@@ -42,12 +49,16 @@ if [[ "$host" == "all" ]]; then
 		if ! ping -c1 -w3 $host >/dev/null; then
 			echo "Offline, skipping"
 		else
-			read -p "Deploy (Y/n) ? " resp
-			if [[ $resp =~ ^[Yy]?$ ]]; then
-				onehost "$host" "$@"
-			else
-				echo "$host skipped"
-			fi
+            if [[ "$confirm" == "1" ]]; then
+			    read -p "Deploy (Y/n) ? " resp
+			    if [[ $resp =~ ^[Yy]?$ ]]; then
+				    onehost "$host" "$@"
+			    else
+				    echo "$host skipped"
+			    fi
+            else
+                onehost "$host" "$@"
+            fi
 		fi
 	done
 else
