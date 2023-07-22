@@ -19,21 +19,25 @@
           "betelgeuse"
           "vega"
         ];
-        hostScrape = host: type: port: {
-          job_name = "${host}_${type}";
+        zreplHosts = [
+          "acrux"
+          "gacrux"
+          "iris"
+        ];
+      in [
+        {
+          job_name = "node-exporter";
           static_configs = [{
-            targets = ["${host}:${builtins.toString port}"];
-            labels.host = host;
+            targets = map (h: "${h}:9100") hosts;
           }];
-        };
-        nodeScrape = host: hostScrape host "node" 9100;
-        nodeConfigs = map nodeScrape hosts;
-        zreplScrape = host: hostScrape host "zrepl" 9811;
-        zreplConfigs = map zreplScrape ["iris" "acrux" "gacrux"];
-        livemonScrape = host: hostScrape host "livemon" 9843;
-        livemonConfigs = map livemonScrape [];
-      in
-        nodeConfigs ++ zreplConfigs ++ livemonConfigs;
+        }
+        {
+          job_name = "zrepl";
+          static_configs = [{
+            targets = map (h: "${h}:9811") zreplHosts;
+          }];
+        }
+      ];
     };
 
     grafana = {

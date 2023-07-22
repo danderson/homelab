@@ -16,6 +16,8 @@
     nodeMonitoring = true;
   };
 
+  boot.zfs.extraPools = [ "data" "new-data" ];
+
   networking = {
     hostName = "acrux";
     defaultGateway = "192.168.4.1";

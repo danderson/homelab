@@ -186,11 +186,11 @@ in lib.mkIf config.my.desktop {
           format_down = "!E";
         };
       };
-      "tztime paris" = {
+      "tztime victoria" = {
         position = 3;
         settings = {
-          format = "%H:%M Paris";
-          timezone = "Europe/Paris";
+          format = "%H:%M Home";
+          timezone = "America/Vancouver";
         };
       };
       "tztime toronto" = {
@@ -200,15 +200,22 @@ in lib.mkIf config.my.desktop {
           timezone = "America/Toronto";
         };
       };
-      "tztime victoria" = {
+      "tztime utc" = {
         position = 5;
         settings = {
-          format = "%H:%M:%S";
-          timezone = "America/Vancouver";
+          format = "%H:%M UTC";
+          timezone = "UTC";
+        };
+      };
+      "tztime paris" = {
+        position = 6;
+        settings = {
+          format = "%H:%M Paris";
+          timezone = "Europe/Paris";
         };
       };
       "time" = {
-        position = 6;
+        position = 7;
         settings = {
           format = "%Y-%m-%d";
         };
