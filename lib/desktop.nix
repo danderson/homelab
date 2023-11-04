@@ -87,4 +87,7 @@
   # Flatpak is useful to get a couple things that aren't packaged for
   # NixOS, like Parsec.
   services.flatpak.enable = true;
+
+  # Fancy keyboard!
+  hardware.keyboard.zsa.enable = true;
 }

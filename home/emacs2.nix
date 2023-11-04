@@ -10,6 +10,12 @@
     };
   };
 
+  gasPkg = (pkgs.emacsPackagesFor pkgs.emacs29).trivialBuild {
+    pname = "gas-mode";
+    version = "0.0";
+    src = ./emacs/gas-mode.el;
+  };
+
   emacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs29;
     config = ./emacs/init.el;
@@ -18,6 +24,7 @@
       diminish
       treesit-grammars.with-all-grammars
       bsvPkg
+      gasPkg
     ];
     alwaysEnsure = true;
   };

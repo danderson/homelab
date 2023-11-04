@@ -100,11 +100,11 @@ let
     # specific tweaks.
   ];
   printing = with u; [
-    freecad
+    s.freecad
     plater
     solvespace
     openscad
-    super-slicer
+    s.super-slicer
     prusa-slicer
   ];
   battlestation = with u; [

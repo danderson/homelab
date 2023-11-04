@@ -16,7 +16,7 @@
     nodeMonitoring = true;
   };
 
-  boot.zfs.extraPools = [ "data" "new-data" ];
+  boot.zfs.extraPools = [ "data" ];
 
   networking = {
     hostName = "acrux";

@@ -247,6 +247,15 @@
   :ensure nil ; provided manually
   :mode "\\.bsv\\'")
 
+(use-package gas-mode
+  :ensure nil ; provided manually
+  :mode "\\.s\\'"
+  :mode "\\.S\\'"
+  :config
+  (setq gas-opcode-column 4
+        gas-argument-column 4
+        gas-comment-column 4))
+
 ;; Needs to be loaded late, so that direnv stuff gets set _early_ in a
 ;; mode's startup (it installs its hooks last, which puts them at the
 ;; start of the hook list).
