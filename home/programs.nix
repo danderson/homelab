@@ -67,7 +67,7 @@ let
     whois
     wireguard-tools
 
-    u.go_1_20
+    u.go
     u.gopls
     u.gotools
 
@@ -86,6 +86,7 @@ let
     graphviz
     grim
     nitrogen
+    u.obsidian
     pavucontrol
     slurp
     virt-manager
