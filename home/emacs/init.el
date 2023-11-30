@@ -190,7 +190,7 @@
 (use-package graphviz-dot-mode
   :mode "\\.dot\\'")
 
-(use-package js
+(use-package js-ts-mode
   :ensure nil ; builtin
   :mode "\\.js\\'"
   :mode "\\.json\\'"
@@ -235,7 +235,9 @@
 
 (use-package web-mode
   :mode "\\.html\\'"
-  :mode "\\.htm\\'")
+  :mode "\\.htm\\'"
+  ; Handlebars files for ember.js
+  :mode "\\.hbs\\'")
 
 (use-package yaml-mode
   :mode "\\.yaml\\'")
@@ -255,6 +257,10 @@
   (setq gas-opcode-column 4
         gas-argument-column 4
         gas-comment-column 4))
+
+(use-package elixir-ts-mode
+  :config
+  (add-to-list 'eglot-server-programs '(elixir-ts-mode "elixir-ls")))
 
 ;; Needs to be loaded late, so that direnv stuff gets set _early_ in a
 ;; mode's startup (it installs its hooks last, which puts them at the
