@@ -1,4 +1,4 @@
-{
+{lib, config, ...} : {
   services.chrony = {
     enable = true;
     servers = [
@@ -7,7 +7,7 @@
       "time3.google.com"
       "time4.google.com"
     ];
-    extraConfig = ''
+    extraConfig = lib.mkIf (config.system.nixos.release == "23.05") ''
       rtcsync
     '';
   };

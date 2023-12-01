@@ -83,7 +83,7 @@
         gacrux = box nixos-old home-manager-old "gacrux";
         izar = box nixos-old home-manager-old "izar";
         iris = box nixos-old home-manager-old "iris";
-        vega = box nixos-old home-manager-old "vega";
+        vega = box nixos home-manager "vega";
         rigel = box nixos-old home-manager-old "rigel";
         canopus = box nixos-old home-manager-old "canopus";
         betelgeuse = box nixos-old home-manager-old "betelgeuse";

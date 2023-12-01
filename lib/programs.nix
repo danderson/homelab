@@ -3,19 +3,19 @@
     name = "fileserve";
     src = ./progs;
     subPackages = [ "fileserve" ];
-    vendorSha256 = null;
+    vendorHash = null;
   };
   directory = pkgs.buildGoModule {
     name = "directory";
     src = ./progs;
     subPackages = [ "directory" ];
-    vendorSha256 = null;
+    vendorHash = null;
   };
   layout = pkgs.buildGoModule {
     name = "layout";
     src = ./progs;
     subPackages = [ "layout" ];
-    vendorSha256 = null;
+    vendorHash = null;
   };
 in {
   nixpkgs.overlays = [
