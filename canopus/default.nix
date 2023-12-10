@@ -2,7 +2,7 @@
   require = [
     ../lib
     ./hardware-configuration.nix
-    flakes.nixos-hardware.nixosModules.framework
+    flakes.nixos-hardware.nixosModules.framework-11th-gen-intel
   ];
 
   my = {

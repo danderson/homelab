@@ -260,7 +260,8 @@
 
 (use-package elixir-ts-mode
   :config
-  (add-to-list 'eglot-server-programs '(elixir-ts-mode "elixir-ls")))
+  (add-to-list 'eglot-server-programs '(elixir-ts-mode "elixir-ls"))
+  (add-hook 'before-save-hook 'eglot-format-buffer))
 
 ;; Needs to be loaded late, so that direnv stuff gets set _early_ in a
 ;; mode's startup (it installs its hooks last, which puts them at the

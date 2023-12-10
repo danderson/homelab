@@ -56,8 +56,11 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  fonts = let
-    extraFonts = with pkgs; [
+  fonts = {
+    enableDefaultFonts = true;
+    fontDir.enable = true;
+    fontconfig.cache32Bit = true;
+    fonts = with pkgs; [
       google-fonts
       liberation_ttf
       open-sans
@@ -65,13 +68,6 @@
       roboto-mono
       vistafonts
     ];
-  in {
-    enableDefaultFonts = lib.mkIf (config.system.nixos.release == "23.05") true;
-    enableDefaultPackages = lib.mkIf (config.system.nixos.release == "23.11") true;
-    fontDir.enable = true;
-    fontconfig.cache32Bit = true;
-    fonts = lib.mkIf (config.system.nixos.release == "23.05") extraFonts;
-    packages = lib.mkIf (config.system.nixos.release == "23.11") extraFonts;
   };
   hardware.opengl = {
     enable = true;

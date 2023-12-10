@@ -147,6 +147,12 @@ in lib.mkIf config.my.desktop {
       bars = barConfig false;
       keybindings = keybindings;
       startup = swayStartupCmds config.my.wmCommands;
+      input = {
+        "type:touchpad" = {
+          tap = "enabled";
+          scroll_method = "edge";
+        };
+      };
     };
     extraConfig = ''
       include ${swayLayout}

@@ -82,10 +82,10 @@
         acrux = box nixos-old home-manager-old "acrux";
         gacrux = box nixos-old home-manager-old "gacrux";
         izar = box nixos-old home-manager-old "izar";
-        iris = box nixos-old home-manager-old "iris";
+        iris = box nixos home-manager "iris";
         vega = box nixos home-manager "vega";
-        rigel = box nixos-old home-manager-old "rigel";
-        canopus = box nixos-old home-manager-old "canopus";
+        rigel = box nixos home-manager "rigel";
+        canopus = box nixos home-manager "canopus";
         betelgeuse = box nixos-old home-manager-old "betelgeuse";
       };
 
