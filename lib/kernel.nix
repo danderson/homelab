@@ -1,5 +1,15 @@
 { config, pkgs, lib, ... }: let
-  lts = pkgs.linuxPackages;
+  lts = pkgs.linuxPackagesFor (pkgs.linux_6_1.override {
+    argsOverride = rec {
+      src = pkgs.fetchurl {
+        url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+        sha256 = "sha256-QZ5izWxCOeaVC2iNueh1PrHpnCFtwyBPeTI5ij/vGgw=";
+      };
+      version = "6.1.66";
+      modDirVersion = "6.1.66";
+    };
+  });
+  #pkgs.linuxPackages;
   latestNoZFS = pkgs.linuxPackages_latest;
   latestZFS = config.boot.zfs.package.latestCompatibleLinuxPackages;
   latest = if config.my.zfs then latestZFS else latestNoZFS;
