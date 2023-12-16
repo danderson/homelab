@@ -4,6 +4,7 @@ let
   u = import flakes.nixos-unstable {
     system = pkgs.system;
     config.allowUnfree = true;
+    config.permittedInsecurePackages = ["electron-25.9.0"]; # Until next Obsidian release
   };
   my = s.my;
 
