@@ -49,6 +49,10 @@
     docker = lib.mkEnableOption "Rootless docker";
     mdns = lib.mkEnableOption "mdns resolution";
     nodeMonitoring = lib.mkEnableOption "node monitoring agent";
+    sambaShares = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.attrsOf lib.types.unspecified);
+      default = {};
+    };
 
     homePkgs = lib.mkOption {
       type = lib.types.listOf lib.types.package;

@@ -134,6 +134,7 @@ in lib.mkIf config.my.desktop {
       startup = i3StartupCmds ([
         "${pkgs.xss-lock}/bin/xss-lock --transfer-sleep-lock -- ${pkgs.i3lock}/bin/i3lock -e -f --nofork --color=000000"
         "${pkgs.networkmanagerapplet}/bin/nm-applet"
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
       ] ++ config.my.wmCommands);
     };
     extraConfig = ''

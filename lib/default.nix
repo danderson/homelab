@@ -22,6 +22,7 @@
     ./options.nix
     ./private.nix
     ./programs.nix
+    ./samba.nix
     ./shell.nix
     ./ssh.nix
     ./steam.nix

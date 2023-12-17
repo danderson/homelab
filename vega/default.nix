@@ -87,6 +87,11 @@
   networking = {
     hostName = "vega";
     hostId = "5c13d618";
+    nat = {
+      enable = true;
+      internalInterfaces = ["ve-+"];
+      externalInterface = "enp5s0";
+    };
   };
 
   # This value determines the NixOS release with which your system is to be
