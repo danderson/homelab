@@ -2,6 +2,7 @@
   require = [
     ../lib
     ./hardware-configuration.nix
+    ./private.nix
     flakes.nixos-hardware.nixosModules.lenovo-thinkpad-t495
   ];
 

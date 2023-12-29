@@ -8,6 +8,10 @@
     nixos-dave.url = github:danderson/nixpkgs/danderson/influx2.4;
     nixos-unstable-small.url = github:NixOS/nixpkgs/nixos-unstable-small;
     nixos-hardware.url = github:NixOS/nixos-hardware;
+    templ = {
+      url = github:a-h/templ;
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     home-manager-old = {
       url = github:nix-community/home-manager/release-23.05;
       inputs.nixpkgs.follows = "nixos-old";
@@ -52,6 +56,7 @@
               home-manager-unstable,
               tailscale,
               emacs-overlay,
+              templ,
               ... } @ flakes:
     let
       box = base: homeBase: name: base.lib.nixosSystem {
@@ -70,6 +75,7 @@
             nixpkgs.overlays = [
               nur.overlay
               emacs-overlay.overlay
+              templ.overlays.default
             ];
           })
           ./lib/home.nix

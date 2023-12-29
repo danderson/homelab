@@ -95,6 +95,7 @@
       system.stateVersion = "21.11";
 
       imports = [
+        flakes.agenix.nixosModules.age
         ../lib
       ];
 
@@ -112,6 +113,14 @@
       my.tailscale = "stable";
       services.tailscale.interfaceName = "userspace-networking";
     };
+  };
+
+  services.dockerRegistry = {
+    enable = false;
+    enableDelete = true;
+    enableGarbageCollect = true;
+    listenAddress = "::";
+    storagePath = "/data/docker";
   };
 
   # power.ups.enable = true # need to figure out out how

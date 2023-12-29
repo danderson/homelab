@@ -1,6 +1,7 @@
 {
   imports = [
     ./archive.nix
+    ./automount.nix
     ./boot.nix
     ./cpufreq.nix
     ./ddc.nix

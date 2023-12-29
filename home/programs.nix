@@ -60,6 +60,7 @@ let
     sshfs
     sysstat
     tcpdump
+    templ
     tmux
     unzip
     v4l-utils
