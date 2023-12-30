@@ -294,16 +294,16 @@
     },
     "nixos-dave": {
       "locked": {
-        "lastModified": 1663521309,
-        "narHash": "sha256-zs1+OO5g51huQGI7Ssv6Iz9p0XvsEZ9XUiGVEJI6NR4=",
+        "lastModified": 1703916483,
+        "narHash": "sha256-eD6CpO5nts9Mds+C9uXOdYV9JP/iQPr8rpDpqaE42e4=",
         "owner": "danderson",
         "repo": "nixpkgs",
-        "rev": "0b0b187d1281f3dc7f4ed9796a9d23e4bb9060f5",
+        "rev": "bfe8dfe8f8eb866c00fb3e3420f771af6b6ced64",
         "type": "github"
       },
       "original": {
         "owner": "danderson",
-        "ref": "danderson/influx2.4",
+        "ref": "templ-grammar",
         "repo": "nixpkgs",
         "type": "github"
       }

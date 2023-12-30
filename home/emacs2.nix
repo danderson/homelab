@@ -1,4 +1,4 @@
-{ pkgs, lib, ...}: let
+{ pkgs, lib, flakes, ...}: let
   bsvPkg = (pkgs.emacsPackagesFor pkgs.emacs29).trivialBuild {
     pname = "bsv-mode";
     version = "0.0";
@@ -16,13 +16,20 @@
     src = ./emacs/gas-mode.el;
   };
 
+  externalGrammars = [
+    # Until https://github.com/NixOS/nixpkgs/pull/277771 is merged
+    flakes.nixos-dave.legacyPackages.x86_64-linux.tree-sitter-grammars.tree-sitter-templ
+  ];
+
+  addExternalGrammars = grammars: (builtins.attrValues grammars) ++ externalGrammars;
+
   emacs = pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacs29;
     config = ./emacs/init.el;
     extraEmacsPackages = epkgs: with epkgs; [
       use-package
       diminish
-      treesit-grammars.with-all-grammars
+      (treesit-grammars.with-grammars addExternalGrammars)
       bsvPkg
       gasPkg
     ];

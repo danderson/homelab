@@ -5,7 +5,7 @@
     nixos-old.url = github:NixOS/nixpkgs/nixos-23.05;
     nixos.url = github:NixOS/nixpkgs/nixos-23.11;
     nixos-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
-    nixos-dave.url = github:danderson/nixpkgs/danderson/influx2.4;
+    nixos-dave.url = github:danderson/nixpkgs/templ-grammar;
     nixos-unstable-small.url = github:NixOS/nixpkgs/nixos-unstable-small;
     nixos-hardware.url = github:NixOS/nixos-hardware;
     templ = {
@@ -57,8 +57,10 @@
               tailscale,
               emacs-overlay,
               templ,
+              nixos-dave,
               ... } @ flakes:
     let
+
       box = base: homeBase: name: base.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -83,6 +85,7 @@
         ];
         specialArgs = { inherit flakes; };
       };
+
     in {
       nixosConfigurations = {
         acrux = box nixos-old home-manager-old "acrux";
