@@ -41,6 +41,16 @@
       url = "github:nix-community/emacs-overlay/master";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
+
+    combobulate = {
+      url = "github:mickeynp/combobulate";
+      flake = false;
+    };
+    templ-ts-mode = {
+      url = "github:danderson/templ-ts-mode";
+      inputs.nixpkgs.follows = "nixos-unstable";
+      inputs.templ.follows = "templ";
+    };
   };
 
   outputs = { self,

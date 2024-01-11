@@ -69,6 +69,11 @@
 ;; I never want to break emacs. Stop it.
 (global-unset-key (kbd "C-z"))
 
+;; Tramp doesn't use the remote $PATH by default, a ridiculous
+;; decision.
+; TODO: poos itself, I assume I have to use-package it.
+;(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; "Functionality" packages that alter the entire emacs experience in
 ;; some way.
@@ -167,6 +172,14 @@
   :bind (("C-x g" . magit-status))
   :config (setq magit-diff-refine-hunk t)) ; TODO: maybe load magit always? Does it provide cool ambient things?
 
+(use-package combobulate
+  :ensure nil ; not in melpa, installed via nix
+  )
+
+(use-package package-lint)
+
+(use-package flycheck-package)
+
 ;;;;;;;;;;;;;;;;;;;;;;;
 ;; A whole bunch of major modes for different files.
 ;;;;;;;;;;;;;;;;;;;;;;;
@@ -263,7 +276,14 @@
   (add-to-list 'eglot-server-programs '(elixir-ts-mode "elixir-ls"))
   (add-hook 'before-save-hook 'eglot-format-buffer))
 
-;(use-package lsp-tailwindcss)
+(use-package templ-ts-mode
+  :ensure nil ; provided manually
+  :mode "\\.templ\\'"
+  :config
+  (add-hook 'before-save-hook 'eglot-format-buffer))
+
+(use-package sql-indent
+  :hook (sql-mode . sqlind-minor-mode))
 
 ;; Needs to be loaded late, so that direnv stuff gets set _early_ in a
 ;; mode's startup (it installs its hooks last, which puts them at the

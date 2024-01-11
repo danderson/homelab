@@ -62,6 +62,9 @@
     };
   };
 
+  programs.adb.enable = true;
+  users.users.dave.extraGroups = ["adbusers"];
+
   networking = {
     hostName = "rigel";
     hostId = "1d358a90";

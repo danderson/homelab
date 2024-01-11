@@ -16,9 +16,17 @@
     src = ./emacs/gas-mode.el;
   };
 
+  combobulatePkg = (pkgs.emacsPackagesFor pkgs.emacs29).trivialBuild {
+    pname = "combobulate-mode";
+    version = "0.0";
+    src = flakes.combobulate.outPath;
+  };
+
+  templPkg = flakes.templ-ts-mode.packages.x86_64-linux.templ-mode (pkgs.emacsPackagesFor pkgs.emacs29);
+
   externalGrammars = [
     # Until https://github.com/NixOS/nixpkgs/pull/277771 is merged
-    flakes.nixos-dave.legacyPackages.x86_64-linux.tree-sitter-grammars.tree-sitter-templ
+    flakes.templ-ts-mode.packages.x86_64-linux.templ-grammar
   ];
 
   addExternalGrammars = grammars: (builtins.attrValues grammars) ++ externalGrammars;
@@ -32,6 +40,8 @@
       (treesit-grammars.with-grammars addExternalGrammars)
       bsvPkg
       gasPkg
+      combobulatePkg
+      templPkg
     ];
     alwaysEnsure = true;
   };

@@ -36,7 +36,7 @@ in {
           "noauto"
           "x-systemd.idle-timeout=60"
           "x-systemd.mount-timeout=5s"
-          "credentials=/etc/samba.creds"
+          "credentials=${automountSecret}"
           "uid=1000"
           "gid=100"
           "ro"
