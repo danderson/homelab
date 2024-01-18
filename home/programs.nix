@@ -104,7 +104,7 @@ let
   ];
   printing = with u; [
     s.freecad
-    plater
+    s.plater
     solvespace
     openscad
     s.super-slicer
