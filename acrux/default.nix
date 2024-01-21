@@ -3,6 +3,7 @@
   imports = [
     ../lib
     ./adguard.nix
+    ./garden.nix
     ./hardware-configuration.nix
     ./monitoring.nix
     ./private.nix
