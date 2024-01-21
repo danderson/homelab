@@ -31,7 +31,7 @@
         }];
       };
     };
-    interfaces.enp2s0f1.ipv4.addresses = [{
+    interfaces.enp5s0f1.ipv4.addresses = [{
       address = "10.0.0.1";
       prefixLength = 24;
     }];
