@@ -2,6 +2,7 @@
 {
   systemd.services.garden = {
     description = "Garden management app";
+    path = [pkgs.sqlite-interactive];
     unitConfig = {
       ConditionPathExists = "/fast/garden/garden.bin";
     };
@@ -10,7 +11,6 @@
       WorkingDirectory = "/fast/garden";
       User = "dave";
       Group = "nogroup";
-      StateDirectory = "/fast/garden/state";
       NoNewPrivileges = true;
       PrivateTmp = true;
       PrivateDevices = true;
@@ -22,14 +22,12 @@
       ProtectKernelModules = true;
       ProtectKernelLogs = true;
       ProtectControlGroups = true;
-      # AF_PACKET for tailscale's raw disco receiver
-      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_PACKET";
       RestrictNamespaces = true;
       LockPersonality = true;
       MemoryDenyWriteExecute = true;
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
-      SystemCallFilter = "@system-service";
+      #SystemCallFilter = "@system-service";
       SystemCallArchitectures = "native";
       Restart = "always";
     };
