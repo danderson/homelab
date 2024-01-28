@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# -*- mode: shell-script -*-
+
+set -euo pipefail
+
+if [[ $# -lt 2 ]]; then
+    echo "Usage: $0 host push|pull|diff"
+    exit 1
+fi
+
+main() {
+    host="$1"
+    action="$2"
+
+    case $host in
+        voron2|voron2b|voron0)
+        ;;
+        *)
+            echo "Unknown printer $host"
+            exit 1
+            ;;
+    esac
+
+    case $2 in
+        push)
+            push "$host" "$host"
+            ;;
+        pull)
+            pull "$host" "$host"
+            ;;
+        diff)
+            tmp=$(mktemp -d "configs.XXXXXX")
+            trap "rm -rf $tmp" EXIT
+            pull "$host" "$tmp"
+            diff -Nur --color "$tmp" "$1"
+            ;;
+    esac
+}
+
+pull() {
+    host="$1"
+    dest="$2"
+    mkdir -p "$dest"
+    rsync -v pi@"$host":'klipper_config/*' "$dest"
+    rsync -v pi@"$host":'klipper/.config' "$dest/klipper.config"
+}
+
+push() {
+    host="$1"
+    src="$2"
+    rsync -v --exclude=klipper.config "$src"/* pi@"$host":klipper_config
+    rsync -v "$src/klipper.config" pi@"$host":klipper/.config
+    ssh root@"$host" systemctl restart klipper.service moonraker.service
+}
+
+main "$@"

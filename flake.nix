@@ -109,7 +109,9 @@
       };
 
       devShell.x86_64-linux = with nixos.legacyPackages.x86_64-linux; mkShell {
-        buildInputs = [];
+        buildInputs = [
+          gnumake
+        ];
         shellHook = ''
         '';
       };
