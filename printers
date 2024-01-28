@@ -41,14 +41,14 @@ pull() {
     host="$1"
     dest="$2"
     mkdir -p "$dest"
-    rsync -v pi@"$host":'klipper_config/*' "$dest"
+    rsync -v pi@"$host":'printer_data/config/*' "$dest"
     rsync -v pi@"$host":'klipper/.config' "$dest/klipper.config"
 }
 
 push() {
     host="$1"
     src="$2"
-    rsync -v --exclude=klipper.config "$src"/* pi@"$host":klipper_config
+    rsync -v --exclude=klipper.config "$src"/* pi@"$host":printer_data/config
     rsync -v "$src/klipper.config" pi@"$host":klipper/.config
     ssh root@"$host" systemctl restart klipper.service moonraker.service
 }
