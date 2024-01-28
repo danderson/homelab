@@ -41,8 +41,8 @@ pull() {
     host="$1"
     dest="$2"
     mkdir -p "$dest"
-    rsync -v pi@"$host":'printer_data/config/*' "$dest"
-    rsync -v pi@"$host":'klipper/.config' "$dest/klipper.config"
+    rsync -Lv pi@"$host":'printer_data/config/*' "$dest"
+    rsync -Lv pi@"$host":'klipper/.config' "$dest/klipper.config"
 }
 
 push() {
