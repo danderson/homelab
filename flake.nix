@@ -34,7 +34,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     tailscale = {
-      url = "github:tailscale/tailscale";
+      url = "github:tailscale/tailscale/danderson/go122";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     emacs-overlay = {
