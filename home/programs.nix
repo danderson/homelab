@@ -69,7 +69,7 @@ let
     whois
     wireguard-tools
 
-    u.go
+    u.go_1_22
     u.gopls
     u.gotools
 

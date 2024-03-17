@@ -124,6 +124,31 @@
     storagePath = "/data/docker";
   };
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql_16;
+    dataDir = "/fast/postgres";
+    extraPlugins = with pkgs.postgresql_16.pkgs; [ postgis ];
+    settings = {
+      # ZFS guarantees pages are never partially written, no need for
+      # postgres to be defensive.
+      full_page_writes = false;
+    };
+    authentication = ''
+      host all all 100.107.212.49/32 trust
+      local osm osm trust
+    '';
+    enableTCPIP = true;
+    ensureDatabases = [ "osm" ];
+    ensureUsers = [
+      {
+        name = "osm";
+        ensureDBOwnership = true;
+        ensureClauses.login = true;
+      }
+    ];
+  };
+
   # power.ups.enable = true # need to figure out out how
 
   # This value determines the NixOS release from which the default
